@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilan de Compétences — 23 MindSet</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #101010;
+    --surface: #1a1a1a;
+    --surface2: #242424;
+    --accent: #E25667;
+    --accent-light: #f07080;
+    --text: #f0f0f0;
+    --text-muted: #aaa;
+    --border: #333;
+    --success: #4caf93;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-mark {
+    width: 48px; height: 48px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .logo-text { line-height: 1.2; }
+  .logo-text .brand { font-size: 20px; font-weight: 700; color: var(--text); }
+  .logo-text .tagline { font-size: 12px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: var(--surface);
+    padding: 16px 32px 0;
+    position: sticky; top: 0; z-index: 10;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-steps {
+    display: flex; gap: 8px; align-items: center;
+    padding-bottom: 14px;
+  }
+  .step-dot {
+    flex: 1; height: 6px; border-radius: 4px;
+    background: var(--border); transition: background .4s;
+  }
+  .step-dot.active { background: var(--accent); }
+  .step-dot.done { background: var(--success); }
+  .step-label {
+    font-size: 12px; color: var(--text-muted);
+    text-align: center; padding-bottom: 4px;
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: 760px; margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* SECTION */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px; color: var(--text-muted);
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* QUESTIONS */
+  .question-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    transition: border-color .2s;
+  }
+  .question-block:focus-within { border-color: var(--accent); }
+  .question-num {
+    font-size: 11px; color: var(--accent);
+    font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .question-text {
+    font-size: 17px; font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .question-falc {
+    font-size: 14px; color: var(--text-muted);
+    font-style: italic; margin-bottom: 14px;
+  }
+
+  /* INPUT TYPES */
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  select option { background: #222; }
+
+  /* RADIO / CHECKBOX */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .options-grid.single { grid-template-columns: 1fr; }
+  .opt-label {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    font-size: 15px;
+  }
+  .opt-label:hover { border-color: var(--accent); }
+  .opt-label input { display: none; }
+  .opt-label.selected {
+    border-color: var(--accent);
+    background: rgba(226,86,103,0.1);
+  }
+  .opt-check {
+    width: 20px; height: 20px; flex-shrink: 0;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    transition: all .2s;
+  }
+  .opt-label.selected .opt-check {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .opt-check::after {
+    content: ''; display: none;
+    width: 8px; height: 8px;
+    background: #fff; border-radius: 50%;
+  }
+  .opt-label.selected .opt-check::after { display: block; }
+
+  /* CHECKBOX STYLE */
+  .opt-check.square { border-radius: 4px; }
+  .opt-check.square::after {
+    width: 10px; height: 6px;
+    background: none;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-2px);
+    border-radius: 0;
+  }
+
+  /* SCALE */
+  .scale-wrap { display: flex; gap: 8px; align-items: center; }
+  .scale-btn {
+    flex: 1; padding: 10px 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .scale-btn:hover { border-color: var(--accent); }
+  .scale-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+  /* HANDICAP SECTION */
+  .handicap-box {
+    background: var(--surface2);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .handicap-box .hb-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .handicap-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+
+  /* NAVIGATION */
+  .nav-btns {
+    display: flex; gap: 12px; justify-content: flex-end;
+    margin-top: 32px;
+  }
+  .btn {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 600;
+    cursor: pointer; border: none;
+    transition: all .2s;
+  }
+  .btn-prev {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-prev:hover { border-color: var(--accent); }
+  .btn-next {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-next:hover { background: var(--accent-light); }
+
+  /* WELCOME */
+  .welcome-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 40px 36px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .welcome-card h1 { font-size: 30px; font-weight: 700; margin-bottom: 12px; }
+  .welcome-card .sub { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; line-height: 1.6; }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+    margin-bottom: 32px;
+  }
+  .info-card {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 16px 12px;
+    font-size: 14px;
+  }
+  .info-card .ic-num { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .info-card .ic-label { color: var(--text-muted); margin-top: 4px; }
+  .falc-note {
+    background: rgba(226,86,103,0.08);
+    border: 1px solid rgba(226,86,103,0.3);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  .falc-note strong { color: var(--accent); }
+
+  /* RESULTS */
+  #section-result { display: none; }
+  #section-result.active { display: block; }
+  .result-tabs {
+    display: flex; gap: 8px; margin-bottom: 24px;
+  }
+  .rtab {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text-muted);
+    transition: all .2s;
+  }
+  .rtab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .rtab-content { display: none; }
+  .rtab-content.active { display: block; }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .result-card h3 {
+    font-size: 17px; font-weight: 600;
+    color: var(--accent); margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: rgba(226,86,103,0.15);
+    border: 1px solid rgba(226,86,103,0.4);
+    color: var(--accent-light);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  .tag.green {
+    background: rgba(76,175,147,0.15);
+    border-color: rgba(76,175,147,0.4);
+    color: #4caf93;
+  }
+  .tag.grey {
+    background: var(--surface2);
+    border-color: var(--border);
+    color: var(--text-muted);
+  }
+
+  .score-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .score-label { width: 160px; font-size: 14px; flex-shrink: 0; }
+  .score-bar-bg {
+    flex: 1; height: 10px;
+    background: var(--surface2);
+    border-radius: 6px; overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%; border-radius: 6px;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+  .score-val { font-size: 14px; font-weight: 600; color: var(--accent); width: 36px; text-align: right; }
+
+  .radar-wrap {
+    max-width: 360px; margin: 0 auto;
+    padding: 20px 0;
+  }
+
+  .reco-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .reco-icon { font-size: 22px; flex-shrink: 0; }
+  .reco-text { font-size: 15px; }
+  .reco-text strong { display: block; margin-bottom: 3px; }
+
+  .constraint-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,193,7,0.1);
+    border: 1px solid rgba(255,193,7,0.4);
+    color: #ffc107;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin: 4px;
+  }
+
+  .pdf-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 600;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background .2s;
+  }
+  .pdf-btn:hover { background: var(--accent-light); }
+
+  .profile-banner {
+    background: linear-gradient(135deg, var(--accent) 0%, #b03048 100%);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .profile-icon { font-size: 40px; }
+  .profile-name { font-size: 22px; font-weight: 700; }
+  .profile-type { font-size: 15px; opacity: .85; }
+
+  /* RESPONSIVE */
+  @media(max-width: 540px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .scale-btn { font-size: 13px; padding: 8px 0; }
+    .section-title { font-size: 21px; }
+  }
+
+  @media print {
+    header, .progress-bar-wrap, .nav-btns, .result-tabs, .rtab, .pdf-btn { display: none !important; }
+    body { background: #fff; color: #111; }
+    .result-card { border: 1px solid #ddd; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">23</div>
+  <div class="logo-text">
+    <div class="brand">23 MindSet</div>
+    <div class="tagline">L'Humain avant tout</div>
+  </div>
+</header>
+
+<div class="progress-bar-wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+    <span class="step-label" id="step-label-txt" style="font-size:13px;color:var(--text-muted)">Accueil</span>
+    <span id="progress-pct" style="font-size:13px;color:var(--accent);font-weight:600;">0%</span>
+  </div>
+  <div class="progress-steps">
+    <div class="step-dot" id="dot0"></div>
+    <div class="step-dot" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+    <div class="step-dot" id="dot4"></div>
+    <div class="step-dot" id="dot5"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WELCOME -->
+  <div class="section active" id="section-0">
+    <div class="welcome-card">
+      <div style="font-size:48px;margin-bottom:16px;">🧭</div>
+      <h1>Bilan de Compétences</h1>
+      <p class="sub">Ce bilan va vous aider à mieux vous connaître.<br>Il est fait pour les adultes qui ont déjà travaillé.</p>
+      <div class="info-grid">
+        <div class="info-card"><div class="ic-num">50</div><div class="ic-label">Questions</div></div>
+        <div class="info-card"><div class="ic-num">~25</div><div class="ic-label">Minutes</div></div>
+        <div class="info-card"><div class="ic-num">4</div><div class="ic-label">Modules</div></div>
+      </div>
+      <div class="falc-note">
+        <strong>Ce test est pour vous si :</strong><br>
+        ✔ Vous avez déjà eu un emploi<br>
+        ✔ Vous voulez mieux comprendre ce que vous savez faire<br>
+        ✔ Vous réfléchissez à votre avenir professionnel<br><br>
+        <strong>Comment faire :</strong> Lisez chaque question. Choisissez la réponse qui vous ressemble le plus. Il n'y a pas de bonne ou mauvaise réponse.
+      </div>
+      <button class="btn btn-next" style="width:100%;font-size:18px;padding:16px;" onclick="goTo(1)">Commencer le bilan →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 1 : IDENTITÉ & CONTEXTE -->
+  <div class="section" id="section-1">
+    <div class="section-header">
+      <div class="section-badge">Module 1 / 4</div>
+      <div class="section-title">Qui êtes-vous ?</div>
+      <div class="section-desc">Ces premières questions permettent de mieux vous situer. Il n'y a rien de compliqué. Répondez simplement.</div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <div class="question-num">Question 1</div>
+      <div class="question-text">Quel est votre prénom ? <span style="color:var(--text-muted);font-weight:400">(facultatif)</span></div>
+      <div class="question-falc">Comment vous appelez-vous ?</div>
+      <input type="text" id="q_prenom" placeholder="Votre prénom...">
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <div class="question-num">Question 2</div>
+      <div class="question-text">Quelle est votre situation professionnelle actuelle ?</div>
+      <div class="question-falc">En ce moment, vous travaillez ou non ?</div>
+      <div class="options-grid single" id="q2">
+        <label class="opt-label" onclick="selectOpt('q2',this,'radio')">
+          <input type="radio" name="q2"> <span class="opt-check"></span> En emploi (salarié ou indépendant)
+        </label>
+        <label class="opt-label" onclick="selectOpt('q2',this,'radio')">
+          <input type="radio" name="q2"> <span class="opt-check"></span> En recherche d'emploi
+        </label>
+        <label class="opt-label" onclick="selectOpt('q2',this,'radio')">
+          <input type="radio" name="q2"> <span class="opt-check"></span> En formation ou reconversion
+        </label>
+        <label class="opt-label" onclick="selectOpt('q2',this,'radio')">
+          <input type="radio" name="q2"> <span class="opt-check"></span> En arrêt (maladie, congé, autre)
+        </label>
+        <label class="opt-label" onclick="selectOpt('q2',this,'radio')">
+          <input type="radio" name="q2"> <span class="opt-check"></span> Autre situation
+        </label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <div class="question-num">Question 3</div>
+      <div class="question-text">Depuis combien d'années travaillez-vous (ou avez-vous travaillé) ?</div>
+      <div class="question-falc">Combien d'années avez-vous passées à travailler au total ?</div>
+      <div class="options-grid" id="q3">
+        <label class="opt-label" onclick="selectOpt('q3',this,'radio')">
+          <input type="radio" name="q3"> <span class="opt-check"></span> Moins de 2 ans
+        </label>
+        <label class="opt-label" onclick="selectOpt('q3',this,'radio')">
+          <input type="radio" name="q3"> <span class="opt-check"></span> 2 à 5 ans
+        </label>
+        <label class="opt-label" onclick="selectOpt('q3',this,'radio')">
+          <input type="radio" name="q3"> <span class="opt-check"></span> 5 à 15 ans
+        </label>
+        <label class="opt-label" onclick="selectOpt('q3',this,'radio')">
+          <input type="radio" name="q3"> <span class="opt-check"></span> Plus de 15 ans
+        </label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block">
+      <div class="question-num">Question 4</div>
+      <div class="question-text">Dans quel(s) secteur(s) avez-vous principalement travaillé ?</div>
+      <div class="question-falc">Dans quel domaine de travail avez-vous le plus d'expérience ? Vous pouvez cocher plusieurs réponses.</div>
+      <div class="options-grid" id="q4">
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Commerce / Vente
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Industrie / BTP / Logistique
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Santé / Social / Aide à la personne
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Administration / Gestion / Finance
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Éducation / Formation / Coaching
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Informatique / Numérique
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Restauration / Hôtellerie / Tourisme
+        </label>
+        <label class="opt-label" onclick="selectOpt('q4',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Autre secteur
+        </label>
+      </div>
+    </div>
+
+    <!-- HANDICAP / PENIBILITE -->
+    <div class="handicap-box">
+      <div class="hb-title">🤝 Vos besoins spécifiques (facultatif)</div>
+      <p>Ces informations restent confidentielles. Elles permettent d'adapter votre bilan à votre situation réelle.</p>
+      <div class="question-text" style="font-size:15px;margin-bottom:10px;">Avez-vous des contraintes particulières liées à votre santé ou votre situation ?</div>
+      <div class="question-falc" style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Cochez ce qui vous correspond. Vous pouvez cocher plusieurs cases.</div>
+      <div class="options-grid" id="q_handicap">
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Handicap moteur (mobilité réduite)
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Troubles de la lecture / dyslexie
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Troubles auditifs ou visuels
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Maladie chronique / fatigue importante
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Contraintes de déplacement / horaires
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Pénibilité physique liée à l'ancien emploi
+        </label>
+        <label class="opt-label" onclick="selectOpt('q_handicap',this,'check')">
+          <input type="checkbox"> <span class="opt-check square"></span> Aucune contrainte particulière
+        </label>
+      </div>
+    </div>
+
+    <!-- Q5 : Objectif -->
+    <div class="question-block">
+      <div class="question-num">Question 5</div>
+      <div class="question-text">Quelle est votre principale raison de faire ce bilan aujourd'hui ?</div>
+      <div class="question-falc">Pourquoi vous faites ce test maintenant ? Quelle est la raison la plus importante ?</div>
+      <div class="options-grid single" id="q5">
+        <label class="opt-label" onclick="selectOpt('q5',this,'radio')">
+          <input type="radio" name="q5"> <span class="opt-check"></span> Je veux mieux connaître mes forces et mes limites
+        </label>
+        <label class="opt-label" onclick="selectOpt('q5',this,'radio')">
+          <input type="radio" name="q5"> <span class="opt-check"></span> Je réfléchis à changer de métier ou de secteur
+        </label>
+        <label class="opt-label" onclick="selectOpt('q5',this,'radio')">
+          <input type="radio" name="q5"> <span class="opt-check"></span> Je veux retrouver un emploi qui me convient vraiment
+        </label>
+        <label class="opt-label" onclick="selectOpt('q5',this,'radio')">
+          <input type="radio" name="q5"> <span class="opt-check"></span> Je traverse une période difficile et je veux me repositionner
+        </label>
+        <label class="opt-label" onclick="selectOpt('q5',this,'radio')">
+          <input type="radio" name="q5"> <span class="opt-check"></span> Je veux évoluer dans mon emploi actuel
+        </label>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-next" onclick="goTo(2)">Module suivant →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 2 : COMPÉTENCES -->
+  <div class="section" id="section-2">
+    <div class="section-header">
+      <div class="section-badge">Module 2 / 4</div>
+      <div class="section-title">Vos compétences</div>
+      <div class="section-desc">Ce que vous savez faire. Ce que vous avez appris en travaillant. Pensez à vos expériences passées pour répondre.</div>
+    </div>
+
+    <!-- Q6-Q20 : compétences -->
+    <div class="question-block">
+      <div class="question-num">Question 6</div>
+      <div class="question-text">Dans votre travail, vous avez souvent été amené(e) à :</div>
+      <div class="question-falc">Dans votre travail, qu'est-ce que vous avez fait le plus souvent ? Cochez tout ce qui correspond.</div>
+      <div class="options-grid" id="q6">
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Aider ou accompagner des personnes</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Organiser et planifier des tâches</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Vendre ou convaincre</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Fabriquer, construire, réparer</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Analyser, résoudre des problèmes</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Gérer une équipe ou des personnes</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Communiquer, rédiger, présenter</label>
+        <label class="opt-label" onclick="selectOpt('q6',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Utiliser des outils numériques / informatiques</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 7</div>
+      <div class="question-text">Quelle est la compétence dont vous êtes le plus fier(e) aujourd'hui ?</div>
+      <div class="question-falc">Ce que vous savez le mieux faire. Ce que les autres remarquent chez vous au travail.</div>
+      <textarea id="q7" placeholder="Ex : Je suis très à l'aise pour expliquer des choses compliquées de façon simple..."></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 8</div>
+      <div class="question-text">Comment évaluez-vous votre niveau de communication avec les autres ?</div>
+      <div class="question-falc">Est-ce que vous communiquez facilement avec les gens autour de vous ?</div>
+      <div class="scale-wrap" id="q8">
+        <button class="scale-btn" onclick="selectScale('q8',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q8',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q8',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q8',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q8',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>Difficile pour moi</span><span>Très à l'aise</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 9</div>
+      <div class="question-text">Comment évaluez-vous votre capacité à vous organiser seul(e) ?</div>
+      <div class="question-falc">Quand personne ne vous dit quoi faire, est-ce que vous vous organisez bien ?</div>
+      <div class="scale-wrap" id="q9">
+        <button class="scale-btn" onclick="selectScale('q9',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q9',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q9',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q9',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q9',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>J'ai du mal</span><span>Très autonome</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 10</div>
+      <div class="question-text">Comment gérez-vous les situations imprévues ou stressantes au travail ?</div>
+      <div class="question-falc">Quand quelque chose d'inattendu arrive au travail, comment vous réagissez ?</div>
+      <div class="options-grid single" id="q10">
+        <label class="opt-label" onclick="selectOpt('q10',this,'radio')"><input type="radio" name="q10"><span class="opt-check"></span> Je prends du recul et j'analyse avant d'agir</label>
+        <label class="opt-label" onclick="selectOpt('q10',this,'radio')"><input type="radio" name="q10"><span class="opt-check"></span> J'agis rapidement et je m'adapte en cours de route</label>
+        <label class="opt-label" onclick="selectOpt('q10',this,'radio')"><input type="radio" name="q10"><span class="opt-check"></span> Je cherche de l'aide ou des conseils autour de moi</label>
+        <label class="opt-label" onclick="selectOpt('q10',this,'radio')"><input type="radio" name="q10"><span class="opt-check"></span> Je ressens du stress mais j'arrive à gérer</label>
+        <label class="opt-label" onclick="selectOpt('q10',this,'radio')"><input type="radio" name="q10"><span class="opt-check"></span> Les imprévus me déstabilisent souvent</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 11</div>
+      <div class="question-text">Avez-vous déjà encadré ou formé d'autres personnes dans votre travail ?</div>
+      <div class="question-falc">Avez-vous déjà expliqué votre travail à quelqu'un, ou aidé un(e) collègue à apprendre ?</div>
+      <div class="options-grid" id="q11">
+        <label class="opt-label" onclick="selectOpt('q11',this,'radio')"><input type="radio" name="q11"><span class="opt-check"></span> Oui, régulièrement</label>
+        <label class="opt-label" onclick="selectOpt('q11',this,'radio')"><input type="radio" name="q11"><span class="opt-check"></span> Oui, parfois</label>
+        <label class="opt-label" onclick="selectOpt('q11',this,'radio')"><input type="radio" name="q11"><span class="opt-check"></span> Rarement</label>
+        <label class="opt-label" onclick="selectOpt('q11',this,'radio')"><input type="radio" name="q11"><span class="opt-check"></span> Non, jamais</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 12</div>
+      <div class="question-text">Quel est votre niveau avec les outils numériques (ordinateur, internet, logiciels) ?</div>
+      <div class="question-falc">Comment vous en sortez-vous avec un ordinateur ou un smartphone pour travailler ?</div>
+      <div class="scale-wrap" id="q12">
+        <button class="scale-btn" onclick="selectScale('q12',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q12',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q12',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q12',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q12',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>Débutant(e)</span><span>Très à l'aise</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 13</div>
+      <div class="question-text">Dans quel type d'environnement de travail vous sentez-vous le plus efficace ?</div>
+      <div class="question-falc">Quel endroit de travail vous convient le mieux ?</div>
+      <div class="options-grid" id="q13">
+        <label class="opt-label" onclick="selectOpt('q13',this,'radio')"><input type="radio" name="q13"><span class="opt-check"></span> En équipe, avec du monde autour</label>
+        <label class="opt-label" onclick="selectOpt('q13',this,'radio')"><input type="radio" name="q13"><span class="opt-check"></span> Seul(e), au calme</label>
+        <label class="opt-label" onclick="selectOpt('q13',this,'radio')"><input type="radio" name="q13"><span class="opt-check"></span> Un mélange des deux</label>
+        <label class="opt-label" onclick="selectOpt('q13',this,'radio')"><input type="radio" name="q13"><span class="opt-check"></span> En déplacement, sur le terrain</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 14</div>
+      <div class="question-text">Comment apprenez-vous le mieux de nouvelles choses ?</div>
+      <div class="question-falc">Quelle est la meilleure façon pour vous d'apprendre quelque chose de nouveau ?</div>
+      <div class="options-grid single" id="q14">
+        <label class="opt-label" onclick="selectOpt('q14',this,'radio')"><input type="radio" name="q14"><span class="opt-check"></span> En faisant directement, en pratiquant</label>
+        <label class="opt-label" onclick="selectOpt('q14',this,'radio')"><input type="radio" name="q14"><span class="opt-check"></span> En regardant quelqu'un faire, puis en imitant</label>
+        <label class="opt-label" onclick="selectOpt('q14',this,'radio')"><input type="radio" name="q14"><span class="opt-check"></span> En lisant ou en regardant des vidéos</label>
+        <label class="opt-label" onclick="selectOpt('q14',this,'radio')"><input type="radio" name="q14"><span class="opt-check"></span> En écoutant quelqu'un m'expliquer</label>
+        <label class="opt-label" onclick="selectOpt('q14',this,'radio')"><input type="radio" name="q14"><span class="opt-check"></span> En discutant et en échangeant avec d'autres</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 15</div>
+      <div class="question-text">Y a-t-il des compétences que vous souhaiteriez développer ou acquérir ?</div>
+      <div class="question-falc">Qu'est-ce que vous aimeriez apprendre ou améliorer dans les prochains mois ?</div>
+      <textarea id="q15" placeholder="Ex : J'aimerais apprendre à mieux parler en public, me former à la gestion d'équipe..."></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goTo(1)">← Retour</button>
+      <button class="btn btn-next" onclick="goTo(3)">Module suivant →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 3 : PERSONNALITÉ -->
+  <div class="section" id="section-3">
+    <div class="section-header">
+      <div class="section-badge">Module 3 / 4</div>
+      <div class="section-title">Votre personnalité</div>
+      <div class="section-desc">Comment vous fonctionnez. Ce qui vous motive. Comment vous vous comportez avec les autres. Il n'y a pas de réponse juste ou fausse.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 16</div>
+      <div class="question-text">En général, les autres vous décrivent plutôt comme :</div>
+      <div class="question-falc">Comment vos collègues ou amis vous voient-ils ?</div>
+      <div class="options-grid single" id="q16">
+        <label class="opt-label" onclick="selectOpt('q16',this,'radio')"><input type="radio" name="q16"><span class="opt-check"></span> Dynamique, énergique, qui entraîne les autres</label>
+        <label class="opt-label" onclick="selectOpt('q16',this,'radio')"><input type="radio" name="q16"><span class="opt-check"></span> Organisé(e), fiable, rigoureux(se)</label>
+        <label class="opt-label" onclick="selectOpt('q16',this,'radio')"><input type="radio" name="q16"><span class="opt-check"></span> Attentionné(e), à l'écoute, bienveillant(e)</label>
+        <label class="opt-label" onclick="selectOpt('q16',this,'radio')"><input type="radio" name="q16"><span class="opt-check"></span> Curieux(se), créatif(ve), plein(e) d'idées</label>
+        <label class="opt-label" onclick="selectOpt('q16',this,'radio')"><input type="radio" name="q16"><span class="opt-check"></span> Discret(e), calme, posé(e)</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 17</div>
+      <div class="question-text">Face à un problème difficile, votre réaction naturelle est de :</div>
+      <div class="question-falc">Quand il y a un gros problème, qu'est-ce que vous faites d'abord ?</div>
+      <div class="options-grid single" id="q17">
+        <label class="opt-label" onclick="selectOpt('q17',this,'radio')"><input type="radio" name="q17"><span class="opt-check"></span> Foncer et trouver une solution rapidement</label>
+        <label class="opt-label" onclick="selectOpt('q17',this,'radio')"><input type="radio" name="q17"><span class="opt-check"></span> Analyser en détail avant de décider</label>
+        <label class="opt-label" onclick="selectOpt('q17',this,'radio')"><input type="radio" name="q17"><span class="opt-check"></span> En parler à quelqu'un de confiance</label>
+        <label class="opt-label" onclick="selectOpt('q17',this,'radio')"><input type="radio" name="q17"><span class="opt-check"></span> Chercher des exemples ou des solutions existantes</label>
+        <label class="opt-label" onclick="selectOpt('q17',this,'radio')"><input type="radio" name="q17"><span class="opt-check"></span> Prendre du recul et attendre le bon moment</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 18</div>
+      <div class="question-text">Votre rapport à l'autorité et aux règles au travail :</div>
+      <div class="question-falc">Comment vous situez-vous par rapport aux règles et à votre chef(fe) ?</div>
+      <div class="options-grid single" id="q18">
+        <label class="opt-label" onclick="selectOpt('q18',this,'radio')"><input type="radio" name="q18"><span class="opt-check"></span> J'aime avoir de la liberté et décider par moi-même</label>
+        <label class="opt-label" onclick="selectOpt('q18',this,'radio')"><input type="radio" name="q18"><span class="opt-check"></span> Je respecte les règles mais j'aime pouvoir les questionner</label>
+        <label class="opt-label" onclick="selectOpt('q18',this,'radio')"><input type="radio" name="q18"><span class="opt-check"></span> Je me sens mieux avec un cadre clair et des consignes précises</label>
+        <label class="opt-label" onclick="selectOpt('q18',this,'radio')"><input type="radio" name="q18"><span class="opt-check"></span> Je m'adapte selon le contexte</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 19</div>
+      <div class="question-text">Comment vivez-vous le changement dans votre vie professionnelle ?</div>
+      <div class="question-falc">Est-ce que vous aimez quand les choses changent au travail, ou est-ce que cela vous perturbe ?</div>
+      <div class="scale-wrap" id="q19">
+        <button class="scale-btn" onclick="selectScale('q19',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q19',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q19',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q19',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q19',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>Le changement me stresse</span><span>J'adore changer</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 20</div>
+      <div class="question-text">Quel est votre mode de fonctionnement préféré dans une équipe ?</div>
+      <div class="question-falc">Dans une équipe, quel rôle prenez-vous naturellement ?</div>
+      <div class="options-grid single" id="q20">
+        <label class="opt-label" onclick="selectOpt('q20',this,'radio')"><input type="radio" name="q20"><span class="opt-check"></span> Je prends naturellement les devants, je guide</label>
+        <label class="opt-label" onclick="selectOpt('q20',this,'radio')"><input type="radio" name="q20"><span class="opt-check"></span> Je suis fiable et je tiens mes engagements</label>
+        <label class="opt-label" onclick="selectOpt('q20',this,'radio')"><input type="radio" name="q20"><span class="opt-check"></span> Je crée de la bonne ambiance et je soude le groupe</label>
+        <label class="opt-label" onclick="selectOpt('q20',this,'radio')"><input type="radio" name="q20"><span class="opt-check"></span> J'apporte des idées nouvelles et des solutions créatives</label>
+        <label class="opt-label" onclick="selectOpt('q20',this,'radio')"><input type="radio" name="q20"><span class="opt-check"></span> Je préfère bien faire mon travail sans rôle particulier</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 21</div>
+      <div class="question-text">Comment gérez-vous les critiques ou les retours négatifs sur votre travail ?</div>
+      <div class="question-falc">Quand on vous dit que vous avez fait une erreur ou que votre travail n'est pas bon, comment vous réagissez ?</div>
+      <div class="options-grid single" id="q21">
+        <label class="opt-label" onclick="selectOpt('q21',this,'radio')"><input type="radio" name="q21"><span class="opt-check"></span> Je les prends bien, ça m'aide à progresser</label>
+        <label class="opt-label" onclick="selectOpt('q21',this,'radio')"><input type="radio" name="q21"><span class="opt-check"></span> Je les accepte si elles sont justifiées</label>
+        <label class="opt-label" onclick="selectOpt('q21',this,'radio')"><input type="radio" name="q21"><span class="opt-check"></span> Ça me touche, mais j'essaie de rebondir</label>
+        <label class="opt-label" onclick="selectOpt('q21',this,'radio')"><input type="radio" name="q21"><span class="opt-check"></span> J'ai tendance à mal le vivre et à me remettre en question</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 22</div>
+      <div class="question-text">Quel est votre niveau d'énergie général dans votre travail ?</div>
+      <div class="question-falc">En général, vous sentez-vous plein(e) d'énergie ou fatigué(e) dans votre travail ?</div>
+      <div class="scale-wrap" id="q22">
+        <button class="scale-btn" onclick="selectScale('q22',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q22',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q22',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q22',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q22',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>Souvent épuisé(e)</span><span>Très énergique</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 23</div>
+      <div class="question-text">Comment vous positionnez-vous par rapport à la prise de risque ?</div>
+      <div class="question-falc">Est-ce que vous aimez tenter des choses nouvelles, même si c'est risqué ? Ou vous préférez les choses sûres ?</div>
+      <div class="scale-wrap" id="q23">
+        <button class="scale-btn" onclick="selectScale('q23',this,1)">1</button>
+        <button class="scale-btn" onclick="selectScale('q23',this,2)">2</button>
+        <button class="scale-btn" onclick="selectScale('q23',this,3)">3</button>
+        <button class="scale-btn" onclick="selectScale('q23',this,4)">4</button>
+        <button class="scale-btn" onclick="selectScale('q23',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>Je préfère la sécurité</span><span>J'aime le risque</span></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 24</div>
+      <div class="question-text">Quel rôle joue le sens dans votre travail ?</div>
+      <div class="question-falc">Est-ce important pour vous que votre travail ait un sens, une utilité pour les autres ?</div>
+      <div class="options-grid single" id="q24">
+        <label class="opt-label" onclick="selectOpt('q24',this,'radio')"><input type="radio" name="q24"><span class="opt-check"></span> C'est essentiel, j'ai besoin de me sentir utile</label>
+        <label class="opt-label" onclick="selectOpt('q24',this,'radio')"><input type="radio" name="q24"><span class="opt-check"></span> C'est important mais pas indispensable</label>
+        <label class="opt-label" onclick="selectOpt('q24',this,'radio')"><input type="radio" name="q24"><span class="opt-check"></span> Ce qui compte surtout c'est la rémunération et la stabilité</label>
+        <label class="opt-label" onclick="selectOpt('q24',this,'radio')"><input type="radio" name="q24"><span class="opt-check"></span> Ce qui compte surtout c'est l'ambiance et les relations</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 25</div>
+      <div class="question-text">Comment décririez-vous votre façon de prendre des décisions importantes ?</div>
+      <div class="question-falc">Pour prendre une grande décision, vous faites quoi ?</div>
+      <div class="options-grid single" id="q25">
+        <label class="opt-label" onclick="selectOpt('q25',this,'radio')"><input type="radio" name="q25"><span class="opt-check"></span> Je fais confiance à mon instinct, je décide vite</label>
+        <label class="opt-label" onclick="selectOpt('q25',this,'radio')"><input type="radio" name="q25"><span class="opt-check"></span> Je rassemble des informations avant de décider</label>
+        <label class="opt-label" onclick="selectOpt('q25',this,'radio')"><input type="radio" name="q25"><span class="opt-check"></span> Je consulte des personnes de confiance</label>
+        <label class="opt-label" onclick="selectOpt('q25',this,'radio')"><input type="radio" name="q25"><span class="opt-check"></span> J'attends que la situation se clarifie d'elle-même</label>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goTo(2)">← Retour</button>
+      <button class="btn btn-next" onclick="goTo(4)">Module suivant →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 4 : ASPIRATIONS -->
+  <div class="section" id="section-4">
+    <div class="section-header">
+      <div class="section-badge">Module 4 / 4</div>
+      <div class="section-title">Vos aspirations</div>
+      <div class="section-desc">Ce que vous voulez vraiment. Vos rêves, vos valeurs, votre vision de l'avenir. Il n'y a pas de réponse idéale — soyez honnête avec vous-même.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 26</div>
+      <div class="question-text">Qu'est-ce qui est le plus important pour vous dans un travail idéal ?</div>
+      <div class="question-falc">Si vous pouviez choisir le travail parfait pour vous, qu'est-ce qu'il devrait absolument avoir ? Cochez jusqu'à 3 réponses.</div>
+      <div class="options-grid" id="q26">
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Un bon salaire</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> La stabilité et la sécurité</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Aider les autres</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> La reconnaissance</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> L'autonomie et la liberté</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Apprendre et évoluer</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Créer ou innover</label>
+        <label class="opt-label" onclick="selectOpt('q26',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Un équilibre vie pro / vie perso</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 27</div>
+      <div class="question-text">Dans 2 à 3 ans, où aimeriez-vous être professionnellement ?</div>
+      <div class="question-falc">Dans 2 ou 3 ans, comment vous voyez-vous dans votre travail ?</div>
+      <textarea id="q27" placeholder="Ex : Je voudrais travailler dans la formation, avoir mon propre projet, être dans un autre secteur..."></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 28</div>
+      <div class="question-text">Quels sont les principaux freins que vous percevez pour atteindre vos objectifs ?</div>
+      <div class="question-falc">Qu'est-ce qui vous empêche d'avancer vers ce que vous voulez ? Cochez ce qui vous correspond.</div>
+      <div class="options-grid" id="q28">
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Le manque de diplômes ou de formation</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Le manque de confiance en moi</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Des contraintes familiales ou personnelles</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Ma situation de santé ou de handicap</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Le marché du travail (peu d'offres dans mon domaine)</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Je ne sais pas encore ce que je veux vraiment</label>
+        <label class="opt-label" onclick="selectOpt('q28',this,'check')"><input type="checkbox"><span class="opt-check square"></span> Je n'identifie pas de frein majeur</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 29</div>
+      <div class="question-text">Quelle est votre disponibilité pour vous former ou vous reconvertir ?</div>
+      <div class="question-falc">Si vous devez vous former, combien de temps par semaine pouvez-vous y consacrer ?</div>
+      <div class="options-grid single" id="q29">
+        <label class="opt-label" onclick="selectOpt('q29',this,'radio')"><input type="radio" name="q29"><span class="opt-check"></span> Moins de 5h par semaine</label>
+        <label class="opt-label" onclick="selectOpt('q29',this,'radio')"><input type="radio" name="q29"><span class="opt-check"></span> Entre 5h et 15h par semaine</label>
+        <label class="opt-label" onclick="selectOpt('q29',this,'radio')"><input type="radio" name="q29"><span class="opt-check"></span> Plus de 15h par semaine</label>
+        <label class="opt-label" onclick="selectOpt('q29',this,'radio')"><input type="radio" name="q29"><span class="opt-check"></span> Je peux me former à temps plein</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 30</div>
+      <div class="question-text">Y a-t-il quelque chose d'important sur votre situation ou votre projet que vous souhaitez ajouter ?</div>
+      <div class="question-falc">Avez-vous quelque chose à dire en plus ? Quelque chose d'important que les questions n'ont pas abordé ?</div>
+      <textarea id="q30" placeholder="Espace libre — écrivez ce que vous voulez..."></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goTo(3)">← Retour</button>
+      <button class="btn btn-next" style="background:#4caf93;font-size:18px;padding:14px 32px;" onclick="generateResults()">Voir mes résultats ✓</button>
+    </div>
+  </div>
+
+  <!-- RESULTATS -->
+  <div class="section" id="section-result">
+    <div class="section-header">
+      <div class="section-badge">Résultats</div>
+      <div class="section-title">Votre bilan personnalisé</div>
+    </div>
+
+    <div class="result-tabs">
+      <button class="rtab active" onclick="switchTab('synthese',this)">Synthèse</button>
+      <button class="rtab" onclick="switchTab('rapport',this)">Rapport complet</button>
+    </div>
+
+    <!-- SYNTHESE -->
+    <div class="rtab-content active" id="tab-synthese">
+      <div id="profile-banner-wrap"></div>
+
+      <div class="result-card">
+        <h3>📊 Vos dimensions clés</h3>
+        <div id="scores-display"></div>
+      </div>
+
+      <div class="result-card">
+        <h3>💡 Vos 5 points forts</h3>
+        <div id="points-forts" class="tag-wrap"></div>
+      </div>
+
+      <div class="result-card">
+        <h3>🎯 Votre profil en un coup d'oeil</h3>
+        <div class="radar-wrap">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+
+      <div id="contraintes-display"></div>
+    </div>
+
+    <!-- RAPPORT -->
+    <div class="rtab-content" id="tab-rapport">
+      <div class="result-card">
+        <h3>🧠 Profil de personnalité</h3>
+        <div id="rapport-perso"></div>
+      </div>
+      <div class="result-card">
+        <h3>🛠 Cartographie des compétences</h3>
+        <div id="rapport-competences"></div>
+      </div>
+      <div class="result-card">
+        <h3>🌱 Aspirations & valeurs</h3>
+        <div id="rapport-aspirations"></div>
+      </div>
+      <div class="result-card">
+        <h3>🔍 Freins identifiés & recommandations</h3>
+        <div id="rapport-recos"></div>
+      </div>
+      <div id="rapport-handicap-section"></div>
+    </div>
+
+    <button class="pdf-btn" onclick="printReport()">
+      <span>⬇</span> Télécharger mon rapport (PDF)
+    </button>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Dans la fenêtre d'impression, choisissez "Enregistrer en PDF" comme destination.</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+const steps = ['Accueil','Module 1','Module 2','Module 3','Module 4','Résultats'];
+let currentSection = 0;
+let scores = {};
+
+function goTo(n) {
+  document.getElementById('section-'+currentSection)?.classList.remove('active');
+  if(currentSection === 'result') document.getElementById('section-result').classList.remove('active');
+  currentSection = n;
+  if(n === 5) {
+    document.getElementById('section-result').classList.add('active');
+  } else {
+    document.getElementById('section-'+n).classList.add('active');
+  }
+  updateProgress(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateProgress(n) {
+  for(let i=0;i<6;i++) {
+    const d = document.getElementById('dot'+i);
+    if(!d) continue;
+    if(i < n) d.className='step-dot done';
+    else if(i === n) d.className='step-dot active';
+    else d.className='step-dot';
+  }
+  document.getElementById('step-label-txt').textContent = steps[n] || 'Résultats';
+  document.getElementById('progress-pct').textContent = Math.round((n/5)*100)+'%';
+}
+
+function selectOpt(groupId, el, type) {
+  const container = document.getElementById(groupId);
+  if(!container) return;
+  if(type === 'radio') {
+    container.querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
+    el.classList.add('selected');
+  } else {
+    el.classList.toggle('selected');
+  }
+}
+
+function selectScale(groupId, btn, val) {
+  const container = document.getElementById(groupId);
+  container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  btn.dataset.val = val;
+  scores[groupId] = val;
+}
+
+function getScaleVal(groupId) {
+  const container = document.getElementById(groupId);
+  if(!container) return 3;
+  const sel = container.querySelector('.scale-btn.selected');
+  return sel ? parseInt(sel.dataset.val) : 3;
+}
+
+function getSelectedTexts(groupId) {
+  const container = document.getElementById(groupId);
+  if(!container) return [];
+  return Array.from(container.querySelectorAll('.opt-label.selected')).map(l => l.textContent.trim());
+}
+
+function getFirstSelected(groupId) {
+  return getSelectedTexts(groupId)[0] || null;
+}
+
+function generateResults() {
+  goTo(5);
+
+  const prenom = document.getElementById('q_prenom')?.value || 'Vous';
+  const comm = getScaleVal('q8');
+  const orga = getScaleVal('q9');
+  const numerique = getScaleVal('q12');
+  const energie = getScaleVal('q22');
+  const risque = getScaleVal('q23');
+  const changement = getScaleVal('q19');
+  const secteurs = getSelectedTexts('q4');
+  const competencesFaites = getSelectedTexts('q6');
+  const freins = getSelectedTexts('q28');
+  const valeurs = getSelectedTexts('q26');
+  const handicaps = getSelectedTexts('q_handicap');
+  const perso = getFirstSelected('q16');
+  const equipe = getFirstSelected('q20');
+  const sens = getFirstSelected('q24');
+  const apprentissage = getFirstSelected('q14');
+  const objectif = getFirstSelected('q5');
+
+  // Calcul profil dominant
+  let profileType = 'Profil Équilibré';
+  let profileIcon = '⚖️';
+  if(comm >= 4 && energie >= 4) { profileType = 'Profil Communicant & Dynamique'; profileIcon = '🚀'; }
+  else if(orga >= 4 && risque <= 2) { profileType = 'Profil Structuré & Fiable'; profileIcon = '🏗️'; }
+  else if(sens && sens.includes('utile')) { profileType = 'Profil Humain & Engagé'; profileIcon = '🤝'; }
+  else if(risque >= 4 && changement >= 4) { profileType = 'Profil Entrepreneur & Adaptable'; profileIcon = '🌟'; }
+  else if(numerique >= 4) { profileType = 'Profil Analytique & Numérique'; profileIcon = '🔬'; }
+
+  // Bannière profil
+  document.getElementById('profile-banner-wrap').innerHTML = `
+    <div class="profile-banner">
+      <div class="profile-icon">${profileIcon}</div>
+      <div>
+        <div class="profile-name">${prenom}</div>
+        <div class="profile-type">${profileType}</div>
+      </div>
+    </div>`;
+
+  // Scores
+  const dims = [
+    {label:'Communication', val: comm},
+    {label:'Organisation', val: orga},
+    {label:'Numérique', val: numerique},
+    {label:'Énergie', val: energie},
+    {label:'Adaptabilité', val: changement},
+    {label:'Prise de risque', val: risque},
+  ];
+  let scoresHtml = '';
+  dims.forEach(d => {
+    const pct = (d.val/5)*100;
+    scoresHtml += `<div class="score-row">
+      <div class="score-label">${d.label}</div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:${pct}%"></div></div>
+      <div class="score-val">${d.val}/5</div>
+    </div>`;
+  });
+  document.getElementById('scores-display').innerHTML = scoresHtml;
+
+  // Points forts
+  let ptsForts = [];
+  if(comm >= 4) ptsForts.push('Communication');
+  if(orga >= 4) ptsForts.push('Organisation');
+  if(numerique >= 4) ptsForts.push('Compétences numériques');
+  if(energie >= 4) ptsForts.push('Énergie & Engagement');
+  if(changement >= 4) ptsForts.push('Adaptabilité');
+  if(risque >= 4) ptsForts.push('Prise d\'initiative');
+  competencesFaites.forEach(c => { if(ptsForts.length < 8) ptsForts.push(c); });
+  if(ptsForts.length === 0) ptsForts = ['Expérience terrain', 'Connaissance du monde du travail'];
+  const uniqueFortes = [...new Set(ptsForts)].slice(0,6);
+  document.getElementById('points-forts').innerHTML = uniqueFortes.map(p => `<span class="tag green">${p}</span>`).join('');
+
+  // Radar Chart
+  setTimeout(() => {
+    const ctx = document.getElementById('radarChart');
+    if(ctx) {
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Communication','Organisation','Numérique','Énergie','Adaptabilité','Audace'],
+          datasets: [{
+            label: prenom,
+            data: [comm, orga, numerique, energie, changement, risque],
+            backgroundColor: 'rgba(226,86,103,0.2)',
+            borderColor: '#E25667',
+            pointBackgroundColor: '#E25667',
+            pointBorderColor: '#fff',
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          scales: { r: { min:0, max:5, ticks:{stepSize:1,color:'#aaa',backdropColor:'transparent'}, grid:{color:'#333'}, pointLabels:{color:'#f0f0f0',font:{size:13}} } },
+          plugins: { legend:{display:false} },
+          elements: { line:{tension:0.3} }
+        }
+      });
+    }
+  }, 200);
+
+  // Contraintes
+  const realHandi = handicaps.filter(h => !h.includes('Aucune'));
+  if(realHandi.length > 0) {
+    document.getElementById('contraintes-display').innerHTML = `
+      <div class="result-card">
+        <h3>🤝 Contraintes & besoins spécifiques</h3>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Nous avons bien pris en compte vos besoins spécifiques dans l'analyse.</p>
+        <div>${realHandi.map(h => `<span class="constraint-badge">⚠️ ${h}</span>`).join('')}</div>
+      </div>`;
+  }
+
+  // RAPPORT COMPLET
+  // Personnalité
+  document.getElementById('rapport-perso').innerHTML = `
+    <p style="margin-bottom:12px;">Votre profil dominant est : <strong style="color:var(--accent)">${profileType}</strong></p>
+    <div class="tag-wrap" style="margin-bottom:14px;">
+      ${perso ? `<span class="tag">${perso}</span>` : ''}
+      ${equipe ? `<span class="tag">${equipe}</span>` : ''}
+    </div>
+    <div class="reco-item"><span class="reco-icon">🔄</span><div class="reco-text"><strong>Rapport au changement</strong>${changement >= 4 ? 'Vous êtes à l\'aise avec le changement. C\'est une vraie force dans les environnements dynamiques.' : changement <= 2 ? 'Vous préférez la stabilité. Des environnements structurés vous conviendront mieux.' : 'Vous tolérez le changement selon les situations.'}</div></div>
+    <div class="reco-item"><span class="reco-icon">🎯</span><div class="reco-text"><strong>Prise de décision</strong>${getFirstSelected('q25') || 'Non renseigné'}</div></div>
+    <div class="reco-item"><span class="reco-icon">📣</span><div class="reco-text"><strong>Rapport aux critiques</strong>${getFirstSelected('q21') || 'Non renseigné'}</div></div>`;
+
+  // Compétences
+  const compHtml = competencesFaites.length > 0
+    ? `<div class="tag-wrap">${competencesFaites.map(c => `<span class="tag green">${c}</span>`).join('')}</div>`
+    : '<p style="color:var(--text-muted)">Non renseigné</p>';
+  const styleAppr = apprentissage || 'Non renseigné';
+  document.getElementById('rapport-competences').innerHTML = `
+    <p style="margin-bottom:12px;"><strong>Activités maîtrisées :</strong></p>
+    ${compHtml}
+    <div class="reco-item" style="margin-top:14px;"><span class="reco-icon">📚</span><div class="reco-text"><strong>Votre style d'apprentissage préféré</strong>${styleAppr}</div></div>
+    <div class="reco-item"><span class="reco-icon">🌐</span><div class="reco-text"><strong>Secteurs d'expérience</strong>${secteurs.length > 0 ? secteurs.join(', ') : 'Non renseigné'}</div></div>`;
+
+  // Aspirations
+  const valeursHtml = valeurs.length > 0
+    ? `<div class="tag-wrap">${valeurs.map(v => `<span class="tag">${v}</span>`).join('')}</div>`
+    : '<p style="color:var(--text-muted)">Non renseigné</p>';
+  const projet = document.getElementById('q27')?.value || '';
+  document.getElementById('rapport-aspirations').innerHTML = `
+    <p style="margin-bottom:10px;"><strong>Ce qui compte pour vous :</strong></p>
+    ${valeursHtml}
+    ${projet ? `<div class="reco-item" style="margin-top:14px;"><span class="reco-icon">🔭</span><div class="reco-text"><strong>Votre projet à horizon 2-3 ans</strong>${projet}</div></div>` : ''}
+    <div class="reco-item"><span class="reco-icon">💡</span><div class="reco-text"><strong>Ce qui donne du sens à votre travail</strong>${sens || 'Non renseigné'}</div></div>`;
+
+  // Recommandations
+  let recos = [];
+  if(comm <= 2) recos.push({icon:'🗣️', title:'Développer la communication', text:'Des formations en prise de parole ou communication interpersonnelle pourraient vous être très bénéfiques.'});
+  if(orga <= 2) recos.push({icon:'🗂️', title:'Renforcer l\'organisation', text:'Des outils de gestion du temps et de planification peuvent vous aider à structurer votre activité.'});
+  if(numerique <= 2) recos.push({icon:'💻', title:'Monter en compétences numériques', text:'Une formation aux outils bureautiques ou numériques de base pourrait ouvrir de nouvelles opportunités.'});
+  if(freins.includes('Le manque de confiance en moi')) recos.push({icon:'💪', title:'Travailler sur la confiance en soi', text:'Un accompagnement en coaching ou développement personnel peut faire une vraie différence.'});
+  if(freins.includes('Le manque de diplômes ou de formation')) recos.push({icon:'🎓', title:'Explorer les certifications accessibles', text:'De nombreuses certifications professionnelles sont accessibles en formation courte ou via la VAE.'});
+  if(recos.length === 0) recos.push({icon:'🌟', title:'Maintenir votre dynamique', text:'Votre profil est solide. L\'enjeu est de trouver le bon environnement qui valorisera vos forces.'});
+
+  document.getElementById('rapport-recos').innerHTML = `
+    ${freins.length > 0 ? `<div class="tag-wrap" style="margin-bottom:16px;">${freins.map(f => `<span class="tag grey">${f}</span>`).join('')}</div>` : ''}
+    ${recos.map(r => `<div class="reco-item"><span class="reco-icon">${r.icon}</span><div class="reco-text"><strong>${r.title}</strong>${r.text}</div></div>`).join('')}`;
+
+  // Handicap dans rapport
+  if(realHandi.length > 0) {
+    document.getElementById('rapport-handicap-section').innerHTML = `
+      <div class="result-card">
+        <h3>🤝 Prise en compte de vos besoins spécifiques</h3>
+        <p style="font-size:14px;margin-bottom:12px;">Les points ci-dessous sont importants à considérer dans tout projet de formation ou d'emploi.</p>
+        ${realHandi.map(h => `<div class="reco-item"><span class="reco-icon">⚠️</span><div class="reco-text"><strong>${h}</strong>Informez votre conseiller(ère) ou organisme de formation afin que des aménagements adaptés puissent être mis en place.</div></div>`).join('')}
+      </div>`;
+  }
+
+  updateProgress(5);
+}
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rtab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+tabId).classList.add('active');
+}
+
+function printReport() {
+  // Switch to rapport tab before printing for full content
+  document.querySelectorAll('.rtab-content').forEach(t => t.style.display='block');
+  window.print();
+  setTimeout(() => {
+    document.querySelectorAll('.rtab-content').forEach(t => t.style.display='');
+    document.getElementById('tab-synthese').classList.add('active');
+  }, 1000);
+}
+</script>
+</body>
+</html>
