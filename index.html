@@ -7,101 +7,56 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-  /* ========== THEMES ========== */
   [data-theme="dark"] {
-    --bg: #101010;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --accent: #E25667;
-    --accent-light: #f07080;
-    --text: #f0f0f0;
-    --text-muted: #aaa;
-    --border: #333;
-    --success: #4caf93;
-    --shadow: rgba(0,0,0,0.4);
+    --bg: #101010; --surface: #1a1a1a; --surface2: #242424;
+    --accent: #E25667; --accent-light: #f07080;
+    --text: #f0f0f0; --text-muted: #aaa; --border: #333;
+    --success: #4caf93; --warn: #ffc107; --shadow: rgba(0,0,0,0.4);
   }
   [data-theme="light"] {
-    --bg: #f4f4f6;
-    --surface: #ffffff;
-    --surface2: #f0f0f3;
-    --accent: #E25667;
-    --accent-light: #c93d50;
-    --text: #111111;
-    --text-muted: #666;
-    --border: #ddd;
-    --success: #2e9e7e;
-    --shadow: rgba(0,0,0,0.1);
+    --bg: #f4f4f6; --surface: #ffffff; --surface2: #f0f0f3;
+    --accent: #E25667; --accent-light: #c93d50;
+    --text: #111111; --text-muted: #666; --border: #ddd;
+    --success: #2e9e7e; --warn: #b8860b; --shadow: rgba(0,0,0,0.1);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 17px;
-    line-height: 1.7;
+    font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
+    min-height: 100vh; font-size: 17px; line-height: 1.7;
     transition: background .3s, color .3s;
   }
-
-  /* HEADER */
   header {
-    background: var(--surface);
-    border-bottom: 2px solid var(--accent);
-    padding: 16px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    box-shadow: 0 2px 8px var(--shadow);
-    position: sticky; top: 0; z-index: 20;
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; box-shadow: 0 2px 8px var(--shadow); position: sticky; top: 0; z-index: 20;
   }
   .header-left { display: flex; align-items: center; gap: 14px; }
   .logo-mark {
-    width: 44px; height: 44px;
-    background: var(--accent);
-    border-radius: 10px;
+    width: 44px; height: 44px; background: var(--accent); border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 700; color: #fff;
-    flex-shrink: 0;
+    font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0;
   }
   .logo-text .brand { font-size: 18px; font-weight: 700; color: var(--text); }
   .logo-text .tagline { font-size: 11px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
-
-  /* THEME TOGGLE */
   .theme-toggle {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    padding: 6px 14px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text-muted);
-    transition: all .2s;
-    white-space: nowrap;
+    display: flex; align-items: center; gap: 8px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--text-muted); transition: all .2s; white-space: nowrap;
   }
   .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
   .theme-icon { font-size: 16px; }
-
-  /* PROGRESS */
-  .progress-bar-wrap {
-    background: var(--surface);
-    padding: 12px 32px 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .progress-bar-wrap { background: var(--surface); padding: 12px 32px 0; border-bottom: 1px solid var(--border); }
   .progress-steps { display: flex; gap: 8px; align-items: center; padding-bottom: 12px; }
   .step-dot { flex: 1; height: 6px; border-radius: 4px; background: var(--border); transition: background .4s; }
   .step-dot.active { background: var(--accent); }
   .step-dot.done { background: var(--success); }
-
-  /* CONTAINER */
+  .prog-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .prog-info span { font-size: 13px; color: var(--text-muted); }
+  #progress-pct { color: var(--accent); font-weight: 600; }
   .container { max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; }
   .section { display: none; }
   .section.active { display: block; }
-
-  /* SECTION HEADER */
   .section-header { margin-bottom: 28px; }
   .section-badge {
     display: inline-block; background: var(--accent); color: #fff;
@@ -110,13 +65,9 @@
   }
   .section-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
   .section-desc {
-    font-size: 15px; color: var(--text-muted);
-    background: var(--surface2);
-    border-left: 3px solid var(--accent);
-    padding: 12px 16px; border-radius: 0 8px 8px 0;
+    font-size: 15px; color: var(--text-muted); background: var(--surface2);
+    border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0;
   }
-
-  /* QUESTION BLOCKS */
   .question-block {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 22px 24px; margin-bottom: 20px;
@@ -126,32 +77,26 @@
   .question-num { font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
   .question-text { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
   .question-falc { font-size: 14px; color: var(--text-muted); font-style: italic; margin-bottom: 14px; }
-
-  /* INPUTS */
-  input[type="text"], textarea, select {
+  input[type="text"], textarea {
     width: 100%; background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
     font-size: 16px; padding: 12px 14px; outline: none; transition: border-color .2s;
   }
   input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
   textarea { resize: vertical; min-height: 90px; }
-
-  /* OPTIONS */
   .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .options-grid.single { grid-template-columns: 1fr; }
   .opt-label {
     display: flex; align-items: flex-start; gap: 12px;
     background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px 14px;
-    cursor: pointer; transition: border-color .2s, background .2s;
-    font-size: 15px; user-select: none;
+    border-radius: 8px; padding: 12px 14px; cursor: pointer;
+    transition: border-color .2s, background .2s; font-size: 15px; user-select: none;
   }
   .opt-label:hover { border-color: var(--accent); }
   .opt-label.selected { border-color: var(--accent); background: rgba(226,86,103,0.1); }
   .opt-check {
-    width: 20px; height: 20px; flex-shrink: 0;
-    border: 2px solid var(--border); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; flex-shrink: 0; border: 2px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
     margin-top: 2px; transition: all .2s; pointer-events: none;
   }
   .opt-label.selected .opt-check { background: var(--accent); border-color: var(--accent); }
@@ -159,8 +104,6 @@
   .opt-label.selected .opt-check::after { display: block; }
   .opt-check.square { border-radius: 4px; }
   .opt-check.square::after { width: 10px; height: 6px; background: none; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-2px); border-radius: 0; }
-
-  /* SCALE */
   .scale-wrap { display: flex; gap: 8px; align-items: center; }
   .scale-btn {
     flex: 1; padding: 10px 0; background: var(--surface2); border: 1px solid var(--border);
@@ -170,24 +113,18 @@
   .scale-btn:hover { border-color: var(--accent); }
   .scale-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
   .scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-
-  /* HANDICAP BOX */
   .handicap-box {
     background: var(--surface2); border: 1px dashed var(--accent);
     border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
   }
   .handicap-box .hb-title { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
   .handicap-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
-
-  /* NAVIGATION */
   .nav-btns { display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; }
   .btn { padding: 14px 28px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; border: none; transition: all .2s; }
   .btn-prev { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-prev:hover { border-color: var(--accent); }
   .btn-next { background: var(--accent); color: #fff; }
   .btn-next:hover { background: var(--accent-light); }
-
-  /* WELCOME */
   .welcome-card { background: var(--surface); border-radius: 16px; padding: 40px 36px; text-align: center; border: 1px solid var(--border); }
   .welcome-card h1 { font-size: 30px; font-weight: 700; margin-bottom: 12px; }
   .welcome-card .sub { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; }
@@ -197,8 +134,6 @@
   .info-card .ic-label { color: var(--text-muted); margin-top: 4px; }
   .falc-note { background: rgba(226,86,103,0.08); border: 1px solid rgba(226,86,103,0.3); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--text-muted); margin-bottom: 28px; text-align: left; }
   .falc-note strong { color: var(--accent); }
-
-  /* RESULTS */
   #section-result { display: none; }
   #section-result.active { display: block; }
   .result-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
@@ -222,7 +157,7 @@
   .reco-icon { font-size: 22px; flex-shrink: 0; }
   .reco-text { font-size: 15px; }
   .reco-text strong { display: block; margin-bottom: 3px; }
-  .constraint-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.4); color: #ffc107; padding: 6px 12px; border-radius: 8px; font-size: 13px; margin: 4px; }
+  .constraint-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.4); color: var(--warn); padding: 6px 12px; border-radius: 8px; font-size: 13px; margin: 4px; }
   .profile-banner { background: linear-gradient(135deg, var(--accent) 0%, #b03048 100%); border-radius: 12px; padding: 28px 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; }
   .profile-icon { font-size: 40px; }
   .profile-name { font-size: 22px; font-weight: 700; color: #fff; }
@@ -230,24 +165,57 @@
   .pdf-btn { display: flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 14px 24px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 24px; transition: background .2s; }
   .pdf-btn:hover { background: var(--accent-light); }
 
-  /* FOOTER */
+  /* ===== FORCES VS AXES ===== */
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .vs-col { background: var(--surface2); border-radius: 10px; padding: 16px; }
+  .vs-col.forces { border-top: 3px solid var(--success); }
+  .vs-col.axes { border-top: 3px solid var(--warn); }
+  .vs-col-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px; }
+  .vs-col.forces .vs-col-title { color: var(--success); }
+  .vs-col.axes .vs-col-title { color: var(--warn); }
+  .vs-item { font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .vs-item:last-child { border-bottom: none; }
+  .vs-item strong { display: block; font-size: 14px; margin-bottom: 2px; }
+  .vs-item span { color: var(--text-muted); font-size: 13px; line-height: 1.5; display: block; }
+  .vs-empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+  /* ===== RECOMMANDATIONS ARGUMENTÉES ===== */
+  .reco-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-left: 4px solid var(--accent); border-radius: 8px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+  .reco-card-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .reco-line { display: flex; gap: 10px; margin-bottom: 8px; font-size: 14px; }
+  .reco-line:last-child { margin-bottom: 0; }
+  .reco-label {
+    flex-shrink: 0; width: 92px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px; padding-top: 2px;
+  }
+  .reco-label.constat { color: var(--text-muted); }
+  .reco-label.pourquoi { color: var(--accent); }
+  .reco-label.action { color: var(--success); }
+  .reco-content { flex: 1; line-height: 1.55; }
+  .priority-pill {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 12px; letter-spacing: .5px;
+  }
+  .priority-pill.haute { background: rgba(226,86,103,0.2); color: var(--accent-light); border: 1px solid rgba(226,86,103,0.5); }
+  .priority-pill.moyenne { background: rgba(255,193,7,0.15); color: var(--warn); border: 1px solid rgba(255,193,7,0.4); }
+  .coherence-box {
+    background: rgba(76,175,147,0.08); border: 1px solid rgba(76,175,147,0.3);
+    border-radius: 8px; padding: 16px 18px; font-size: 14px; line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .coherence-box strong { color: var(--success); }
+
   footer {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 18px 32px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-muted);
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 18px 32px; text-align: center; font-size: 13px; color: var(--text-muted);
   }
   footer strong { color: var(--accent); }
   footer .footer-sep { margin: 0 8px; opacity: .4; }
 
-  /* PROGRESS INFO */
-  .prog-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-  .prog-info span { font-size: 13px; color: var(--text-muted); }
-  #progress-pct { color: var(--accent); font-weight: 600; }
-
-  /* RESPONSIVE */
   @media(max-width: 540px) {
     .options-grid { grid-template-columns: 1fr; }
     .info-grid { grid-template-columns: 1fr 1fr; }
@@ -255,12 +223,15 @@
     .section-title { font-size: 21px; }
     header { padding: 12px 16px; }
     .theme-toggle span:not(.theme-icon) { display: none; }
+    .vs-grid { grid-template-columns: 1fr; }
+    .reco-line { flex-direction: column; gap: 2px; }
+    .reco-label { width: auto; }
   }
-
   @media print {
     header, .progress-bar-wrap, .nav-btns, .result-tabs, .pdf-btn, .theme-toggle { display: none !important; }
     body { background: #fff !important; color: #111 !important; }
     .result-card { border: 1px solid #ddd; page-break-inside: avoid; }
+    .reco-card { page-break-inside: avoid; }
     footer { color: #555 !important; border-top: 1px solid #ccc; }
   }
 </style>
@@ -305,7 +276,7 @@
       <h1>Bilan de Compétences</h1>
       <p class="sub">Ce bilan va vous aider à mieux vous connaître.<br>Il est fait pour les adultes qui ont déjà travaillé.</p>
       <div class="info-grid">
-        <div class="info-card"><div class="ic-num">50</div><div class="ic-label">Questions</div></div>
+        <div class="info-card"><div class="ic-num">30</div><div class="ic-label">Questions</div></div>
         <div class="info-card"><div class="ic-num">~25</div><div class="ic-label">Minutes</div></div>
         <div class="info-card"><div class="ic-num">4</div><div class="ic-label">Modules</div></div>
       </div>
@@ -750,7 +721,7 @@
     <div class="question-block">
       <div class="question-num">Question 30</div>
       <div class="question-text">Y a-t-il quelque chose d'important sur votre situation que vous souhaitez ajouter ?</div>
-      <div class="question-falc">Avez-vous quelque chose à dire en plus ? Quelque chose que les questions n'ont pas abordé ?</div>
+      <div class="question-falc">Avez-vous quelque chose à dire en plus ?</div>
       <textarea id="q30" placeholder="Espace libre — écrivez ce que vous voulez..."></textarea>
     </div>
 
@@ -773,15 +744,17 @@
     <div class="rtab-content active" id="tab-synthese">
       <div id="profile-banner-wrap"></div>
       <div class="result-card"><h3>📊 Vos dimensions clés</h3><div id="scores-display"></div></div>
-      <div class="result-card"><h3>💡 Vos points forts</h3><div id="points-forts" class="tag-wrap"></div></div>
+      <div class="result-card"><h3>⚖️ Points forts vs Axes d'amélioration</h3><div class="vs-grid" id="vs-display"></div></div>
       <div class="result-card"><h3>🎯 Votre profil en un coup d'oeil</h3><div class="radar-wrap"><canvas id="radarChart"></canvas></div></div>
       <div id="contraintes-display"></div>
     </div>
     <div class="rtab-content" id="tab-rapport">
       <div class="result-card"><h3>🧠 Profil de personnalité</h3><div id="rapport-perso"></div></div>
       <div class="result-card"><h3>🛠 Cartographie des compétences</h3><div id="rapport-competences"></div></div>
+      <div class="result-card"><h3>⚖️ Analyse détaillée : forces et axes de progression</h3><div id="rapport-vs"></div></div>
       <div class="result-card"><h3>🌱 Aspirations & valeurs</h3><div id="rapport-aspirations"></div></div>
-      <div class="result-card"><h3>🔍 Freins identifiés & recommandations</h3><div id="rapport-recos"></div></div>
+      <div class="result-card"><h3>🧭 Cohérence de votre projet</h3><div id="rapport-coherence"></div></div>
+      <div class="result-card"><h3>📋 Recommandations personnalisées</h3><div id="rapport-recos"></div></div>
       <div id="rapport-handicap-section"></div>
     </div>
     <button class="pdf-btn" onclick="printReport()"><span>⬇</span> Télécharger mon rapport (PDF)</button>
@@ -802,7 +775,6 @@ const steps = ['Accueil','Module 1','Module 2','Module 3','Module 4','Résultats
 let currentSection = 0;
 let radarChartInstance = null;
 
-// ====== THEME ======
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
@@ -813,7 +785,6 @@ function toggleTheme() {
     : '<span class="theme-icon">☀️</span><span>Mode clair</span>';
 }
 
-// ====== NAVIGATION ======
 function goTo(n) {
   if(currentSection === 'result') {
     document.getElementById('section-result').classList.remove('active');
@@ -842,20 +813,16 @@ function updateProgress(n) {
   document.getElementById('progress-pct').textContent = Math.round((n/5)*100)+'%';
 }
 
-// ====== INTERACTIONS ======
-// Délégation d'événements — résout le bug de clic sur Q4 et toutes les autres
+// Délégation d'événements pour toutes les options
 document.addEventListener('click', function(e) {
   const label = e.target.closest('.opt-label');
   if(!label) return;
   const container = label.closest('[id]');
   if(!container) return;
   const isSquare = label.querySelector('.opt-check.square') !== null;
-
   if(isSquare) {
-    // Checkbox — toggle
     label.classList.toggle('selected');
   } else {
-    // Radio — exclusif
     container.querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
     label.classList.add('selected');
   }
@@ -867,76 +834,256 @@ function selectScale(groupId, btn, val) {
   btn.classList.add('selected');
   btn.dataset.val = val;
 }
-
 function getScaleVal(groupId) {
   const container = document.getElementById(groupId);
   if(!container) return 3;
   const sel = container.querySelector('.scale-btn.selected');
   return sel ? parseInt(sel.dataset.val) : 3;
 }
-
 function getSelectedTexts(groupId) {
   const container = document.getElementById(groupId);
   if(!container) return [];
   return Array.from(container.querySelectorAll('.opt-label.selected')).map(l => l.textContent.trim());
 }
-
 function getFirstSelected(groupId) {
   return getSelectedTexts(groupId)[0] || null;
 }
 
-// ====== RESULTATS ======
+// ============ MOTEUR D'ANALYSE ============
+function buildAnalysis(d) {
+  const forces = [];
+  const axes = [];
+
+  // --- Dimensions quantitatives ---
+  const dimRules = [
+    { val:d.comm, label:'Communication',
+      force:"Vous échangez facilement avec les autres. C'est un atout direct pour les métiers de contact, d'accompagnement, de vente ou de formation.",
+      axe:"Communiquer vous demande un effort. Ce n'est pas un défaut, mais c'est un point à travailler si votre projet implique du contact régulier avec du public ou des clients." },
+    { val:d.orga, label:'Organisation & autonomie',
+      force:"Vous savez vous organiser sans qu'on vous dise quoi faire. Les employeurs recherchent beaucoup cette qualité, surtout pour le télétravail et les postes à responsabilité.",
+      axe:"Vous avez besoin d'un cadre pour bien fonctionner. Privilégiez les environnements structurés, et appuyez-vous sur des outils simples (agenda, listes de tâches) pour gagner en autonomie." },
+    { val:d.numerique, label:'Compétences numériques',
+      force:"Vous êtes à l'aise avec les outils numériques. C'est aujourd'hui une compétence transversale valorisée dans presque tous les métiers.",
+      axe:"Le numérique reste un point faible. Or, la grande majorité des emplois demandent aujourd'hui un socle numérique de base. C'est l'axe le plus rentable à travailler en premier." },
+    { val:d.energie, label:'Énergie au travail',
+      force:"Vous abordez le travail avec énergie. Cette vitalité est un moteur pour les projets exigeants et les périodes de transition.",
+      axe:"Votre niveau d'énergie au travail est bas. C'est un signal à écouter : il peut indiquer une fatigue passagère, un poste inadapté, ou un besoin de changement plus profond." },
+    { val:d.changement, label:'Adaptabilité',
+      force:"Le changement ne vous fait pas peur, vous vous adaptez. C'est une force majeure dans un marché du travail qui évolue vite.",
+      axe:"Le changement vous insécurise. Pour réussir une transition professionnelle, avancez par petites étapes planifiées plutôt que par grands sauts." },
+    { val:d.risque, label:'Prise d\'initiative',
+      force:"Vous osez prendre des initiatives et tenter des choses nouvelles. C'est le profil des entrepreneurs et des moteurs d'équipe.",
+      axe:"Vous privilégiez la sécurité. Ce n'est pas un frein en soi, mais cela oriente votre projet vers des parcours balisés : CDI, secteurs stables, évolutions progressives." },
+  ];
+  dimRules.forEach(r => {
+    if(r.val >= 4) forces.push({ titre:`${r.label} (${r.val}/5)`, arg:r.force });
+    else if(r.val <= 2) axes.push({ titre:`${r.label} (${r.val}/5)`, arg:r.axe });
+  });
+
+  // --- Signaux qualitatifs ---
+  if(d.imprevu && d.imprevu.includes('recul')) forces.push({ titre:'Recul & analyse', arg:"Face à l'imprévu, vous analysez avant d'agir. Cette posture réfléchie est précieuse pour les fonctions de coordination et de résolution de problèmes." });
+  if(d.imprevu && d.imprevu.includes('rapidement')) forces.push({ titre:'Réactivité', arg:"Vous agissez vite et vous vous ajustez en cours de route. C'est une qualité clé pour les environnements dynamiques et le terrain." });
+  if(d.imprevu && d.imprevu.includes('déstabilisent')) axes.push({ titre:'Gestion des imprévus', arg:"Les imprévus vous déstabilisent. Des techniques simples existent pour y faire face (anticipation, scénarios, respiration). Un environnement de travail prévisible vous conviendra mieux à court terme." });
+  if(d.encadrement === 'Oui, régulièrement') forces.push({ titre:'Transmission & pédagogie', arg:"Vous avez l'habitude de former et d'accompagner les autres. Cette compétence ouvre des portes : tutorat, formation, management de proximité." });
+  if(d.critiques && d.critiques.includes('progresser')) forces.push({ titre:'Maturité face au feedback', arg:"Vous accueillez les critiques comme un levier de progression. C'est un signe fort de maturité professionnelle, très apprécié des recruteurs." });
+  if(d.critiques && d.critiques.includes('mal le vivre')) axes.push({ titre:'Rapport aux critiques', arg:"Les retours négatifs vous affectent fortement. Apprendre à distinguer la critique du travail et la critique de la personne vous protégera et renforcera votre confiance." });
+  if(d.freins.includes('Le manque de confiance en moi')) axes.push({ titre:'Confiance en soi', arg:"Vous identifiez vous-même la confiance comme un frein. Bonne nouvelle : la confiance se construit par l'action, pas par la réflexion. Chaque petite réussite compte." });
+  if(d.freins.some(f => f.includes('ne sais pas encore'))) axes.push({ titre:'Clarté du projet', arg:"Votre projet n'est pas encore défini. Ce n'est pas un problème : c'est précisément le travail d'un bilan approfondi avec un professionnel de l'accompagnement." });
+
+  return { forces, axes };
+}
+
+function buildRecommendations(d) {
+  const recos = [];
+  // Adaptation au style d'apprentissage
+  let modalite = "une formation mixte (théorie + pratique)";
+  if(d.apprentissage) {
+    if(d.apprentissage.includes('pratiquant')) modalite = "une formation avec beaucoup de mises en situation et de pratique (ateliers, stages, immersion)";
+    else if(d.apprentissage.includes('regardant')) modalite = "une formation avec démonstrations et tutorats (apprendre en observant puis en reproduisant)";
+    else if(d.apprentissage.includes('lisant')) modalite = "une formation à distance ou en e-learning, avec supports écrits et vidéos";
+    else if(d.apprentissage.includes('écoutant')) modalite = "une formation en présentiel avec un formateur qui explique pas à pas";
+    else if(d.apprentissage.includes('discutant')) modalite = "une formation en groupe, avec échanges et travaux collectifs";
+  }
+  // Adaptation à la disponibilité
+  let rythme = "à votre rythme";
+  if(d.dispo) {
+    if(d.dispo.includes('Moins de 5h')) rythme = "en format court et progressif (modules de 1 à 2h, le soir ou le week-end)";
+    else if(d.dispo.includes('5h et 15h')) rythme = "en format temps partiel (1 à 2 jours par semaine)";
+    else if(d.dispo.includes('Plus de 15h')) rythme = "en format intensif à temps partiel";
+    else if(d.dispo.includes('temps plein')) rythme = "en formation intensive à temps plein (reconversion rapide possible)";
+  }
+
+  if(d.numerique <= 2) recos.push({
+    icon:'💻', titre:'Acquérir le socle numérique de base', prio:'haute',
+    constat:`Vous avez évalué votre niveau numérique à ${d.numerique}/5.`,
+    pourquoi:"Plus de 8 emplois sur 10 demandent aujourd'hui un usage de base des outils numériques. C'est le frein le plus pénalisant sur le marché du travail, mais aussi le plus rapide à lever.",
+    action:`Visez une certification reconnue comme le Pix ou CléA numérique, ${rythme}. Privilégiez ${modalite}. Ces parcours sont souvent finançables par le CPF.`
+  });
+  if(d.comm <= 2) recos.push({
+    icon:'🗣️', titre:'Développer l\'aisance relationnelle', prio:'haute',
+    constat:`Vous avez évalué votre communication à ${d.comm}/5.`,
+    pourquoi:"La communication est la compétence transversale numéro 1 citée par les recruteurs. Elle s'apprend et se travaille, comme un muscle : ce n'est pas un trait fixe de personnalité.",
+    action:`Commencez petit : prendre la parole en réunion, reformuler ce que dit l'autre, demander un retour. En parallèle, ${modalite} sur la communication interpersonnelle ou l'assertivité donnera des résultats visibles en quelques semaines.`
+  });
+  if(d.orga <= 2) recos.push({
+    icon:'🗂️', titre:'Structurer votre organisation personnelle', prio:'moyenne',
+    constat:`Vous avez évalué votre autonomie d'organisation à ${d.orga}/5.`,
+    pourquoi:"L'autonomie est devenue un critère d'embauche majeur depuis la généralisation du travail hybride. Une organisation simple et tenue dans la durée vaut mieux qu'un système complexe abandonné.",
+    action:"Adoptez un seul outil (agenda papier ou application simple) et une routine quotidienne de 5 minutes : noter les 3 priorités du jour. Tenez 30 jours avant d'ajouter quoi que ce soit d'autre."
+  });
+  if(d.energie <= 2) recos.push({
+    icon:'🔋', titre:'Comprendre votre baisse d\'énergie', prio:'haute',
+    constat:`Vous signalez un niveau d'énergie au travail de ${d.energie}/5.`,
+    pourquoi:"Une énergie durablement basse n'est jamais anodine. Elle peut venir d'un poste inadapté, d'un environnement pesant, ou d'une fatigue physique réelle. L'ignorer mène souvent à l'épuisement.",
+    action:"Avant tout projet de formation, faites le point : qu'est-ce qui vous épuise précisément (les tâches, les relations, le rythme, le sens) ? Un échange avec votre médecin du travail ou un accompagnement professionnel peut vous aider à y voir clair."
+  });
+  if(d.freins.includes('Le manque de confiance en moi')) recos.push({
+    icon:'💪', titre:'Reconstruire la confiance par l\'action', prio:'haute',
+    constat:"Vous identifiez le manque de confiance comme un frein principal.",
+    pourquoi:"La confiance ne précède pas l'action : elle en découle. Attendre de se sentir prêt(e) pour agir est le piège le plus courant. Chaque petite réussite concrète reconstruit l'estime de soi.",
+    action:"Fixez-vous une micro-victoire par semaine (un appel passé, une candidature envoyée, une compétence testée). Notez-les. Au bout de 2 mois, vous aurez une liste de preuves concrètes contre votre petite voix intérieure. Un coaching ou un atelier collectif peut accélérer ce travail."
+  });
+  if(d.freins.some(f => f.includes('diplômes'))) recos.push({
+    icon:'🎓', titre:'Valoriser l\'expérience plutôt que le diplôme', prio:'moyenne',
+    constat:"Vous percevez le manque de diplômes comme un frein.",
+    pourquoi:"Votre expérience professionnelle a une valeur certifiable. La VAE (Validation des Acquis de l'Expérience) permet d'obtenir un diplôme ou un titre professionnel sur la base de ce que vous avez déjà fait, sans repartir de zéro.",
+    action:`Renseignez-vous sur la VAE via le site officiel vae.gouv.fr ou un conseiller en évolution professionnelle (CEP, gratuit). De nombreux titres professionnels sont aussi accessibles ${rythme}, avec ${modalite}.`
+  });
+  if(d.freins.some(f => f.includes('ne sais pas encore'))) recos.push({
+    icon:'🧭', titre:'Clarifier votre projet avant de vous former', prio:'haute',
+    constat:"Vous ne savez pas encore précisément ce que vous voulez.",
+    pourquoi:"Se former sans projet clair, c'est souvent du temps et de l'argent investis au mauvais endroit. La clarification doit venir avant le plan d'action.",
+    action:"Ce bilan est une première étape. Pour aller plus loin : un bilan de compétences complet avec un professionnel (finançable CPF, 24h réparties sur 2-3 mois), ou un rendez-vous gratuit avec un Conseiller en Évolution Professionnelle (CEP)."
+  });
+  if(d.encadrement === 'Oui, régulièrement' && d.comm >= 4) recos.push({
+    icon:'🎤', titre:'Explorer les métiers de la transmission', prio:'moyenne',
+    constat:"Vous formez régulièrement les autres ET vous êtes très à l'aise en communication.",
+    pourquoi:"Cette combinaison est exactement le socle des métiers de la formation, du tutorat et du management de proximité — des secteurs en tension qui recrutent et valorisent l'expérience terrain.",
+    action:"Renseignez-vous sur le Titre Professionnel Formateur Professionnel d'Adultes (FPA, niveau 5) ou les fonctions de tuteur/maître d'apprentissage dans votre secteur actuel."
+  });
+  if(d.changement >= 4 && d.risque >= 4) recos.push({
+    icon:'🚀', titre:'Capitaliser sur votre profil entreprenant', prio:'moyenne',
+    constat:"Vous aimez le changement ET la prise de risque.",
+    pourquoi:"Ce profil s'épanouit mal dans les environnements trop figés. Les structures qui bougent (PME en croissance, création d'activité, postes polyvalents) correspondent davantage à votre fonctionnement naturel.",
+    action:"Si l'envie d'indépendance vous parle, testez-la sans tout quitter : micro-entreprise en parallèle, mission ponctuelle, bénévolat de compétences. Vous validerez l'envie par l'expérience réelle."
+  });
+  if(recos.length === 0) recos.push({
+    icon:'🌟', titre:'Consolider et viser plus haut', prio:'moyenne',
+    constat:"Aucun point critique n'est ressorti de votre bilan : vos dimensions clés sont solides.",
+    pourquoi:"Quand le socle est bon, le risque est la stagnation. Le meilleur moment pour évoluer, c'est quand tout va bien — pas quand on y est contraint.",
+    action:"Identifiez la compétence qui vous différencierait dans les 2 ans (expertise pointue, management, langue, certification) et engagez-vous sur un parcours concret dès ce trimestre."
+  });
+
+  return recos;
+}
+
+function buildCoherence(d) {
+  const parts = [];
+  if(d.objectif) parts.push(`<strong>Votre objectif déclaré :</strong> « ${d.objectif} ».`);
+  // Cohérence valeurs / objectif
+  if(d.valeurs.includes("L'autonomie et la liberté") && d.objectif && d.objectif.includes('évoluer dans mon emploi actuel')) {
+    parts.push("Point d'attention : vous valorisez fortement l'autonomie tout en souhaitant évoluer en interne. Vérifiez que votre entreprise actuelle peut réellement vous offrir cette marge de liberté, sinon la frustration risque de grandir.");
+  }
+  if(d.valeurs.includes('La stabilité et la sécurité') && d.risque >= 4) {
+    parts.push("Votre profil montre une tension intéressante : vous recherchez la stabilité tout en aimant le risque. Une piste : un poste stable comme base, avec des projets stimulants à côté.");
+  }
+  if(d.valeurs.includes('Aider les autres') && d.sens && d.sens.includes('utile')) {
+    parts.push("Forte cohérence détectée : le besoin d'être utile revient dans vos valeurs ET dans votre rapport au sens. Les métiers de l'accompagnement, du soin, de la formation ou du social méritent toute votre attention.");
+  }
+  if(d.dispo && d.dispo.includes('temps plein') && d.objectif && d.objectif.includes('changer de métier')) {
+    parts.push("Votre disponibilité à temps plein est un vrai atout pour une reconversion : elle ouvre l'accès aux formations intensives et raccourcit considérablement les délais de transition.");
+  }
+  if(d.dispo && d.dispo.includes('Moins de 5h') && d.objectif && d.objectif.includes('changer de métier')) {
+    parts.push("Point de vigilance : un projet de reconversion avec moins de 5h de disponibilité hebdomadaire demandera du temps. C'est possible, mais prévoyez un horizon de 12 à 24 mois et des formats très progressifs.");
+  }
+  if(parts.length <= 1) {
+    parts.push("Votre projet et vos réponses sont globalement alignés. La prochaine étape est de transformer cette cohérence en plan d'action daté.");
+  }
+  return parts.join('<br><br>');
+}
+
+// ============ GENERATION DES RESULTATS ============
 function generateResults() {
   goTo(5);
-  const prenom = document.getElementById('q_prenom')?.value || 'Vous';
-  const comm = getScaleVal('q8');
-  const orga = getScaleVal('q9');
-  const numerique = getScaleVal('q12');
-  const energie = getScaleVal('q22');
-  const risque = getScaleVal('q23');
-  const changement = getScaleVal('q19');
-  const secteurs = getSelectedTexts('q4');
-  const competencesFaites = getSelectedTexts('q6');
-  const freins = getSelectedTexts('q28');
-  const valeurs = getSelectedTexts('q26');
-  const handicaps = getSelectedTexts('q_handicap');
-  const perso = getFirstSelected('q16');
-  const equipe = getFirstSelected('q20');
-  const sens = getFirstSelected('q24');
-  const apprentissage = getFirstSelected('q14');
+  const d = {
+    prenom: document.getElementById('q_prenom')?.value || 'Vous',
+    comm: getScaleVal('q8'), orga: getScaleVal('q9'),
+    numerique: getScaleVal('q12'), energie: getScaleVal('q22'),
+    risque: getScaleVal('q23'), changement: getScaleVal('q19'),
+    secteurs: getSelectedTexts('q4'),
+    competencesFaites: getSelectedTexts('q6'),
+    freins: getSelectedTexts('q28'),
+    valeurs: getSelectedTexts('q26'),
+    handicaps: getSelectedTexts('q_handicap'),
+    perso: getFirstSelected('q16'),
+    equipe: getFirstSelected('q20'),
+    sens: getFirstSelected('q24'),
+    apprentissage: getFirstSelected('q14'),
+    objectif: getFirstSelected('q5'),
+    imprevu: getFirstSelected('q10'),
+    encadrement: getFirstSelected('q11'),
+    critiques: getFirstSelected('q21'),
+    decision: getFirstSelected('q25'),
+    dispo: getFirstSelected('q29'),
+    projet: document.getElementById('q27')?.value || ''
+  };
 
   let profileType = 'Profil Équilibré'; let profileIcon = '⚖️';
-  if(comm >= 4 && energie >= 4) { profileType = 'Profil Communicant & Dynamique'; profileIcon = '🚀'; }
-  else if(orga >= 4 && risque <= 2) { profileType = 'Profil Structuré & Fiable'; profileIcon = '🏗️'; }
-  else if(sens && sens.includes('utile')) { profileType = 'Profil Humain & Engagé'; profileIcon = '🤝'; }
-  else if(risque >= 4 && changement >= 4) { profileType = 'Profil Entrepreneur & Adaptable'; profileIcon = '🌟'; }
-  else if(numerique >= 4) { profileType = 'Profil Analytique & Numérique'; profileIcon = '🔬'; }
+  if(d.comm >= 4 && d.energie >= 4) { profileType = 'Profil Communicant & Dynamique'; profileIcon = '🚀'; }
+  else if(d.orga >= 4 && d.risque <= 2) { profileType = 'Profil Structuré & Fiable'; profileIcon = '🏗️'; }
+  else if(d.sens && d.sens.includes('utile')) { profileType = 'Profil Humain & Engagé'; profileIcon = '🤝'; }
+  else if(d.risque >= 4 && d.changement >= 4) { profileType = 'Profil Entrepreneur & Adaptable'; profileIcon = '🌟'; }
+  else if(d.numerique >= 4) { profileType = 'Profil Analytique & Numérique'; profileIcon = '🔬'; }
 
   document.getElementById('profile-banner-wrap').innerHTML = `
     <div class="profile-banner">
       <div class="profile-icon">${profileIcon}</div>
-      <div><div class="profile-name">${prenom}</div><div class="profile-type">${profileType}</div></div>
+      <div><div class="profile-name">${d.prenom}</div><div class="profile-type">${profileType}</div></div>
     </div>`;
 
   const dims = [
-    {label:'Communication', val:comm},{label:'Organisation', val:orga},
-    {label:'Numérique', val:numerique},{label:'Énergie', val:energie},
-    {label:'Adaptabilité', val:changement},{label:'Prise de risque', val:risque},
+    {label:'Communication', val:d.comm},{label:'Organisation', val:d.orga},
+    {label:'Numérique', val:d.numerique},{label:'Énergie', val:d.energie},
+    {label:'Adaptabilité', val:d.changement},{label:'Prise de risque', val:d.risque},
   ];
-  document.getElementById('scores-display').innerHTML = dims.map(d =>
-    `<div class="score-row"><div class="score-label">${d.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${(d.val/5)*100}%"></div></div><div class="score-val">${d.val}/5</div></div>`
+  document.getElementById('scores-display').innerHTML = dims.map(x =>
+    `<div class="score-row"><div class="score-label">${x.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${(x.val/5)*100}%"></div></div><div class="score-val">${x.val}/5</div></div>`
   ).join('');
 
-  let ptsForts = [];
-  if(comm>=4) ptsForts.push('Communication');
-  if(orga>=4) ptsForts.push('Organisation');
-  if(numerique>=4) ptsForts.push('Compétences numériques');
-  if(energie>=4) ptsForts.push('Énergie & Engagement');
-  if(changement>=4) ptsForts.push('Adaptabilité');
-  if(risque>=4) ptsForts.push("Prise d'initiative");
-  competencesFaites.forEach(c => { if(ptsForts.length<8) ptsForts.push(c); });
-  if(ptsForts.length===0) ptsForts=['Expérience terrain','Connaissance du monde du travail'];
-  document.getElementById('points-forts').innerHTML = [...new Set(ptsForts)].slice(0,6).map(p=>`<span class="tag green">${p}</span>`).join('');
+  // ===== ANALYSE FORCES / AXES =====
+  const analysis = buildAnalysis(d);
+
+  // Synthèse : version condensée (titres seuls)
+  document.getElementById('vs-display').innerHTML = `
+    <div class="vs-col forces">
+      <div class="vs-col-title">💪 Points forts</div>
+      ${analysis.forces.length > 0
+        ? analysis.forces.map(f => `<div class="vs-item"><strong>${f.titre}</strong></div>`).join('')
+        : '<div class="vs-empty">Voir le rapport complet pour une analyse détaillée.</div>'}
+    </div>
+    <div class="vs-col axes">
+      <div class="vs-col-title">🎯 Axes d'amélioration</div>
+      ${analysis.axes.length > 0
+        ? analysis.axes.map(a => `<div class="vs-item"><strong>${a.titre}</strong></div>`).join('')
+        : '<div class="vs-empty">Aucun axe critique détecté. Bravo !</div>'}
+    </div>`;
+
+  // Rapport : version argumentée
+  document.getElementById('rapport-vs').innerHTML = `
+    <div class="vs-grid">
+      <div class="vs-col forces">
+        <div class="vs-col-title">💪 Vos points forts</div>
+        ${analysis.forces.length > 0
+          ? analysis.forces.map(f => `<div class="vs-item"><strong>${f.titre}</strong><span>${f.arg}</span></div>`).join('')
+          : '<div class="vs-empty">Vos scores sont dans la moyenne sur toutes les dimensions. Votre force réside peut-être dans cet équilibre, ou dans des compétences que ce test ne mesure pas. Un entretien approfondi permettrait de les révéler.</div>'}
+      </div>
+      <div class="vs-col axes">
+        <div class="vs-col-title">🎯 Vos axes d'amélioration</div>
+        ${analysis.axes.length > 0
+          ? analysis.axes.map(a => `<div class="vs-item"><strong>${a.titre}</strong><span>${a.arg}</span></div>`).join('')
+          : '<div class="vs-empty">Aucun axe critique détecté dans vos réponses. Votre marge de progression se situe dans l\'approfondissement de vos forces plutôt que dans la correction de faiblesses.</div>'}
+      </div>
+    </div>`;
 
   if(radarChartInstance) { radarChartInstance.destroy(); radarChartInstance = null; }
   setTimeout(() => {
@@ -946,20 +1093,20 @@ function generateResults() {
         type:'radar',
         data:{
           labels:['Communication','Organisation','Numérique','Énergie','Adaptabilité','Audace'],
-          datasets:[{label:prenom,data:[comm,orga,numerique,energie,changement,risque],
+          datasets:[{label:d.prenom,data:[d.comm,d.orga,d.numerique,d.energie,d.changement,d.risque],
             backgroundColor:'rgba(226,86,103,0.2)',borderColor:'#E25667',
             pointBackgroundColor:'#E25667',pointBorderColor:'#fff',borderWidth:2}]
         },
         options:{
           scales:{r:{min:0,max:5,ticks:{stepSize:1,color:'#aaa',backdropColor:'transparent'},
-            grid:{color:'rgba(150,150,150,0.2)'},pointLabels:{color:'var(--text)',font:{size:12}}}},
+            grid:{color:'rgba(150,150,150,0.2)'},pointLabels:{color:'#888',font:{size:12}}}},
           plugins:{legend:{display:false}},elements:{line:{tension:0.3}}
         }
       });
     }
   }, 200);
 
-  const realHandi = handicaps.filter(h=>!h.includes('Aucune'));
+  const realHandi = d.handicaps.filter(h=>!h.includes('Aucune'));
   document.getElementById('contraintes-display').innerHTML = realHandi.length>0 ? `
     <div class="result-card"><h3>🤝 Contraintes & besoins spécifiques</h3>
     <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Nous avons bien pris en compte vos besoins spécifiques dans l'analyse.</p>
@@ -967,42 +1114,49 @@ function generateResults() {
 
   document.getElementById('rapport-perso').innerHTML = `
     <p style="margin-bottom:12px;">Votre profil dominant est : <strong style="color:var(--accent)">${profileType}</strong></p>
-    <div class="tag-wrap" style="margin-bottom:14px;">${perso?`<span class="tag">${perso}</span>`:''} ${equipe?`<span class="tag">${equipe}</span>`:''}</div>
-    <div class="reco-item"><span class="reco-icon">🔄</span><div class="reco-text"><strong>Rapport au changement</strong>${changement>=4?'Vous êtes à l\'aise avec le changement. C\'est une vraie force dans les environnements dynamiques.':changement<=2?'Vous préférez la stabilité. Des environnements structurés vous conviendront mieux.':'Vous tolérez le changement selon les situations.'}</div></div>
-    <div class="reco-item"><span class="reco-icon">🎯</span><div class="reco-text"><strong>Prise de décision</strong>${getFirstSelected('q25')||'Non renseigné'}</div></div>
-    <div class="reco-item"><span class="reco-icon">📣</span><div class="reco-text"><strong>Rapport aux critiques</strong>${getFirstSelected('q21')||'Non renseigné'}</div></div>`;
+    <div class="tag-wrap" style="margin-bottom:14px;">${d.perso?`<span class="tag">${d.perso}</span>`:''} ${d.equipe?`<span class="tag">${d.equipe}</span>`:''}</div>
+    <div class="reco-item"><span class="reco-icon">🔄</span><div class="reco-text"><strong>Rapport au changement</strong>${d.changement>=4?'Vous êtes à l\'aise avec le changement. C\'est une vraie force dans les environnements dynamiques.':d.changement<=2?'Vous préférez la stabilité. Des environnements structurés vous conviendront mieux.':'Vous tolérez le changement selon les situations.'}</div></div>
+    <div class="reco-item"><span class="reco-icon">🎯</span><div class="reco-text"><strong>Prise de décision</strong>${d.decision||'Non renseigné'}</div></div>
+    <div class="reco-item"><span class="reco-icon">📣</span><div class="reco-text"><strong>Rapport aux critiques</strong>${d.critiques||'Non renseigné'}</div></div>`;
 
-  const compHtml = competencesFaites.length>0
-    ? `<div class="tag-wrap">${competencesFaites.map(c=>`<span class="tag green">${c}</span>`).join('')}</div>`
+  const compHtml = d.competencesFaites.length>0
+    ? `<div class="tag-wrap">${d.competencesFaites.map(c=>`<span class="tag green">${c}</span>`).join('')}</div>`
     : '<p style="color:var(--text-muted)">Non renseigné</p>';
   document.getElementById('rapport-competences').innerHTML = `
     <p style="margin-bottom:12px;"><strong>Activités maîtrisées :</strong></p>${compHtml}
-    <div class="reco-item" style="margin-top:14px;"><span class="reco-icon">📚</span><div class="reco-text"><strong>Style d'apprentissage préféré</strong>${apprentissage||'Non renseigné'}</div></div>
-    <div class="reco-item"><span class="reco-icon">🌐</span><div class="reco-text"><strong>Secteurs d'expérience</strong>${secteurs.length>0?secteurs.join(', '):'Non renseigné'}</div></div>`;
+    <div class="reco-item" style="margin-top:14px;"><span class="reco-icon">📚</span><div class="reco-text"><strong>Style d'apprentissage préféré</strong>${d.apprentissage||'Non renseigné'}</div></div>
+    <div class="reco-item"><span class="reco-icon">🌐</span><div class="reco-text"><strong>Secteurs d'expérience</strong>${d.secteurs.length>0?d.secteurs.join(', '):'Non renseigné'}</div></div>`;
 
-  const projet = document.getElementById('q27')?.value||'';
   document.getElementById('rapport-aspirations').innerHTML = `
     <p style="margin-bottom:10px;"><strong>Ce qui compte pour vous :</strong></p>
-    ${valeurs.length>0?`<div class="tag-wrap">${valeurs.map(v=>`<span class="tag">${v}</span>`).join('')}</div>`:'<p style="color:var(--text-muted)">Non renseigné</p>'}
-    ${projet?`<div class="reco-item" style="margin-top:14px;"><span class="reco-icon">🔭</span><div class="reco-text"><strong>Votre projet à horizon 2-3 ans</strong>${projet}</div></div>`:''}
-    <div class="reco-item"><span class="reco-icon">💡</span><div class="reco-text"><strong>Ce qui donne du sens à votre travail</strong>${sens||'Non renseigné'}</div></div>`;
+    ${d.valeurs.length>0?`<div class="tag-wrap">${d.valeurs.map(v=>`<span class="tag">${v}</span>`).join('')}</div>`:'<p style="color:var(--text-muted)">Non renseigné</p>'}
+    ${d.projet?`<div class="reco-item" style="margin-top:14px;"><span class="reco-icon">🔭</span><div class="reco-text"><strong>Votre projet à horizon 2-3 ans</strong>${d.projet}</div></div>`:''}
+    <div class="reco-item"><span class="reco-icon">💡</span><div class="reco-text"><strong>Ce qui donne du sens à votre travail</strong>${d.sens||'Non renseigné'}</div></div>`;
 
-  let recos = [];
-  if(comm<=2) recos.push({icon:'🗣️',title:'Développer la communication',text:'Des formations en prise de parole ou communication interpersonnelle pourraient vous être très bénéfiques.'});
-  if(orga<=2) recos.push({icon:'🗂️',title:'Renforcer l\'organisation',text:'Des outils de gestion du temps et de planification peuvent vous aider à structurer votre activité.'});
-  if(numerique<=2) recos.push({icon:'💻',title:'Monter en compétences numériques',text:'Une formation aux outils bureautiques ou numériques de base pourrait ouvrir de nouvelles opportunités.'});
-  if(freins.includes('Le manque de confiance en moi')) recos.push({icon:'💪',title:'Travailler sur la confiance en soi',text:'Un accompagnement en coaching ou développement personnel peut faire une vraie différence.'});
-  if(freins.some(f=>f.includes('diplômes'))) recos.push({icon:'🎓',title:'Explorer les certifications accessibles',text:'De nombreuses certifications professionnelles sont accessibles en formation courte ou via la VAE.'});
-  if(recos.length===0) recos.push({icon:'🌟',title:'Maintenir votre dynamique',text:'Votre profil est solide. L\'enjeu est de trouver le bon environnement qui valorisera vos forces.'});
+  // ===== COHERENCE =====
+  document.getElementById('rapport-coherence').innerHTML = `<div class="coherence-box">${buildCoherence(d)}</div>`;
 
-  document.getElementById('rapport-recos').innerHTML =
-    `${freins.length>0?`<div class="tag-wrap" style="margin-bottom:16px;">${freins.map(f=>`<span class="tag grey">${f}</span>`).join('')}</div>`:''}
-    ${recos.map(r=>`<div class="reco-item"><span class="reco-icon">${r.icon}</span><div class="reco-text"><strong>${r.title}</strong>${r.text}</div></div>`).join('')}`;
+  // ===== RECOMMANDATIONS ARGUMENTEES =====
+  const recos = buildRecommendations(d);
+  // Tri : priorité haute d'abord
+  recos.sort((a,b) => (a.prio === 'haute' ? -1 : 1) - (b.prio === 'haute' ? -1 : 1));
+  document.getElementById('rapport-recos').innerHTML = `
+    ${d.freins.length>0?`<p style="font-size:14px;color:var(--text-muted);margin-bottom:8px;">Freins que vous avez identifiés :</p><div class="tag-wrap" style="margin-bottom:18px;">${d.freins.map(f=>`<span class="tag grey">${f}</span>`).join('')}</div>`:''}
+    ${recos.map(r=>`
+      <div class="reco-card">
+        <div class="reco-card-title">
+          <span>${r.icon}</span> ${r.titre}
+          <span class="priority-pill ${r.prio}">${r.prio === 'haute' ? 'Priorité haute' : 'À explorer'}</span>
+        </div>
+        <div class="reco-line"><span class="reco-label constat">Constat</span><span class="reco-content">${r.constat}</span></div>
+        <div class="reco-line"><span class="reco-label pourquoi">Pourquoi</span><span class="reco-content">${r.pourquoi}</span></div>
+        <div class="reco-line"><span class="reco-label action">Action</span><span class="reco-content">${r.action}</span></div>
+      </div>`).join('')}`;
 
   document.getElementById('rapport-handicap-section').innerHTML = realHandi.length>0 ? `
     <div class="result-card"><h3>🤝 Prise en compte de vos besoins spécifiques</h3>
     <p style="font-size:14px;margin-bottom:12px;">Les points ci-dessous sont importants à considérer dans tout projet de formation ou d'emploi.</p>
-    ${realHandi.map(h=>`<div class="reco-item"><span class="reco-icon">⚠️</span><div class="reco-text"><strong>${h}</strong>Informez votre conseiller(ère) ou organisme de formation afin que des aménagements adaptés puissent être mis en place.</div></div>`).join('')}
+    ${realHandi.map(h=>`<div class="reco-item"><span class="reco-icon">⚠️</span><div class="reco-text"><strong>${h}</strong>Informez votre conseiller(ère) ou organisme de formation afin que des aménagements adaptés puissent être mis en place. Pensez aussi à la RQTH si ce n'est pas déjà fait : elle ouvre des droits concrets (aménagements, financements, accompagnement spécialisé).</div></div>`).join('')}
     </div>` : '';
 
   updateProgress(5);
