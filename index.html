@@ -293,6 +293,20 @@
       </div>
     </div>
 
+    <div class="question-block">
+      <div class="question-num">Votre métier</div>
+      <div class="question-text">Quel est votre métier actuel, ou le dernier métier que vous avez exercé ?</div>
+      <div class="question-falc">Écrivez le nom de votre travail. Par exemple : comptable, vendeuse, chauffeur...</div>
+      <input type="text" id="q_metier" placeholder="Ex : comptable, vendeur, aide-soignante...">
+      <div class="question-text" style="margin-top:18px;">Souhaitez-vous continuer dans ce métier ?</div>
+      <div class="question-falc">Voulez-vous garder ce métier, ou en changer ?</div>
+      <div class="options-grid" id="q_metier_choix">
+        <label class="opt-label"><span class="opt-check"></span> Oui, je veux évoluer dans ce métier</label>
+        <label class="opt-label"><span class="opt-check"></span> Non, je veux changer de métier</label>
+        <label class="opt-label"><span class="opt-check"></span> Je ne sais pas encore</label>
+      </div>
+    </div>
+
     <div class="handicap-box">
       <div class="hb-title">🤝 Vos besoins spécifiques (facultatif)</div>
       <p>Ces informations restent confidentielles. Elles permettent d'adapter votre bilan et les pistes de métiers à votre situation réelle.</p>
@@ -1005,6 +1019,35 @@ function computeRiasec(d) {
 }
 
 // ====== MOTEUR METIERS ======
+const famillesMetiers = [
+  ['comptab','paie','fiscal','facturation'],
+  ['vente','vendeur','vendeuse','commercial','caisse','négociat'],
+  ['formateur','formatrice','formation','enseignant','professeur','coach'],
+  ['secrétaire','assistant','accueil','administratif'],
+  ['développeur','programmeur','informati','web','réseau'],
+  ['auxiliaire','aide-soignant','aide à domicile','advf','accompagnant','éducateur','éducatrice'],
+  ['logisti','cariste','magasinier','entreposage','préparateur'],
+  ['maintenance','électricien','mécanicien','bâtiment'],
+  ['manager','responsable','directeur','directrice','chef','gérant'],
+  ['serveur','serveuse','cuisinier','réception','hôtel','restaurat'],
+  ['insertion','conseiller emploi'],
+  ['graphiste','designer','infographiste','communication','community'],
+];
+function memeFamille(txtA, txtB) {
+  const a = (txtA||'').toLowerCase(); const b = (txtB||'').toLowerCase();
+  if(!a || !b) return false;
+  for(const fam of famillesMetiers) {
+    if(fam.some(k=>a.includes(k)) && fam.some(k=>b.includes(k))) return true;
+  }
+  return false;
+}
+function memeMetier(txtA, txtB) {
+  const a = (txtA||'').toLowerCase(); const b = (txtB||'').toLowerCase();
+  if(!a || !b) return false;
+  const mots = a.split(/[\s,\/()]+/).filter(w=>w.length>4);
+  return mots.some(w=>b.includes(w));
+}
+
 function buildMetiers(d, riasec) {
   // Contraintes d'exclusion
   const avoid = d.avoid || [];
@@ -1013,12 +1056,20 @@ function buildMetiers(d, riasec) {
   const noEcran = avoid.some(a=>a.includes('écran'));
   const noPub = avoid.some(a=>a.includes('public'));
 
+  const metierActuel = (d.metierActuel||'').trim();
+  const wantsChange = (d.metierChoix && d.metierChoix.includes('changer')) || (d.objectif && d.objectif.includes('changer'));
+  const wantsStay = d.metierChoix && d.metierChoix.includes('évoluer');
+
   // Top lettres RIASEC
   const sorted = Object.entries(riasec).sort((a,b)=>b[1]-a[1]);
   const topLetters = sorted.slice(0,3).map(x=>x[0]);
 
   const scored = metiers
     .filter(m => !(noPhys && m.phys) && !(noDebout && m.debout) && !(noEcran && m.ecran) && !(noPub && m.pub))
+    // Jamais recommander le métier que la personne exerce déjà (redite)
+    .filter(m => !memeMetier(metierActuel, m.n))
+    // Si la personne veut changer : exclure toute la famille professionnelle actuelle
+    .filter(m => !(wantsChange && memeFamille(metierActuel, m.n + ' ' + m.t)))
     .map(m => {
       let score = 0;
       const reasons = [];
@@ -1029,15 +1080,24 @@ function buildMetiers(d, riasec) {
           reasons.push(riasecNames[letter].split(' (')[0]);
         }
       });
-      // Bonus secteur connu
       const knownSector = m.s.some(sec => d.secteurs.some(us => us.includes(sec)));
-      if(knownSector) { score += 5; reasons.push('secteur que vous connaissez déjà'); }
+      if(wantsChange) {
+        // Envie de changement : on favorise l'ouverture
+        if(knownSector) { score -= 3; }
+        else { score += 4; reasons.push('un nouveau domaine à découvrir'); }
+      } else {
+        if(knownSector) { score += 5; reasons.push('secteur que vous connaissez déjà'); }
+        // Envie d'évoluer : bonus aux métiers de la même famille (progression)
+        if(wantsStay && memeFamille(metierActuel, m.n + ' ' + m.t)) {
+          score += 6; reasons.push('évolution naturelle depuis votre métier actuel');
+        }
+      }
       return {m, score, reasons:[...new Set(reasons)], knownSector};
     })
     .filter(x => x.score > 0)
     .sort((a,b)=>b.score-a.score);
 
-  return scored.slice(0,5);
+  return scored.slice(0,7);
 }
 
 // ====== ANALYSE FORCES / AXES ======
@@ -1175,6 +1235,8 @@ function generateResults() {
     encadrement: getFirstSelected('q11'), critiques: getFirstSelected('q21'),
     decision: getFirstSelected('q25'), dispo: getFirstSelected('q29'),
     projet: document.getElementById('q27')?.value || '',
+    metierActuel: document.getElementById('q_metier')?.value || '',
+    metierChoix: getFirstSelected('q_metier_choix'),
     avoid: mode==='deep' ? getSelectedTexts('qc1').filter(a=>!a.includes('Rien')) : [],
     teletravail: mode==='deep' ? getFirstSelected('qc2') : null,
     structure: mode==='deep' ? getFirstSelected('qc5') : null,
@@ -1303,8 +1365,11 @@ function generateResults() {
   // ===== PISTES METIERS =====
   const pistes = buildMetiers(d, riasec);
   const hasExp = d.exp && (d.exp.includes('5 à 15') || d.exp.includes('Plus de 15'));
+  const wantsChangeNote = ((d.metierChoix && d.metierChoix.includes('changer')) || (d.objectif && d.objectif.includes('changer'))) && d.metierActuel;
+  const changeNote = wantsChangeNote ? `<div class="coherence-box">🔄 <strong>Vous souhaitez changer de voie :</strong> nous avons donc écarté les métiers trop proches de « ${d.metierActuel} » et favorisé l'ouverture vers de nouveaux domaines, en cohérence avec vos intérêts et vos contraintes.</div>` : '';
   if(pistes.length > 0) {
     document.getElementById('metiers-display').innerHTML = `
+      ${changeNote}
       ${mode==='express' ? '<div class="coherence-box" style="border-color:rgba(255,193,7,0.4);background:rgba(255,193,7,0.06);">💡 Ces pistes sont estimées à partir de vos activités et de votre personnalité. Pour des suggestions plus précises et personnalisées, refaites le bilan en version <strong>Approfondie</strong> (module intérêts professionnels + conditions de travail).</div>' : ''}
       ${pistes.map((p,i)=>`
         <div class="metier-card">
