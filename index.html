@@ -20,30 +20,13 @@
     --success: #2e9e7e; --warn: #b8860b; --shadow: rgba(0,0,0,0.1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
-    min-height: 100vh; font-size: 17px; line-height: 1.7;
-    transition: background .3s, color .3s;
-  }
-  header {
-    background: var(--surface); border-bottom: 2px solid var(--accent);
-    padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; box-shadow: 0 2px 8px var(--shadow); position: sticky; top: 0; z-index: 20;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 17px; line-height: 1.7; transition: background .3s, color .3s; }
+  header { background: var(--surface); border-bottom: 2px solid var(--accent); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; box-shadow: 0 2px 8px var(--shadow); position: sticky; top: 0; z-index: 20; }
   .header-left { display: flex; align-items: center; gap: 14px; }
-  .logo-mark {
-    width: 44px; height: 44px; background: var(--accent); border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0;
-  }
+  .logo-mark { width: 44px; height: 44px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; }
   .logo-text .brand { font-size: 18px; font-weight: 700; color: var(--text); }
   .logo-text .tagline { font-size: 11px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
-  .theme-toggle {
-    display: flex; align-items: center; gap: 8px; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px;
-    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px;
-    color: var(--text-muted); transition: all .2s; white-space: nowrap;
-  }
+  .theme-toggle { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-muted); transition: all .2s; white-space: nowrap; }
   .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
   .theme-icon { font-size: 16px; }
   .progress-bar-wrap { background: var(--surface); padding: 12px 32px 0; border-bottom: 1px solid var(--border); }
@@ -58,65 +41,34 @@
   .section { display: none; }
   .section.active { display: block; }
   .section-header { margin-bottom: 28px; }
-  .section-badge {
-    display: inline-block; background: var(--accent); color: #fff;
-    font-size: 11px; font-weight: 600; letter-spacing: 1px;
-    text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
-  }
+  .section-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; }
   .section-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
-  .section-desc {
-    font-size: 15px; color: var(--text-muted); background: var(--surface2);
-    border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0;
-  }
-  .question-block {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 22px 24px; margin-bottom: 20px;
-    transition: border-color .2s, box-shadow .2s;
-  }
+  .section-desc { font-size: 15px; color: var(--text-muted); background: var(--surface2); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; }
+  .question-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 20px; transition: border-color .2s, box-shadow .2s; }
   .question-block:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(226,86,103,0.1); }
   .question-num { font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
   .question-text { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
   .question-falc { font-size: 14px; color: var(--text-muted); font-style: italic; margin-bottom: 14px; }
-  input[type="text"], textarea {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
-    font-size: 16px; padding: 12px 14px; outline: none; transition: border-color .2s;
-  }
+  input[type="text"], textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; padding: 12px 14px; outline: none; transition: border-color .2s; }
   input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
   textarea { resize: vertical; min-height: 90px; }
   .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .options-grid.single { grid-template-columns: 1fr; }
-  .opt-label {
-    display: flex; align-items: flex-start; gap: 12px;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px 14px; cursor: pointer;
-    transition: border-color .2s, background .2s; font-size: 15px; user-select: none;
-  }
+  .opt-label { display: flex; align-items: flex-start; gap: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: border-color .2s, background .2s; font-size: 15px; user-select: none; }
   .opt-label:hover { border-color: var(--accent); }
   .opt-label.selected { border-color: var(--accent); background: rgba(226,86,103,0.1); }
-  .opt-check {
-    width: 20px; height: 20px; flex-shrink: 0; border: 2px solid var(--border);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    margin-top: 2px; transition: all .2s; pointer-events: none;
-  }
+  .opt-check { width: 20px; height: 20px; flex-shrink: 0; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; transition: all .2s; pointer-events: none; }
   .opt-label.selected .opt-check { background: var(--accent); border-color: var(--accent); }
   .opt-check::after { content: ''; display: none; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
   .opt-label.selected .opt-check::after { display: block; }
   .opt-check.square { border-radius: 4px; }
   .opt-check.square::after { width: 10px; height: 6px; background: none; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-2px); border-radius: 0; }
   .scale-wrap { display: flex; gap: 8px; align-items: center; }
-  .scale-btn {
-    flex: 1; padding: 10px 0; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
-    font-size: 15px; cursor: pointer; transition: all .2s; text-align: center;
-  }
+  .scale-btn { flex: 1; padding: 10px 0; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; cursor: pointer; transition: all .2s; text-align: center; }
   .scale-btn:hover { border-color: var(--accent); }
   .scale-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
   .scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
-  .handicap-box {
-    background: var(--surface2); border: 1px dashed var(--accent);
-    border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
-  }
+  .handicap-box { background: var(--surface2); border: 1px dashed var(--accent); border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
   .handicap-box .hb-title { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
   .handicap-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
   .nav-btns { display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; }
@@ -128,15 +80,22 @@
   .welcome-card { background: var(--surface); border-radius: 16px; padding: 40px 36px; text-align: center; border: 1px solid var(--border); }
   .welcome-card h1 { font-size: 30px; font-weight: 700; margin-bottom: 12px; }
   .welcome-card .sub { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; }
-  .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 32px; }
-  .info-card { background: var(--surface2); border-radius: 10px; padding: 16px 12px; font-size: 14px; }
-  .info-card .ic-num { font-size: 24px; font-weight: 700; color: var(--accent); }
-  .info-card .ic-label { color: var(--text-muted); margin-top: 4px; }
-  .falc-note { background: rgba(226,86,103,0.08); border: 1px solid rgba(226,86,103,0.3); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--text-muted); margin-bottom: 28px; text-align: left; }
+  .falc-note { background: rgba(226,86,103,0.08); border: 1px solid rgba(226,86,103,0.3); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--text-muted); margin-bottom: 24px; text-align: left; }
   .falc-note strong { color: var(--accent); }
+  .disclaimer { font-size: 12px; color: var(--text-muted); margin-top: 18px; line-height: 1.5; }
+
+  /* MODE CARDS */
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .mode-card { background: var(--surface2); border: 2px solid var(--border); border-radius: 14px; padding: 24px 20px; cursor: pointer; transition: all .2s; text-align: left; }
+  .mode-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .mode-card .mc-icon { font-size: 32px; margin-bottom: 10px; }
+  .mode-card .mc-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .mode-card .mc-meta { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  .mode-card .mc-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
   #section-result { display: none; }
   #section-result.active { display: block; }
-  .result-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+  .result-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
   .rtab { padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 15px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); transition: all .2s; }
   .rtab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   .rtab-content { display: none; }
@@ -164,8 +123,6 @@
   .profile-type { font-size: 15px; color: rgba(255,255,255,0.85); }
   .pdf-btn { display: flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 14px 24px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 24px; transition: background .2s; }
   .pdf-btn:hover { background: var(--accent-light); }
-
-  /* ===== FORCES VS AXES ===== */
   .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .vs-col { background: var(--surface2); border-radius: 10px; padding: 16px; }
   .vs-col.forces { border-top: 3px solid var(--success); }
@@ -178,60 +135,50 @@
   .vs-item strong { display: block; font-size: 14px; margin-bottom: 2px; }
   .vs-item span { color: var(--text-muted); font-size: 13px; line-height: 1.5; display: block; }
   .vs-empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
-
-  /* ===== RECOMMANDATIONS ARGUMENTÉES ===== */
-  .reco-card {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-left: 4px solid var(--accent); border-radius: 8px;
-    padding: 18px 20px; margin-bottom: 14px;
-  }
-  .reco-card-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .reco-card { background: var(--surface2); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; }
+  .reco-card-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .reco-line { display: flex; gap: 10px; margin-bottom: 8px; font-size: 14px; }
   .reco-line:last-child { margin-bottom: 0; }
-  .reco-label {
-    flex-shrink: 0; width: 92px; font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .5px; padding-top: 2px;
-  }
+  .reco-label { flex-shrink: 0; width: 92px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding-top: 2px; }
   .reco-label.constat { color: var(--text-muted); }
   .reco-label.pourquoi { color: var(--accent); }
   .reco-label.action { color: var(--success); }
   .reco-content { flex: 1; line-height: 1.55; }
-  .priority-pill {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 12px; letter-spacing: .5px;
-  }
+  .priority-pill { font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 3px 10px; border-radius: 12px; letter-spacing: .5px; }
   .priority-pill.haute { background: rgba(226,86,103,0.2); color: var(--accent-light); border: 1px solid rgba(226,86,103,0.5); }
   .priority-pill.moyenne { background: rgba(255,193,7,0.15); color: var(--warn); border: 1px solid rgba(255,193,7,0.4); }
-  .coherence-box {
-    background: rgba(76,175,147,0.08); border: 1px solid rgba(76,175,147,0.3);
-    border-radius: 8px; padding: 16px 18px; font-size: 14px; line-height: 1.6;
-    margin-bottom: 16px;
-  }
+  .coherence-box { background: rgba(76,175,147,0.08); border: 1px solid rgba(76,175,147,0.3); border-radius: 8px; padding: 16px 18px; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .coherence-box strong { color: var(--success); }
 
-  footer {
-    background: var(--surface); border-top: 1px solid var(--border);
-    padding: 18px 32px; text-align: center; font-size: 13px; color: var(--text-muted);
-  }
+  /* METIERS */
+  .metier-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .metier-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .metier-nom { font-size: 17px; font-weight: 700; }
+  .match-pill { font-size: 11px; font-weight: 700; background: rgba(76,175,147,0.15); color: var(--success); border: 1px solid rgba(76,175,147,0.4); padding: 4px 12px; border-radius: 14px; }
+  .metier-row { display: flex; gap: 10px; font-size: 14px; margin-bottom: 6px; }
+  .metier-row:last-child { margin-bottom: 0; }
+  .metier-label { flex-shrink: 0; width: 92px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); padding-top: 2px; }
+  .metier-content { flex: 1; line-height: 1.5; }
+  .metier-content .cert { color: var(--accent-light); font-weight: 600; }
+
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 18px 32px; text-align: center; font-size: 13px; color: var(--text-muted); }
   footer strong { color: var(--accent); }
   footer .footer-sep { margin: 0 8px; opacity: .4; }
 
   @media(max-width: 540px) {
     .options-grid { grid-template-columns: 1fr; }
-    .info-grid { grid-template-columns: 1fr 1fr; }
     .scale-btn { font-size: 13px; padding: 8px 0; }
     .section-title { font-size: 21px; }
     header { padding: 12px 16px; }
     .theme-toggle span:not(.theme-icon) { display: none; }
-    .vs-grid { grid-template-columns: 1fr; }
-    .reco-line { flex-direction: column; gap: 2px; }
-    .reco-label { width: auto; }
+    .vs-grid, .mode-grid { grid-template-columns: 1fr; }
+    .reco-line, .metier-row { flex-direction: column; gap: 2px; }
+    .reco-label, .metier-label { width: auto; }
   }
   @media print {
     header, .progress-bar-wrap, .nav-btns, .result-tabs, .pdf-btn, .theme-toggle { display: none !important; }
     body { background: #fff !important; color: #111 !important; }
-    .result-card { border: 1px solid #ddd; page-break-inside: avoid; }
-    .reco-card { page-break-inside: avoid; }
+    .result-card, .reco-card, .metier-card { page-break-inside: avoid; border: 1px solid #ddd; }
     footer { color: #555 !important; border-top: 1px solid #ccc; }
   }
 </style>
@@ -257,44 +204,43 @@
     <span id="step-label-txt">Accueil</span>
     <span id="progress-pct">0%</span>
   </div>
-  <div class="progress-steps">
-    <div class="step-dot" id="dot0"></div>
-    <div class="step-dot" id="dot1"></div>
-    <div class="step-dot" id="dot2"></div>
-    <div class="step-dot" id="dot3"></div>
-    <div class="step-dot" id="dot4"></div>
-    <div class="step-dot" id="dot5"></div>
-  </div>
+  <div class="progress-steps" id="progress-steps"></div>
 </div>
 
 <div class="container">
 
-  <!-- WELCOME -->
+  <!-- WELCOME + CHOIX DU MODE -->
   <div class="section active" id="section-0">
     <div class="welcome-card">
       <div style="font-size:48px;margin-bottom:16px;">🧭</div>
       <h1>Bilan de Compétences</h1>
       <p class="sub">Ce bilan va vous aider à mieux vous connaître.<br>Il est fait pour les adultes qui ont déjà travaillé.</p>
-      <div class="info-grid">
-        <div class="info-card"><div class="ic-num">30</div><div class="ic-label">Questions</div></div>
-        <div class="info-card"><div class="ic-num">~25</div><div class="ic-label">Minutes</div></div>
-        <div class="info-card"><div class="ic-num">4</div><div class="ic-label">Modules</div></div>
-      </div>
       <div class="falc-note">
-        <strong>Ce test est pour vous si :</strong><br>
-        ✔ Vous avez déjà eu un emploi<br>
-        ✔ Vous voulez mieux comprendre ce que vous savez faire<br>
-        ✔ Vous réfléchissez à votre avenir professionnel<br><br>
-        <strong>Comment faire :</strong> Lisez chaque question. Choisissez la réponse qui vous ressemble le plus. Il n'y a pas de bonne ou mauvaise réponse.
+        <strong>Comment faire :</strong> Lisez chaque question. Choisissez la réponse qui vous ressemble le plus. Il n'y a pas de bonne ou mauvaise réponse.<br><br>
+        <strong>Choisissez votre parcours :</strong> Le bilan Express est rapide. Le bilan Approfondi est plus long, mais il vous donne aussi des pistes de métiers et de formations.
       </div>
-      <button class="btn btn-next" style="width:100%;font-size:18px;padding:16px;" onclick="goTo(1)">Commencer le bilan →</button>
+      <div class="mode-grid">
+        <div class="mode-card" onclick="startTest('express')">
+          <div class="mc-icon">⚡</div>
+          <div class="mc-title">Bilan Express</div>
+          <div class="mc-meta">30 questions · ~25 min</div>
+          <div class="mc-desc">Vos forces, votre personnalité, vos axes d'amélioration et des recommandations personnalisées.</div>
+        </div>
+        <div class="mode-card" onclick="startTest('deep')">
+          <div class="mc-icon">🔬</div>
+          <div class="mc-title">Bilan Approfondi</div>
+          <div class="mc-meta">54 questions · ~45 min</div>
+          <div class="mc-desc">Tout le bilan Express + vos intérêts professionnels (RIASEC) + vos conditions de travail idéales + des pistes de métiers et de certifications adaptées à votre profil.</div>
+        </div>
+      </div>
+      <p class="disclaimer">⚠️ Cet outil est un auto-diagnostic. Il ne remplace pas un bilan de compétences officiel réalisé avec un professionnel de l'accompagnement.</p>
     </div>
   </div>
 
   <!-- MODULE 1 -->
   <div class="section" id="section-1">
     <div class="section-header">
-      <div class="section-badge">Module 1 / 4</div>
+      <div class="section-badge">Module 1</div>
       <div class="section-title">Qui êtes-vous ?</div>
       <div class="section-desc">Ces premières questions permettent de mieux vous situer. Il n'y a rien de compliqué. Répondez simplement.</div>
     </div>
@@ -334,7 +280,7 @@
     <div class="question-block">
       <div class="question-num">Question 4</div>
       <div class="question-text">Dans quel(s) secteur(s) avez-vous principalement travaillé ?</div>
-      <div class="question-falc">Dans quel domaine de travail avez-vous le plus d'expérience ? Vous pouvez cocher plusieurs réponses.</div>
+      <div class="question-falc">Dans quel domaine avez-vous le plus d'expérience ? Vous pouvez cocher plusieurs réponses.</div>
       <div class="options-grid" id="q4">
         <label class="opt-label"><span class="opt-check square"></span> Commerce / Vente</label>
         <label class="opt-label"><span class="opt-check square"></span> Industrie / BTP / Logistique</label>
@@ -349,9 +295,9 @@
 
     <div class="handicap-box">
       <div class="hb-title">🤝 Vos besoins spécifiques (facultatif)</div>
-      <p>Ces informations restent confidentielles. Elles permettent d'adapter votre bilan à votre situation réelle.</p>
+      <p>Ces informations restent confidentielles. Elles permettent d'adapter votre bilan et les pistes de métiers à votre situation réelle.</p>
       <div class="question-text" style="font-size:15px;margin-bottom:10px;">Avez-vous des contraintes particulières liées à votre santé ou votre situation ?</div>
-      <div class="question-falc" style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Cochez ce qui vous correspond. Vous pouvez cocher plusieurs cases.</div>
+      <div class="question-falc" style="font-size:13px;margin-bottom:12px;">Cochez ce qui vous correspond. Vous pouvez cocher plusieurs cases.</div>
       <div class="options-grid" id="q_handicap">
         <label class="opt-label"><span class="opt-check square"></span> Handicap moteur (mobilité réduite)</label>
         <label class="opt-label"><span class="opt-check square"></span> Troubles de la lecture / dyslexie</label>
@@ -384,7 +330,7 @@
   <!-- MODULE 2 -->
   <div class="section" id="section-2">
     <div class="section-header">
-      <div class="section-badge">Module 2 / 4</div>
+      <div class="section-badge">Module 2</div>
       <div class="section-title">Vos compétences</div>
       <div class="section-desc">Ce que vous savez faire. Ce que vous avez appris en travaillant. Pensez à vos expériences passées pour répondre.</div>
     </div>
@@ -417,11 +363,7 @@
       <div class="question-text">Comment évaluez-vous votre niveau de communication avec les autres ?</div>
       <div class="question-falc">Est-ce que vous communiquez facilement avec les gens autour de vous ?</div>
       <div class="scale-wrap" id="q8">
-        <button class="scale-btn" onclick="selectScale('q8',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q8',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q8',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q8',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q8',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q8',this,1)">1</button><button class="scale-btn" onclick="selectScale('q8',this,2)">2</button><button class="scale-btn" onclick="selectScale('q8',this,3)">3</button><button class="scale-btn" onclick="selectScale('q8',this,4)">4</button><button class="scale-btn" onclick="selectScale('q8',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>Difficile pour moi</span><span>Très à l'aise</span></div>
     </div>
@@ -431,11 +373,7 @@
       <div class="question-text">Comment évaluez-vous votre capacité à vous organiser seul(e) ?</div>
       <div class="question-falc">Quand personne ne vous dit quoi faire, est-ce que vous vous organisez bien ?</div>
       <div class="scale-wrap" id="q9">
-        <button class="scale-btn" onclick="selectScale('q9',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q9',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q9',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q9',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q9',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q9',this,1)">1</button><button class="scale-btn" onclick="selectScale('q9',this,2)">2</button><button class="scale-btn" onclick="selectScale('q9',this,3)">3</button><button class="scale-btn" onclick="selectScale('q9',this,4)">4</button><button class="scale-btn" onclick="selectScale('q9',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>J'ai du mal</span><span>Très autonome</span></div>
     </div>
@@ -443,7 +381,7 @@
     <div class="question-block">
       <div class="question-num">Question 10</div>
       <div class="question-text">Comment gérez-vous les situations imprévues ou stressantes au travail ?</div>
-      <div class="question-falc">Quand quelque chose d'inattendu arrive au travail, comment vous réagissez ?</div>
+      <div class="question-falc">Quand quelque chose d'inattendu arrive, comment vous réagissez ?</div>
       <div class="options-grid single" id="q10">
         <label class="opt-label"><span class="opt-check"></span> Je prends du recul et j'analyse avant d'agir</label>
         <label class="opt-label"><span class="opt-check"></span> J'agis rapidement et je m'adapte en cours de route</label>
@@ -456,7 +394,7 @@
     <div class="question-block">
       <div class="question-num">Question 11</div>
       <div class="question-text">Avez-vous déjà encadré ou formé d'autres personnes dans votre travail ?</div>
-      <div class="question-falc">Avez-vous déjà expliqué votre travail à quelqu'un, ou aidé un(e) collègue à apprendre ?</div>
+      <div class="question-falc">Avez-vous déjà aidé un(e) collègue à apprendre son travail ?</div>
       <div class="options-grid" id="q11">
         <label class="opt-label"><span class="opt-check"></span> Oui, régulièrement</label>
         <label class="opt-label"><span class="opt-check"></span> Oui, parfois</label>
@@ -470,11 +408,7 @@
       <div class="question-text">Quel est votre niveau avec les outils numériques ?</div>
       <div class="question-falc">Comment vous en sortez-vous avec un ordinateur ou un smartphone pour travailler ?</div>
       <div class="scale-wrap" id="q12">
-        <button class="scale-btn" onclick="selectScale('q12',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q12',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q12',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q12',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q12',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q12',this,1)">1</button><button class="scale-btn" onclick="selectScale('q12',this,2)">2</button><button class="scale-btn" onclick="selectScale('q12',this,3)">3</button><button class="scale-btn" onclick="selectScale('q12',this,4)">4</button><button class="scale-btn" onclick="selectScale('q12',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>Débutant(e)</span><span>Très à l'aise</span></div>
     </div>
@@ -494,7 +428,7 @@
     <div class="question-block">
       <div class="question-num">Question 14</div>
       <div class="question-text">Comment apprenez-vous le mieux de nouvelles choses ?</div>
-      <div class="question-falc">Quelle est la meilleure façon pour vous d'apprendre quelque chose de nouveau ?</div>
+      <div class="question-falc">Quelle est la meilleure façon pour vous d'apprendre ?</div>
       <div class="options-grid single" id="q14">
         <label class="opt-label"><span class="opt-check"></span> En faisant directement, en pratiquant</label>
         <label class="opt-label"><span class="opt-check"></span> En regardant quelqu'un faire, puis en imitant</label>
@@ -507,8 +441,8 @@
     <div class="question-block">
       <div class="question-num">Question 15</div>
       <div class="question-text">Y a-t-il des compétences que vous souhaiteriez développer ou acquérir ?</div>
-      <div class="question-falc">Qu'est-ce que vous aimeriez apprendre ou améliorer dans les prochains mois ?</div>
-      <textarea id="q15" placeholder="Ex : J'aimerais apprendre à mieux parler en public, me former à la gestion d'équipe..."></textarea>
+      <div class="question-falc">Qu'est-ce que vous aimeriez apprendre ou améliorer ?</div>
+      <textarea id="q15" placeholder="Ex : J'aimerais apprendre à mieux parler en public..."></textarea>
     </div>
 
     <div class="nav-btns">
@@ -520,9 +454,9 @@
   <!-- MODULE 3 -->
   <div class="section" id="section-3">
     <div class="section-header">
-      <div class="section-badge">Module 3 / 4</div>
+      <div class="section-badge">Module 3</div>
       <div class="section-title">Votre personnalité</div>
-      <div class="section-desc">Comment vous fonctionnez. Ce qui vous motive. Comment vous vous comportez avec les autres. Il n'y a pas de réponse juste ou fausse.</div>
+      <div class="section-desc">Comment vous fonctionnez. Ce qui vous motive. Il n'y a pas de réponse juste ou fausse.</div>
     </div>
 
     <div class="question-block">
@@ -568,11 +502,7 @@
       <div class="question-text">Comment vivez-vous le changement dans votre vie professionnelle ?</div>
       <div class="question-falc">Est-ce que vous aimez quand les choses changent au travail ?</div>
       <div class="scale-wrap" id="q19">
-        <button class="scale-btn" onclick="selectScale('q19',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q19',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q19',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q19',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q19',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q19',this,1)">1</button><button class="scale-btn" onclick="selectScale('q19',this,2)">2</button><button class="scale-btn" onclick="selectScale('q19',this,3)">3</button><button class="scale-btn" onclick="selectScale('q19',this,4)">4</button><button class="scale-btn" onclick="selectScale('q19',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>Le changement me stresse</span><span>J'adore changer</span></div>
     </div>
@@ -605,13 +535,9 @@
     <div class="question-block">
       <div class="question-num">Question 22</div>
       <div class="question-text">Quel est votre niveau d'énergie général dans votre travail ?</div>
-      <div class="question-falc">En général, vous sentez-vous plein(e) d'énergie ou fatigué(e) dans votre travail ?</div>
+      <div class="question-falc">Vous sentez-vous plein(e) d'énergie ou fatigué(e) dans votre travail ?</div>
       <div class="scale-wrap" id="q22">
-        <button class="scale-btn" onclick="selectScale('q22',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q22',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q22',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q22',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q22',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q22',this,1)">1</button><button class="scale-btn" onclick="selectScale('q22',this,2)">2</button><button class="scale-btn" onclick="selectScale('q22',this,3)">3</button><button class="scale-btn" onclick="selectScale('q22',this,4)">4</button><button class="scale-btn" onclick="selectScale('q22',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>Souvent épuisé(e)</span><span>Très énergique</span></div>
     </div>
@@ -621,11 +547,7 @@
       <div class="question-text">Comment vous positionnez-vous par rapport à la prise de risque ?</div>
       <div class="question-falc">Est-ce que vous aimez tenter des choses nouvelles, même si c'est risqué ?</div>
       <div class="scale-wrap" id="q23">
-        <button class="scale-btn" onclick="selectScale('q23',this,1)">1</button>
-        <button class="scale-btn" onclick="selectScale('q23',this,2)">2</button>
-        <button class="scale-btn" onclick="selectScale('q23',this,3)">3</button>
-        <button class="scale-btn" onclick="selectScale('q23',this,4)">4</button>
-        <button class="scale-btn" onclick="selectScale('q23',this,5)">5</button>
+        <button class="scale-btn" onclick="selectScale('q23',this,1)">1</button><button class="scale-btn" onclick="selectScale('q23',this,2)">2</button><button class="scale-btn" onclick="selectScale('q23',this,3)">3</button><button class="scale-btn" onclick="selectScale('q23',this,4)">4</button><button class="scale-btn" onclick="selectScale('q23',this,5)">5</button>
       </div>
       <div class="scale-labels"><span>Je préfère la sécurité</span><span>J'aime le risque</span></div>
     </div>
@@ -633,7 +555,7 @@
     <div class="question-block">
       <div class="question-num">Question 24</div>
       <div class="question-text">Quel rôle joue le sens dans votre travail ?</div>
-      <div class="question-falc">Est-ce important pour vous que votre travail soit utile pour les autres ?</div>
+      <div class="question-falc">Est-ce important que votre travail soit utile pour les autres ?</div>
       <div class="options-grid single" id="q24">
         <label class="opt-label"><span class="opt-check"></span> C'est essentiel, j'ai besoin de me sentir utile</label>
         <label class="opt-label"><span class="opt-check"></span> C'est important mais pas indispensable</label>
@@ -663,7 +585,7 @@
   <!-- MODULE 4 -->
   <div class="section" id="section-4">
     <div class="section-header">
-      <div class="section-badge">Module 4 / 4</div>
+      <div class="section-badge">Module 4</div>
       <div class="section-title">Vos aspirations</div>
       <div class="section-desc">Ce que vous voulez vraiment. Vos rêves, vos valeurs, votre vision de l'avenir. Soyez honnête avec vous-même.</div>
     </div>
@@ -671,7 +593,7 @@
     <div class="question-block">
       <div class="question-num">Question 26</div>
       <div class="question-text">Qu'est-ce qui est le plus important pour vous dans un travail idéal ?</div>
-      <div class="question-falc">Si vous pouviez choisir le travail parfait, qu'est-ce qu'il devrait absolument avoir ? Cochez jusqu'à 3 réponses.</div>
+      <div class="question-falc">Qu'est-ce que le travail parfait devrait absolument avoir ? Cochez jusqu'à 3 réponses.</div>
       <div class="options-grid" id="q26">
         <label class="opt-label"><span class="opt-check square"></span> Un bon salaire</label>
         <label class="opt-label"><span class="opt-check square"></span> La stabilité et la sécurité</label>
@@ -727,6 +649,109 @@
 
     <div class="nav-btns">
       <button class="btn btn-prev" onclick="goTo(3)">← Retour</button>
+      <button class="btn btn-next" id="btn-after-m4" onclick="afterModule4()">Suite →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 5 : RIASEC (approfondi uniquement) -->
+  <div class="section" id="section-5">
+    <div class="section-header">
+      <div class="section-badge">Module 5</div>
+      <div class="section-title">Vos intérêts professionnels</div>
+      <div class="section-desc">Pour chaque activité, dites si elle vous plairait. Répondez avec votre envie, pas avec vos compétences actuelles : on cherche ce qui vous attire.</div>
+    </div>
+    <div id="riasec-questions"></div>
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goTo(4)">← Retour</button>
+      <button class="btn btn-next" onclick="goTo(6)">Module suivant →</button>
+    </div>
+  </div>
+
+  <!-- MODULE 6 : CONDITIONS DE TRAVAIL (approfondi uniquement) -->
+  <div class="section" id="section-6">
+    <div class="section-header">
+      <div class="section-badge">Module 6</div>
+      <div class="section-title">Vos conditions de travail idéales</div>
+      <div class="section-desc">Ces questions servent à filtrer les pistes de métiers : on ne vous proposera pas un métier qui ne respecte pas vos contraintes.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 49</div>
+      <div class="question-text">Dans votre futur travail, qu'est-ce que vous voulez éviter ?</div>
+      <div class="question-falc">Cochez ce que vous ne voulez pas, ou ne pouvez pas, faire. Plusieurs réponses possibles.</div>
+      <div class="options-grid" id="qc1">
+        <label class="opt-label"><span class="opt-check square"></span> Porter des charges lourdes</label>
+        <label class="opt-label"><span class="opt-check square"></span> Rester debout longtemps</label>
+        <label class="opt-label"><span class="opt-check square"></span> Travailler la nuit ou en horaires décalés</label>
+        <label class="opt-label"><span class="opt-check square"></span> Faire beaucoup de déplacements</label>
+        <label class="opt-label"><span class="opt-check square"></span> Passer la journée sur un écran</label>
+        <label class="opt-label"><span class="opt-check square"></span> Le bruit ou les environnements agités</label>
+        <label class="opt-label"><span class="opt-check square"></span> Être en contact permanent avec du public</label>
+        <label class="opt-label"><span class="opt-check square"></span> Les tâches répétitives</label>
+        <label class="opt-label"><span class="opt-check square"></span> Rien de tout cela</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 50</div>
+      <div class="question-text">Le télétravail, c'est important pour vous ?</div>
+      <div class="question-falc">Voulez-vous travailler depuis chez vous ?</div>
+      <div class="options-grid" id="qc2">
+        <label class="opt-label"><span class="opt-check"></span> Oui, le plus possible</label>
+        <label class="opt-label"><span class="opt-check"></span> Un mélange maison / bureau (hybride)</label>
+        <label class="opt-label"><span class="opt-check"></span> Peu importe</label>
+        <label class="opt-label"><span class="opt-check"></span> Non, je préfère être sur place</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 51</div>
+      <div class="question-text">Quelle est votre mobilité géographique ?</div>
+      <div class="question-falc">Jusqu'où pouvez-vous aller pour travailler ?</div>
+      <div class="options-grid" id="qc3">
+        <label class="opt-label"><span class="opt-check"></span> Je peux déménager si besoin</label>
+        <label class="opt-label"><span class="opt-check"></span> Je peux bouger dans ma région</label>
+        <label class="opt-label"><span class="opt-check"></span> Près de chez moi uniquement</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 52</div>
+      <div class="question-text">Quels horaires de travail vous conviennent le mieux ?</div>
+      <div class="question-falc">À quels moments de la journée préférez-vous travailler ?</div>
+      <div class="options-grid" id="qc4">
+        <label class="opt-label"><span class="opt-check"></span> Horaires classiques de bureau</label>
+        <label class="opt-label"><span class="opt-check"></span> Horaires flexibles, que je choisis</label>
+        <label class="opt-label"><span class="opt-check"></span> Les horaires décalés ne me dérangent pas</label>
+        <label class="opt-label"><span class="opt-check"></span> Je souhaite un temps partiel</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 53</div>
+      <div class="question-text">Dans quel type de structure préféreriez-vous travailler ?</div>
+      <div class="question-falc">Quelle taille d'entreprise vous attire ?</div>
+      <div class="options-grid" id="qc5">
+        <label class="opt-label"><span class="opt-check"></span> Grande entreprise</label>
+        <label class="opt-label"><span class="opt-check"></span> Petite ou moyenne entreprise (PME)</label>
+        <label class="opt-label"><span class="opt-check"></span> Service public / collectivité</label>
+        <label class="opt-label"><span class="opt-check"></span> À mon compte (indépendant)</label>
+        <label class="opt-label"><span class="opt-check"></span> Peu importe</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-num">Question 54</div>
+      <div class="question-text">Entre salaire et épanouissement, où placez-vous le curseur ?</div>
+      <div class="question-falc">Qu'est-ce qui compte le plus pour vous : gagner plus, ou vous sentir bien ?</div>
+      <div class="scale-wrap" id="qc6">
+        <button class="scale-btn" onclick="selectScale('qc6',this,1)">1</button><button class="scale-btn" onclick="selectScale('qc6',this,2)">2</button><button class="scale-btn" onclick="selectScale('qc6',this,3)">3</button><button class="scale-btn" onclick="selectScale('qc6',this,4)">4</button><button class="scale-btn" onclick="selectScale('qc6',this,5)">5</button>
+      </div>
+      <div class="scale-labels"><span>L'épanouissement d'abord</span><span>Le salaire d'abord</span></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-prev" onclick="goTo(5)">← Retour</button>
       <button class="btn btn-next" style="background:#4caf93;font-size:18px;padding:14px 32px;" onclick="generateResults()">Voir mes résultats ✓</button>
     </div>
   </div>
@@ -740,10 +765,12 @@
     <div class="result-tabs">
       <button class="rtab active" onclick="switchTab('synthese',this)">Synthèse</button>
       <button class="rtab" onclick="switchTab('rapport',this)">Rapport complet</button>
+      <button class="rtab" id="rtab-metiers" onclick="switchTab('metiers',this)">Pistes métiers</button>
     </div>
     <div class="rtab-content active" id="tab-synthese">
       <div id="profile-banner-wrap"></div>
       <div class="result-card"><h3>📊 Vos dimensions clés</h3><div id="scores-display"></div></div>
+      <div class="result-card" id="riasec-card" style="display:none;"><h3>🧲 Vos intérêts professionnels (RIASEC)</h3><div id="riasec-display"></div></div>
       <div class="result-card"><h3>⚖️ Points forts vs Axes d'amélioration</h3><div class="vs-grid" id="vs-display"></div></div>
       <div class="result-card"><h3>🎯 Votre profil en un coup d'oeil</h3><div class="radar-wrap"><canvas id="radarChart"></canvas></div></div>
       <div id="contraintes-display"></div>
@@ -757,8 +784,13 @@
       <div class="result-card"><h3>📋 Recommandations personnalisées</h3><div id="rapport-recos"></div></div>
       <div id="rapport-handicap-section"></div>
     </div>
+    <div class="rtab-content" id="tab-metiers">
+      <div class="result-card"><h3>💼 Vos pistes métiers & certifications</h3><div id="metiers-display"></div></div>
+      <div class="result-card"><h3>🛤 Comment y aller ?</h3><div id="voies-display"></div></div>
+    </div>
     <button class="pdf-btn" onclick="printReport()"><span>⬇</span> Télécharger mon rapport (PDF)</button>
     <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Dans la fenêtre d'impression, choisissez "Enregistrer en PDF" comme destination.</p>
+    <p class="disclaimer">⚠️ Ce bilan est un auto-diagnostic indicatif. Les pistes de métiers et certifications sont des suggestions à approfondir avec un professionnel de l'accompagnement (CEP, conseiller France Travail, consultant bilan de compétences).</p>
   </div>
 
 </div><!-- /container -->
@@ -771,240 +803,362 @@
 </footer>
 
 <script>
-const steps = ['Accueil','Module 1','Module 2','Module 3','Module 4','Résultats'];
+let mode = 'express'; // 'express' | 'deep'
 let currentSection = 0;
 let radarChartInstance = null;
 
+// ====== RIASEC ITEMS ======
+const riasecItems = [
+  {l:'R', t:'Travailler avec vos mains ou des outils'},
+  {l:'R', t:'Réparer, monter ou fabriquer des objets'},
+  {l:'R', t:'Travailler dehors ou en bougeant beaucoup'},
+  {l:'I', t:'Comprendre comment les choses fonctionnent'},
+  {l:'I', t:'Analyser des informations ou des chiffres pour trouver des réponses'},
+  {l:'I', t:'Résoudre des problèmes compliqués'},
+  {l:'A', t:'Créer ou imaginer des choses nouvelles'},
+  {l:'A', t:'Faire des activités artistiques (dessin, écriture, photo, vidéo...)'},
+  {l:'A', t:'Travailler avec de la liberté, sans cadre trop strict'},
+  {l:'S', t:'Aider ou conseiller des personnes'},
+  {l:'S', t:'Expliquer ou apprendre des choses aux autres'},
+  {l:'S', t:'Travailler en contact direct avec des gens'},
+  {l:'E', t:'Convaincre ou négocier'},
+  {l:'E', t:'Diriger un projet ou une équipe'},
+  {l:'E', t:'Prendre des décisions importantes'},
+  {l:'C', t:'Faire des tâches précises et bien organisées'},
+  {l:'C', t:'Suivre des règles et des procédures claires'},
+  {l:'C', t:'Classer, vérifier, gérer des documents ou des chiffres'},
+];
+const riasecNames = {
+  R:'Réaliste (manuel & terrain)', I:'Investigateur (analyse & recherche)',
+  A:'Artistique (création & liberté)', S:'Social (aide & relation)',
+  E:'Entreprenant (action & influence)', C:'Conventionnel (organisation & rigueur)'
+};
+
+// ====== CATALOGUE METIERS ======
+// phys = effort physique / port de charges ; debout = station debout prolongée ;
+// ecran = écran toute la journée ; pub = contact permanent public
+const metiers = [
+  {n:'Formateur / Formatrice professionnel(le) d\'adultes', r:'SE', s:['Éducation','Commerce','Santé','Administration'], phys:0, debout:0, ecran:0, pub:1, t:'Titre Pro FPA (RNCP, niveau 5)', v:'Formation 6-9 mois ou VAE si expérience de transmission'},
+  {n:'Conseiller / Conseillère en insertion professionnelle', r:'SE', s:['Santé','Éducation','Administration'], phys:0, debout:0, ecran:0, pub:1, t:'Titre Pro CIP (RNCP, niveau 5)', v:'Formation 6-8 mois, finançable CPF / France Travail'},
+  {n:'Conseiller / Conseillère de vente', r:'ES', s:['Commerce','Restauration'], phys:0, debout:1, ecran:0, pub:1, t:'Titre Pro Conseiller de Vente (RNCP, niveau 4)', v:'Formation 4-6 mois ou VAE avec expérience vente'},
+  {n:'Négociateur / Négociatrice technico-commercial(e)', r:'EI', s:['Commerce','Industrie'], phys:0, debout:0, ecran:0, pub:1, t:'Titre Pro NTC (RNCP, niveau 5)', v:'Formation 6-8 mois ou VAE avec expérience commerciale'},
+  {n:'Manager d\'unité marchande', r:'EC', s:['Commerce','Restauration'], phys:0, debout:1, ecran:0, pub:1, t:'Titre Pro MUM (RNCP, niveau 5)', v:'Formation 6-10 mois ou VAE avec expérience d\'encadrement'},
+  {n:'Responsable de petite et moyenne structure', r:'EC', s:['Commerce','Administration','Industrie'], phys:0, debout:0, ecran:0, pub:0, t:'Titre Pro RPMS (RNCP, niveau 5)', v:'Formation 8-12 mois, idéal après expérience de gestion'},
+  {n:'Secrétaire assistant(e)', r:'CS', s:['Administration','Santé'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro Secrétaire Assistant (RNCP, niveau 4)', v:'Formation 6-8 mois, accessible sans diplôme préalable'},
+  {n:'Secrétaire assistant(e) médico-social(e)', r:'CS', s:['Santé','Administration'], phys:0, debout:0, ecran:1, pub:1, t:'Titre Pro SAMS (RNCP, niveau 4)', v:'Formation 6-9 mois, secteur qui recrute fortement'},
+  {n:'Comptable assistant(e)', r:'CI', s:['Administration'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro Comptable Assistant (RNCP, niveau 4)', v:'Formation 6-9 mois, débouchés stables'},
+  {n:'Gestionnaire de paie', r:'CI', s:['Administration'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro Gestionnaire de Paie (RNCP, niveau 5)', v:'Formation 6-9 mois, métier en forte tension (recrute beaucoup)'},
+  {n:'Employé(e) administratif(ve) et d\'accueil', r:'CS', s:['Administration'], phys:0, debout:0, ecran:1, pub:1, t:'Titre Pro EAA (RNCP, niveau 3)', v:'Formation courte 4-6 mois, porte d\'entrée vers le tertiaire'},
+  {n:'Accompagnant(e) éducatif(ve) et social(e)', r:'S', s:['Santé'], phys:1, debout:1, ecran:0, pub:1, t:'DEAES (diplôme d\'État, niveau 3)', v:'Formation 12-24 mois en alternance possible, secteur en très forte demande'},
+  {n:'Assistant(e) de vie aux familles', r:'S', s:['Santé'], phys:1, debout:1, ecran:0, pub:1, t:'Titre Pro ADVF (RNCP, niveau 3)', v:'Formation 6-8 mois, emploi quasi garanti'},
+  {n:'Technicien(ne) d\'assistance en informatique', r:'IR', s:['Informatique'], phys:0, debout:0, ecran:1, pub:1, t:'Titre Pro TAI (RNCP, niveau 4)', v:'Formation 6-8 mois, bon point d\'entrée dans le numérique'},
+  {n:'Développeur / Développeuse web et web mobile', r:'IC', s:['Informatique'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro DWWM (RNCP, niveau 5)', v:'Formation 7-12 mois intensive, reconversion fréquente'},
+  {n:'Technicien(ne) supérieur(e) systèmes et réseaux', r:'IC', s:['Informatique'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro TSSR (RNCP, niveau 5)', v:'Formation 9-12 mois, secteur en tension'},
+  {n:'Infographiste metteur en page', r:'AI', s:['Informatique','Commerce'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro IMEP (RNCP, niveau 4)', v:'Formation 8-10 mois, portfolio indispensable'},
+  {n:'Designer web', r:'AI', s:['Informatique'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro Designer Web (RNCP, niveau 5)', v:'Formation 9-12 mois, alliance créativité + technique'},
+  {n:'Community manager / Chargé(e) de communication digitale', r:'AE', s:['Commerce','Informatique'], phys:0, debout:0, ecran:1, pub:0, t:'Certifications professionnelles RNCP niveau 5-6 (plusieurs organismes)', v:'Formations 3-12 mois, cumul possible avec une activité'},
+  {n:'Technicien(ne) de maintenance industrielle', r:'RI', s:['Industrie'], phys:1, debout:1, ecran:0, pub:0, t:'Titre Pro TMI (RNCP, niveau 4)', v:'Formation 8-12 mois, très recherché par l\'industrie'},
+  {n:'Agent(e) de maintenance des bâtiments', r:'R', s:['Industrie'], phys:1, debout:1, ecran:0, pub:0, t:'Titre Pro AMB (RNCP, niveau 3)', v:'Formation 6-8 mois, polyvalence appréciée'},
+  {n:'Technicien(ne) en logistique d\'entreposage', r:'RC', s:['Industrie'], phys:1, debout:1, ecran:0, pub:0, t:'Titre Pro TLE (RNCP, niveau 4)', v:'Formation 6-8 mois ou VAE avec expérience logistique'},
+  {n:'Réceptionniste en hôtellerie', r:'SC', s:['Restauration'], phys:0, debout:1, ecran:1, pub:1, t:'Titre Pro Réceptionniste (RNCP, niveau 4)', v:'Formation 6-8 mois, langues étrangères valorisées'},
+  {n:'Conseiller / Conseillère relation client à distance', r:'SC', s:['Commerce','Administration'], phys:0, debout:0, ecran:1, pub:0, t:'Titre Pro CRCD (RNCP, niveau 4)', v:'Formation 4-6 mois, télétravail fréquent'},
+  {n:'Créateur / Créatrice d\'activité indépendante', r:'EA', s:['Commerce','Éducation','Informatique','Autre'], phys:0, debout:0, ecran:0, pub:0, t:'Parcours création (BGE, CCI, CMA) + certifications selon l\'activité', v:'Accompagnement gratuit possible (CCI, BGE, France Travail), test en micro-entreprise sans tout quitter'},
+  {n:'Moniteur éducateur / Monitrice éducatrice', r:'SA', s:['Santé','Éducation'], phys:0, debout:1, ecran:0, pub:1, t:'DEME (diplôme d\'État, niveau 4)', v:'Formation 2 ans en alternance possible, concours d\'entrée'},
+];
+
+// ====== INIT RIASEC MODULE ======
+function renderRiasec() {
+  const wrap = document.getElementById('riasec-questions');
+  wrap.innerHTML = riasecItems.map((it, i) => `
+    <div class="question-block">
+      <div class="question-num">Question ${31+i}</div>
+      <div class="question-text">${it.t}</div>
+      <div class="question-falc">Est-ce que cette activité vous plairait ?</div>
+      <div class="scale-wrap" id="qr${i}">
+        ${[1,2,3,4,5].map(v=>`<button class="scale-btn" onclick="selectScale('qr${i}',this,${v})">${v}</button>`).join('')}
+      </div>
+      <div class="scale-labels"><span>Pas du tout</span><span>Énormément</span></div>
+    </div>`).join('');
+}
+
+// ====== THEME / NAV ======
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  const btn = document.getElementById('themeBtn');
-  btn.innerHTML = isDark
+  document.getElementById('themeBtn').innerHTML = isDark
     ? '<span class="theme-icon">🌙</span><span>Mode sombre</span>'
     : '<span class="theme-icon">☀️</span><span>Mode clair</span>';
 }
 
+function stepsForMode() {
+  return mode === 'deep'
+    ? ['Accueil','Module 1','Module 2','Module 3','Module 4','Module 5','Module 6','Résultats']
+    : ['Accueil','Module 1','Module 2','Module 3','Module 4','Résultats'];
+}
+function renderDots() {
+  const n = stepsForMode().length;
+  document.getElementById('progress-steps').innerHTML =
+    Array.from({length:n},(_,i)=>`<div class="step-dot" id="dot${i}"></div>`).join('');
+}
+function stepIndexOf(section) {
+  // section: 0..6 ou 'result'
+  if(section === 'result') return stepsForMode().length - 1;
+  if(mode === 'express' && section === 5) return 5;
+  return section;
+}
+function updateProgress(section) {
+  const steps = stepsForMode();
+  const idx = stepIndexOf(section);
+  for(let i=0;i<steps.length;i++) {
+    const d = document.getElementById('dot'+i);
+    if(!d) continue;
+    d.className = i < idx ? 'step-dot done' : (i === idx ? 'step-dot active' : 'step-dot');
+  }
+  document.getElementById('step-label-txt').textContent = steps[idx];
+  document.getElementById('progress-pct').textContent = Math.round((idx/(steps.length-1))*100)+'%';
+}
+
+function startTest(m) {
+  mode = m;
+  renderDots();
+  document.getElementById('btn-after-m4').textContent = mode === 'deep' ? 'Module suivant →' : 'Voir mes résultats ✓';
+  document.getElementById('btn-after-m4').style.background = mode === 'deep' ? '' : '#4caf93';
+  if(mode === 'deep' && !document.getElementById('qr0')) renderRiasec();
+  goTo(1);
+}
+
+function afterModule4() {
+  if(mode === 'deep') goTo(5);
+  else generateResults();
+}
+
 function goTo(n) {
-  if(currentSection === 'result') {
-    document.getElementById('section-result').classList.remove('active');
-  } else {
-    document.getElementById('section-'+currentSection)?.classList.remove('active');
-  }
+  const prev = currentSection === 'result' ? 'section-result' : 'section-'+currentSection;
+  document.getElementById(prev)?.classList.remove('active');
   currentSection = n;
-  if(n === 5) {
-    document.getElementById('section-result').classList.add('active');
-  } else {
-    document.getElementById('section-'+n).classList.add('active');
-  }
+  const next = n === 'result' ? 'section-result' : 'section-'+n;
+  document.getElementById(next)?.classList.add('active');
   updateProgress(n);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function updateProgress(n) {
-  for(let i=0;i<6;i++) {
-    const d = document.getElementById('dot'+i);
-    if(!d) continue;
-    if(i < n) d.className='step-dot done';
-    else if(i === n) d.className='step-dot active';
-    else d.className='step-dot';
-  }
-  document.getElementById('step-label-txt').textContent = steps[n] || 'Résultats';
-  document.getElementById('progress-pct').textContent = Math.round((n/5)*100)+'%';
-}
-
-// Délégation d'événements pour toutes les options
+// ====== INTERACTIONS ======
 document.addEventListener('click', function(e) {
   const label = e.target.closest('.opt-label');
   if(!label) return;
   const container = label.closest('[id]');
   if(!container) return;
   const isSquare = label.querySelector('.opt-check.square') !== null;
-  if(isSquare) {
-    label.classList.toggle('selected');
-  } else {
+  if(isSquare) label.classList.toggle('selected');
+  else {
     container.querySelectorAll('.opt-label').forEach(l => l.classList.remove('selected'));
     label.classList.add('selected');
   }
 });
-
 function selectScale(groupId, btn, val) {
-  const container = document.getElementById(groupId);
-  container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  const c = document.getElementById(groupId);
+  c.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   btn.dataset.val = val;
 }
-function getScaleVal(groupId) {
-  const container = document.getElementById(groupId);
-  if(!container) return 3;
-  const sel = container.querySelector('.scale-btn.selected');
-  return sel ? parseInt(sel.dataset.val) : 3;
+function getScaleVal(groupId, def=3) {
+  const c = document.getElementById(groupId);
+  if(!c) return def;
+  const sel = c.querySelector('.scale-btn.selected');
+  return sel ? parseInt(sel.dataset.val) : def;
 }
 function getSelectedTexts(groupId) {
-  const container = document.getElementById(groupId);
-  if(!container) return [];
-  return Array.from(container.querySelectorAll('.opt-label.selected')).map(l => l.textContent.trim());
+  const c = document.getElementById(groupId);
+  if(!c) return [];
+  return Array.from(c.querySelectorAll('.opt-label.selected')).map(l => l.textContent.trim());
 }
-function getFirstSelected(groupId) {
-  return getSelectedTexts(groupId)[0] || null;
+function getFirstSelected(groupId) { return getSelectedTexts(groupId)[0] || null; }
+
+// ====== RIASEC SCORING ======
+function computeRiasec(d) {
+  const sc = {R:0,I:0,A:0,S:0,E:0,C:0};
+  if(mode === 'deep') {
+    riasecItems.forEach((it,i) => { sc[it.l] += getScaleVal('qr'+i, 3); });
+    // max par lettre = 15, min = 3
+  } else {
+    // Estimation depuis les activités (q6) et la personnalité (q16)
+    Object.keys(sc).forEach(k => sc[k] = 5);
+    const acts = d.competencesFaites;
+    if(acts.some(a=>a.includes('Aider'))) sc.S += 6;
+    if(acts.some(a=>a.includes('Organiser'))) sc.C += 6;
+    if(acts.some(a=>a.includes('Vendre'))) sc.E += 6;
+    if(acts.some(a=>a.includes('Fabriquer'))) sc.R += 6;
+    if(acts.some(a=>a.includes('Analyser'))) sc.I += 6;
+    if(acts.some(a=>a.includes('équipe'))) { sc.E += 4; sc.S += 2; }
+    if(acts.some(a=>a.includes('Communiquer'))) { sc.S += 3; sc.A += 3; }
+    if(acts.some(a=>a.includes('numériques'))) { sc.I += 3; sc.C += 3; }
+    if(d.perso) {
+      if(d.perso.includes('Dynamique')) sc.E += 3;
+      if(d.perso.includes('Organisé')) sc.C += 3;
+      if(d.perso.includes('Attentionné')) sc.S += 3;
+      if(d.perso.includes('Curieux')) { sc.A += 3; sc.I += 2; }
+      if(d.perso.includes('Discret')) sc.C += 2;
+    }
+  }
+  return sc;
 }
 
-// ============ MOTEUR D'ANALYSE ============
+// ====== MOTEUR METIERS ======
+function buildMetiers(d, riasec) {
+  // Contraintes d'exclusion
+  const avoid = d.avoid || [];
+  const noPhys = avoid.some(a=>a.includes('charges')) || d.handicaps.some(h=>h.includes('moteur')||h.includes('fatigue')||h.includes('Pénibilité'));
+  const noDebout = avoid.some(a=>a.includes('debout')) || d.handicaps.some(h=>h.includes('moteur'));
+  const noEcran = avoid.some(a=>a.includes('écran'));
+  const noPub = avoid.some(a=>a.includes('public'));
+
+  // Top lettres RIASEC
+  const sorted = Object.entries(riasec).sort((a,b)=>b[1]-a[1]);
+  const topLetters = sorted.slice(0,3).map(x=>x[0]);
+
+  const scored = metiers
+    .filter(m => !(noPhys && m.phys) && !(noDebout && m.debout) && !(noEcran && m.ecran) && !(noPub && m.pub))
+    .map(m => {
+      let score = 0;
+      const reasons = [];
+      // Match RIASEC
+      [...m.r].forEach((letter, pos) => {
+        if(topLetters.includes(letter)) {
+          score += (3 - topLetters.indexOf(letter)) * (pos === 0 ? 4 : 3);
+          reasons.push(riasecNames[letter].split(' (')[0]);
+        }
+      });
+      // Bonus secteur connu
+      const knownSector = m.s.some(sec => d.secteurs.some(us => us.includes(sec)));
+      if(knownSector) { score += 5; reasons.push('secteur que vous connaissez déjà'); }
+      return {m, score, reasons:[...new Set(reasons)], knownSector};
+    })
+    .filter(x => x.score > 0)
+    .sort((a,b)=>b.score-a.score);
+
+  return scored.slice(0,5);
+}
+
+// ====== ANALYSE FORCES / AXES ======
 function buildAnalysis(d) {
-  const forces = [];
-  const axes = [];
-
-  // --- Dimensions quantitatives ---
+  const forces = []; const axes = [];
   const dimRules = [
     { val:d.comm, label:'Communication',
       force:"Vous échangez facilement avec les autres. C'est un atout direct pour les métiers de contact, d'accompagnement, de vente ou de formation.",
       axe:"Communiquer vous demande un effort. Ce n'est pas un défaut, mais c'est un point à travailler si votre projet implique du contact régulier avec du public ou des clients." },
     { val:d.orga, label:'Organisation & autonomie',
       force:"Vous savez vous organiser sans qu'on vous dise quoi faire. Les employeurs recherchent beaucoup cette qualité, surtout pour le télétravail et les postes à responsabilité.",
-      axe:"Vous avez besoin d'un cadre pour bien fonctionner. Privilégiez les environnements structurés, et appuyez-vous sur des outils simples (agenda, listes de tâches) pour gagner en autonomie." },
+      axe:"Vous avez besoin d'un cadre pour bien fonctionner. Privilégiez les environnements structurés, et appuyez-vous sur des outils simples (agenda, listes) pour gagner en autonomie." },
     { val:d.numerique, label:'Compétences numériques',
       force:"Vous êtes à l'aise avec les outils numériques. C'est aujourd'hui une compétence transversale valorisée dans presque tous les métiers.",
-      axe:"Le numérique reste un point faible. Or, la grande majorité des emplois demandent aujourd'hui un socle numérique de base. C'est l'axe le plus rentable à travailler en premier." },
+      axe:"Le numérique reste un point faible. Or, la grande majorité des emplois demandent un socle numérique de base. C'est l'axe le plus rentable à travailler en premier." },
     { val:d.energie, label:'Énergie au travail',
       force:"Vous abordez le travail avec énergie. Cette vitalité est un moteur pour les projets exigeants et les périodes de transition.",
-      axe:"Votre niveau d'énergie au travail est bas. C'est un signal à écouter : il peut indiquer une fatigue passagère, un poste inadapté, ou un besoin de changement plus profond." },
+      axe:"Votre niveau d'énergie au travail est bas. C'est un signal à écouter : fatigue passagère, poste inadapté, ou besoin de changement plus profond." },
     { val:d.changement, label:'Adaptabilité',
-      force:"Le changement ne vous fait pas peur, vous vous adaptez. C'est une force majeure dans un marché du travail qui évolue vite.",
-      axe:"Le changement vous insécurise. Pour réussir une transition professionnelle, avancez par petites étapes planifiées plutôt que par grands sauts." },
+      force:"Le changement ne vous fait pas peur. C'est une force majeure dans un marché du travail qui évolue vite.",
+      axe:"Le changement vous insécurise. Pour réussir une transition, avancez par petites étapes planifiées plutôt que par grands sauts." },
     { val:d.risque, label:'Prise d\'initiative',
       force:"Vous osez prendre des initiatives et tenter des choses nouvelles. C'est le profil des entrepreneurs et des moteurs d'équipe.",
-      axe:"Vous privilégiez la sécurité. Ce n'est pas un frein en soi, mais cela oriente votre projet vers des parcours balisés : CDI, secteurs stables, évolutions progressives." },
+      axe:"Vous privilégiez la sécurité. Cela oriente votre projet vers des parcours balisés : CDI, secteurs stables, évolutions progressives." },
   ];
   dimRules.forEach(r => {
     if(r.val >= 4) forces.push({ titre:`${r.label} (${r.val}/5)`, arg:r.force });
     else if(r.val <= 2) axes.push({ titre:`${r.label} (${r.val}/5)`, arg:r.axe });
   });
-
-  // --- Signaux qualitatifs ---
-  if(d.imprevu && d.imprevu.includes('recul')) forces.push({ titre:'Recul & analyse', arg:"Face à l'imprévu, vous analysez avant d'agir. Cette posture réfléchie est précieuse pour les fonctions de coordination et de résolution de problèmes." });
-  if(d.imprevu && d.imprevu.includes('rapidement')) forces.push({ titre:'Réactivité', arg:"Vous agissez vite et vous vous ajustez en cours de route. C'est une qualité clé pour les environnements dynamiques et le terrain." });
-  if(d.imprevu && d.imprevu.includes('déstabilisent')) axes.push({ titre:'Gestion des imprévus', arg:"Les imprévus vous déstabilisent. Des techniques simples existent pour y faire face (anticipation, scénarios, respiration). Un environnement de travail prévisible vous conviendra mieux à court terme." });
-  if(d.encadrement === 'Oui, régulièrement') forces.push({ titre:'Transmission & pédagogie', arg:"Vous avez l'habitude de former et d'accompagner les autres. Cette compétence ouvre des portes : tutorat, formation, management de proximité." });
-  if(d.critiques && d.critiques.includes('progresser')) forces.push({ titre:'Maturité face au feedback', arg:"Vous accueillez les critiques comme un levier de progression. C'est un signe fort de maturité professionnelle, très apprécié des recruteurs." });
-  if(d.critiques && d.critiques.includes('mal le vivre')) axes.push({ titre:'Rapport aux critiques', arg:"Les retours négatifs vous affectent fortement. Apprendre à distinguer la critique du travail et la critique de la personne vous protégera et renforcera votre confiance." });
-  if(d.freins.includes('Le manque de confiance en moi')) axes.push({ titre:'Confiance en soi', arg:"Vous identifiez vous-même la confiance comme un frein. Bonne nouvelle : la confiance se construit par l'action, pas par la réflexion. Chaque petite réussite compte." });
-  if(d.freins.some(f => f.includes('ne sais pas encore'))) axes.push({ titre:'Clarté du projet', arg:"Votre projet n'est pas encore défini. Ce n'est pas un problème : c'est précisément le travail d'un bilan approfondi avec un professionnel de l'accompagnement." });
-
+  if(d.imprevu && d.imprevu.includes('recul')) forces.push({ titre:'Recul & analyse', arg:"Face à l'imprévu, vous analysez avant d'agir. Posture précieuse pour les fonctions de coordination et de résolution de problèmes." });
+  if(d.imprevu && d.imprevu.includes('rapidement')) forces.push({ titre:'Réactivité', arg:"Vous agissez vite et vous vous ajustez. Qualité clé pour les environnements dynamiques et le terrain." });
+  if(d.imprevu && d.imprevu.includes('déstabilisent')) axes.push({ titre:'Gestion des imprévus', arg:"Les imprévus vous déstabilisent. Des techniques simples existent (anticipation, scénarios, respiration). Un environnement prévisible vous conviendra mieux à court terme." });
+  if(d.encadrement === 'Oui, régulièrement') forces.push({ titre:'Transmission & pédagogie', arg:"Vous avez l'habitude de former les autres. Cette compétence ouvre des portes : tutorat, formation, management de proximité." });
+  if(d.critiques && d.critiques.includes('progresser')) forces.push({ titre:'Maturité face au feedback', arg:"Vous accueillez les critiques comme un levier. Signe fort de maturité professionnelle, très apprécié des recruteurs." });
+  if(d.critiques && d.critiques.includes('mal le vivre')) axes.push({ titre:'Rapport aux critiques', arg:"Les retours négatifs vous affectent fortement. Apprendre à distinguer la critique du travail et celle de la personne renforcera votre confiance." });
+  if(d.freins.includes('Le manque de confiance en moi')) axes.push({ titre:'Confiance en soi', arg:"Vous identifiez vous-même la confiance comme un frein. Bonne nouvelle : elle se construit par l'action. Chaque petite réussite compte." });
+  if(d.freins.some(f => f.includes('ne sais pas encore'))) axes.push({ titre:'Clarté du projet', arg:"Votre projet n'est pas encore défini. C'est précisément le travail d'un bilan approfondi avec un professionnel de l'accompagnement." });
   return { forces, axes };
 }
 
+// ====== RECOMMANDATIONS ======
 function buildRecommendations(d) {
   const recos = [];
-  // Adaptation au style d'apprentissage
   let modalite = "une formation mixte (théorie + pratique)";
   if(d.apprentissage) {
-    if(d.apprentissage.includes('pratiquant')) modalite = "une formation avec beaucoup de mises en situation et de pratique (ateliers, stages, immersion)";
-    else if(d.apprentissage.includes('regardant')) modalite = "une formation avec démonstrations et tutorats (apprendre en observant puis en reproduisant)";
-    else if(d.apprentissage.includes('lisant')) modalite = "une formation à distance ou en e-learning, avec supports écrits et vidéos";
-    else if(d.apprentissage.includes('écoutant')) modalite = "une formation en présentiel avec un formateur qui explique pas à pas";
-    else if(d.apprentissage.includes('discutant')) modalite = "une formation en groupe, avec échanges et travaux collectifs";
+    if(d.apprentissage.includes('pratiquant')) modalite = "une formation avec beaucoup de pratique (ateliers, stages, immersion)";
+    else if(d.apprentissage.includes('regardant')) modalite = "une formation avec démonstrations et tutorat";
+    else if(d.apprentissage.includes('lisant')) modalite = "une formation à distance avec supports écrits et vidéos";
+    else if(d.apprentissage.includes('écoutant')) modalite = "une formation en présentiel avec un formateur";
+    else if(d.apprentissage.includes('discutant')) modalite = "une formation en groupe, avec échanges";
   }
-  // Adaptation à la disponibilité
   let rythme = "à votre rythme";
   if(d.dispo) {
-    if(d.dispo.includes('Moins de 5h')) rythme = "en format court et progressif (modules de 1 à 2h, le soir ou le week-end)";
-    else if(d.dispo.includes('5h et 15h')) rythme = "en format temps partiel (1 à 2 jours par semaine)";
+    if(d.dispo.includes('Moins de 5h')) rythme = "en format court (modules de 1-2h, soir ou week-end)";
+    else if(d.dispo.includes('5h et 15h')) rythme = "en format temps partiel (1-2 jours/semaine)";
     else if(d.dispo.includes('Plus de 15h')) rythme = "en format intensif à temps partiel";
-    else if(d.dispo.includes('temps plein')) rythme = "en formation intensive à temps plein (reconversion rapide possible)";
+    else if(d.dispo.includes('temps plein')) rythme = "en formation intensive à temps plein";
   }
-
-  if(d.numerique <= 2) recos.push({
-    icon:'💻', titre:'Acquérir le socle numérique de base', prio:'haute',
+  if(d.numerique <= 2) recos.push({ icon:'💻', titre:'Acquérir le socle numérique de base', prio:'haute',
     constat:`Vous avez évalué votre niveau numérique à ${d.numerique}/5.`,
-    pourquoi:"Plus de 8 emplois sur 10 demandent aujourd'hui un usage de base des outils numériques. C'est le frein le plus pénalisant sur le marché du travail, mais aussi le plus rapide à lever.",
-    action:`Visez une certification reconnue comme le Pix ou CléA numérique, ${rythme}. Privilégiez ${modalite}. Ces parcours sont souvent finançables par le CPF.`
-  });
-  if(d.comm <= 2) recos.push({
-    icon:'🗣️', titre:'Développer l\'aisance relationnelle', prio:'haute',
+    pourquoi:"Plus de 8 emplois sur 10 demandent un usage de base des outils numériques. C'est le frein le plus pénalisant, mais aussi le plus rapide à lever.",
+    action:`Visez une certification comme Pix ou CléA numérique, ${rythme}. Privilégiez ${modalite}. Souvent finançable par le CPF.` });
+  if(d.comm <= 2) recos.push({ icon:'🗣️', titre:'Développer l\'aisance relationnelle', prio:'haute',
     constat:`Vous avez évalué votre communication à ${d.comm}/5.`,
-    pourquoi:"La communication est la compétence transversale numéro 1 citée par les recruteurs. Elle s'apprend et se travaille, comme un muscle : ce n'est pas un trait fixe de personnalité.",
-    action:`Commencez petit : prendre la parole en réunion, reformuler ce que dit l'autre, demander un retour. En parallèle, ${modalite} sur la communication interpersonnelle ou l'assertivité donnera des résultats visibles en quelques semaines.`
-  });
-  if(d.orga <= 2) recos.push({
-    icon:'🗂️', titre:'Structurer votre organisation personnelle', prio:'moyenne',
+    pourquoi:"La communication est la compétence transversale n°1 citée par les recruteurs. Elle se travaille comme un muscle : ce n'est pas un trait fixe.",
+    action:`Commencez petit : prendre la parole en réunion, reformuler, demander un retour. En parallèle, ${modalite} sur la communication ou l'assertivité donnera des résultats en quelques semaines.` });
+  if(d.orga <= 2) recos.push({ icon:'🗂️', titre:'Structurer votre organisation personnelle', prio:'moyenne',
     constat:`Vous avez évalué votre autonomie d'organisation à ${d.orga}/5.`,
-    pourquoi:"L'autonomie est devenue un critère d'embauche majeur depuis la généralisation du travail hybride. Une organisation simple et tenue dans la durée vaut mieux qu'un système complexe abandonné.",
-    action:"Adoptez un seul outil (agenda papier ou application simple) et une routine quotidienne de 5 minutes : noter les 3 priorités du jour. Tenez 30 jours avant d'ajouter quoi que ce soit d'autre."
-  });
-  if(d.energie <= 2) recos.push({
-    icon:'🔋', titre:'Comprendre votre baisse d\'énergie', prio:'haute',
-    constat:`Vous signalez un niveau d'énergie au travail de ${d.energie}/5.`,
-    pourquoi:"Une énergie durablement basse n'est jamais anodine. Elle peut venir d'un poste inadapté, d'un environnement pesant, ou d'une fatigue physique réelle. L'ignorer mène souvent à l'épuisement.",
-    action:"Avant tout projet de formation, faites le point : qu'est-ce qui vous épuise précisément (les tâches, les relations, le rythme, le sens) ? Un échange avec votre médecin du travail ou un accompagnement professionnel peut vous aider à y voir clair."
-  });
-  if(d.freins.includes('Le manque de confiance en moi')) recos.push({
-    icon:'💪', titre:'Reconstruire la confiance par l\'action', prio:'haute',
+    pourquoi:"L'autonomie est devenue un critère d'embauche majeur depuis le travail hybride. Une organisation simple et tenue vaut mieux qu'un système complexe abandonné.",
+    action:"Adoptez un seul outil (agenda ou application simple) et une routine de 5 minutes : noter les 3 priorités du jour. Tenez 30 jours avant d'ajouter autre chose." });
+  if(d.energie <= 2) recos.push({ icon:'🔋', titre:'Comprendre votre baisse d\'énergie', prio:'haute',
+    constat:`Vous signalez un niveau d'énergie de ${d.energie}/5.`,
+    pourquoi:"Une énergie durablement basse n'est jamais anodine : poste inadapté, environnement pesant, ou fatigue réelle. L'ignorer mène souvent à l'épuisement.",
+    action:"Avant tout projet de formation, identifiez ce qui vous épuise précisément (tâches, relations, rythme, sens). Un échange avec votre médecin du travail ou un accompagnement peut vous aider à y voir clair." });
+  if(d.freins.includes('Le manque de confiance en moi')) recos.push({ icon:'💪', titre:'Reconstruire la confiance par l\'action', prio:'haute',
     constat:"Vous identifiez le manque de confiance comme un frein principal.",
-    pourquoi:"La confiance ne précède pas l'action : elle en découle. Attendre de se sentir prêt(e) pour agir est le piège le plus courant. Chaque petite réussite concrète reconstruit l'estime de soi.",
-    action:"Fixez-vous une micro-victoire par semaine (un appel passé, une candidature envoyée, une compétence testée). Notez-les. Au bout de 2 mois, vous aurez une liste de preuves concrètes contre votre petite voix intérieure. Un coaching ou un atelier collectif peut accélérer ce travail."
-  });
-  if(d.freins.some(f => f.includes('diplômes'))) recos.push({
-    icon:'🎓', titre:'Valoriser l\'expérience plutôt que le diplôme', prio:'moyenne',
+    pourquoi:"La confiance ne précède pas l'action : elle en découle. Attendre de se sentir prêt(e) est le piège le plus courant.",
+    action:"Fixez-vous une micro-victoire par semaine (un appel, une candidature, une compétence testée). Notez-les. Au bout de 2 mois, vous aurez des preuves concrètes contre votre petite voix intérieure." });
+  if(d.freins.some(f => f.includes('diplômes'))) recos.push({ icon:'🎓', titre:'Valoriser l\'expérience plutôt que le diplôme', prio:'moyenne',
     constat:"Vous percevez le manque de diplômes comme un frein.",
-    pourquoi:"Votre expérience professionnelle a une valeur certifiable. La VAE (Validation des Acquis de l'Expérience) permet d'obtenir un diplôme ou un titre professionnel sur la base de ce que vous avez déjà fait, sans repartir de zéro.",
-    action:`Renseignez-vous sur la VAE via le site officiel vae.gouv.fr ou un conseiller en évolution professionnelle (CEP, gratuit). De nombreux titres professionnels sont aussi accessibles ${rythme}, avec ${modalite}.`
-  });
-  if(d.freins.some(f => f.includes('ne sais pas encore'))) recos.push({
-    icon:'🧭', titre:'Clarifier votre projet avant de vous former', prio:'haute',
+    pourquoi:"Votre expérience a une valeur certifiable. La VAE permet d'obtenir un diplôme ou un titre professionnel sur la base de ce que vous avez déjà fait.",
+    action:`Renseignez-vous sur vae.gouv.fr ou auprès d'un Conseiller en Évolution Professionnelle (CEP, gratuit). De nombreux titres pro sont aussi accessibles ${rythme}, avec ${modalite}.` });
+  if(d.freins.some(f => f.includes('ne sais pas encore'))) recos.push({ icon:'🧭', titre:'Clarifier votre projet avant de vous former', prio:'haute',
     constat:"Vous ne savez pas encore précisément ce que vous voulez.",
-    pourquoi:"Se former sans projet clair, c'est souvent du temps et de l'argent investis au mauvais endroit. La clarification doit venir avant le plan d'action.",
-    action:"Ce bilan est une première étape. Pour aller plus loin : un bilan de compétences complet avec un professionnel (finançable CPF, 24h réparties sur 2-3 mois), ou un rendez-vous gratuit avec un Conseiller en Évolution Professionnelle (CEP)."
-  });
-  if(d.encadrement === 'Oui, régulièrement' && d.comm >= 4) recos.push({
-    icon:'🎤', titre:'Explorer les métiers de la transmission', prio:'moyenne',
+    pourquoi:"Se former sans projet clair, c'est souvent du temps et de l'argent investis au mauvais endroit.",
+    action:"Ce bilan est une première étape. Pour aller plus loin : un bilan de compétences complet avec un professionnel (finançable CPF), ou un rendez-vous gratuit avec un CEP." });
+  if(d.encadrement === 'Oui, régulièrement' && d.comm >= 4) recos.push({ icon:'🎤', titre:'Explorer les métiers de la transmission', prio:'moyenne',
     constat:"Vous formez régulièrement les autres ET vous êtes très à l'aise en communication.",
-    pourquoi:"Cette combinaison est exactement le socle des métiers de la formation, du tutorat et du management de proximité — des secteurs en tension qui recrutent et valorisent l'expérience terrain.",
-    action:"Renseignez-vous sur le Titre Professionnel Formateur Professionnel d'Adultes (FPA, niveau 5) ou les fonctions de tuteur/maître d'apprentissage dans votre secteur actuel."
-  });
-  if(d.changement >= 4 && d.risque >= 4) recos.push({
-    icon:'🚀', titre:'Capitaliser sur votre profil entreprenant', prio:'moyenne',
+    pourquoi:"Cette combinaison est le socle des métiers de la formation, du tutorat et du management de proximité — secteurs en tension qui valorisent l'expérience terrain.",
+    action:"Renseignez-vous sur le Titre Pro Formateur Professionnel d'Adultes (FPA, niveau 5) ou les fonctions de tuteur dans votre secteur actuel." });
+  if(d.changement >= 4 && d.risque >= 4) recos.push({ icon:'🚀', titre:'Capitaliser sur votre profil entreprenant', prio:'moyenne',
     constat:"Vous aimez le changement ET la prise de risque.",
-    pourquoi:"Ce profil s'épanouit mal dans les environnements trop figés. Les structures qui bougent (PME en croissance, création d'activité, postes polyvalents) correspondent davantage à votre fonctionnement naturel.",
-    action:"Si l'envie d'indépendance vous parle, testez-la sans tout quitter : micro-entreprise en parallèle, mission ponctuelle, bénévolat de compétences. Vous validerez l'envie par l'expérience réelle."
-  });
-  if(recos.length === 0) recos.push({
-    icon:'🌟', titre:'Consolider et viser plus haut', prio:'moyenne',
-    constat:"Aucun point critique n'est ressorti de votre bilan : vos dimensions clés sont solides.",
-    pourquoi:"Quand le socle est bon, le risque est la stagnation. Le meilleur moment pour évoluer, c'est quand tout va bien — pas quand on y est contraint.",
-    action:"Identifiez la compétence qui vous différencierait dans les 2 ans (expertise pointue, management, langue, certification) et engagez-vous sur un parcours concret dès ce trimestre."
-  });
-
+    pourquoi:"Ce profil s'épanouit mal dans les environnements figés. Les structures qui bougent (PME en croissance, création d'activité) correspondent à votre fonctionnement.",
+    action:"Si l'indépendance vous parle, testez sans tout quitter : micro-entreprise en parallèle, mission ponctuelle, bénévolat de compétences." });
+  if(recos.length === 0) recos.push({ icon:'🌟', titre:'Consolider et viser plus haut', prio:'moyenne',
+    constat:"Aucun point critique n'est ressorti : vos dimensions clés sont solides.",
+    pourquoi:"Quand le socle est bon, le risque est la stagnation. Le meilleur moment pour évoluer, c'est quand tout va bien.",
+    action:"Identifiez la compétence qui vous différencierait dans les 2 ans et engagez-vous sur un parcours concret dès ce trimestre." });
   return recos;
 }
 
 function buildCoherence(d) {
   const parts = [];
   if(d.objectif) parts.push(`<strong>Votre objectif déclaré :</strong> « ${d.objectif} ».`);
-  // Cohérence valeurs / objectif
-  if(d.valeurs.includes("L'autonomie et la liberté") && d.objectif && d.objectif.includes('évoluer dans mon emploi actuel')) {
-    parts.push("Point d'attention : vous valorisez fortement l'autonomie tout en souhaitant évoluer en interne. Vérifiez que votre entreprise actuelle peut réellement vous offrir cette marge de liberté, sinon la frustration risque de grandir.");
-  }
-  if(d.valeurs.includes('La stabilité et la sécurité') && d.risque >= 4) {
-    parts.push("Votre profil montre une tension intéressante : vous recherchez la stabilité tout en aimant le risque. Une piste : un poste stable comme base, avec des projets stimulants à côté.");
-  }
-  if(d.valeurs.includes('Aider les autres') && d.sens && d.sens.includes('utile')) {
-    parts.push("Forte cohérence détectée : le besoin d'être utile revient dans vos valeurs ET dans votre rapport au sens. Les métiers de l'accompagnement, du soin, de la formation ou du social méritent toute votre attention.");
-  }
-  if(d.dispo && d.dispo.includes('temps plein') && d.objectif && d.objectif.includes('changer de métier')) {
-    parts.push("Votre disponibilité à temps plein est un vrai atout pour une reconversion : elle ouvre l'accès aux formations intensives et raccourcit considérablement les délais de transition.");
-  }
-  if(d.dispo && d.dispo.includes('Moins de 5h') && d.objectif && d.objectif.includes('changer de métier')) {
-    parts.push("Point de vigilance : un projet de reconversion avec moins de 5h de disponibilité hebdomadaire demandera du temps. C'est possible, mais prévoyez un horizon de 12 à 24 mois et des formats très progressifs.");
-  }
-  if(parts.length <= 1) {
-    parts.push("Votre projet et vos réponses sont globalement alignés. La prochaine étape est de transformer cette cohérence en plan d'action daté.");
-  }
+  if(d.valeurs.includes("L'autonomie et la liberté") && d.objectif && d.objectif.includes('évoluer dans mon emploi actuel'))
+    parts.push("Point d'attention : vous valorisez l'autonomie tout en souhaitant évoluer en interne. Vérifiez que votre entreprise peut réellement vous offrir cette marge de liberté.");
+  if(d.valeurs.includes('La stabilité et la sécurité') && d.risque >= 4)
+    parts.push("Tension intéressante : vous recherchez la stabilité tout en aimant le risque. Une piste : un poste stable comme base, avec des projets stimulants à côté.");
+  if(d.valeurs.includes('Aider les autres') && d.sens && d.sens.includes('utile'))
+    parts.push("Forte cohérence : le besoin d'être utile revient dans vos valeurs ET dans votre rapport au sens. Les métiers de l'accompagnement, du soin, de la formation méritent toute votre attention.");
+  if(d.dispo && d.dispo.includes('temps plein') && d.objectif && d.objectif.includes('changer de métier'))
+    parts.push("Votre disponibilité à temps plein est un vrai atout pour une reconversion : accès aux formations intensives, délais raccourcis.");
+  if(d.dispo && d.dispo.includes('Moins de 5h') && d.objectif && d.objectif.includes('changer de métier'))
+    parts.push("Vigilance : une reconversion avec moins de 5h hebdomadaires demandera du temps. Prévoyez un horizon de 12 à 24 mois et des formats progressifs.");
+  if(parts.length <= 1) parts.push("Votre projet et vos réponses sont globalement alignés. La prochaine étape est de transformer cette cohérence en plan d'action daté.");
   return parts.join('<br><br>');
 }
 
-// ============ GENERATION DES RESULTATS ============
+// ====== GENERATION ======
 function generateResults() {
-  goTo(5);
+  goTo('result');
   const d = {
     prenom: document.getElementById('q_prenom')?.value || 'Vous',
     comm: getScaleVal('q8'), orga: getScaleVal('q9'),
@@ -1015,17 +1169,16 @@ function generateResults() {
     freins: getSelectedTexts('q28'),
     valeurs: getSelectedTexts('q26'),
     handicaps: getSelectedTexts('q_handicap'),
-    perso: getFirstSelected('q16'),
-    equipe: getFirstSelected('q20'),
-    sens: getFirstSelected('q24'),
-    apprentissage: getFirstSelected('q14'),
-    objectif: getFirstSelected('q5'),
-    imprevu: getFirstSelected('q10'),
-    encadrement: getFirstSelected('q11'),
-    critiques: getFirstSelected('q21'),
-    decision: getFirstSelected('q25'),
-    dispo: getFirstSelected('q29'),
-    projet: document.getElementById('q27')?.value || ''
+    perso: getFirstSelected('q16'), equipe: getFirstSelected('q20'),
+    sens: getFirstSelected('q24'), apprentissage: getFirstSelected('q14'),
+    objectif: getFirstSelected('q5'), imprevu: getFirstSelected('q10'),
+    encadrement: getFirstSelected('q11'), critiques: getFirstSelected('q21'),
+    decision: getFirstSelected('q25'), dispo: getFirstSelected('q29'),
+    projet: document.getElementById('q27')?.value || '',
+    avoid: mode==='deep' ? getSelectedTexts('qc1').filter(a=>!a.includes('Rien')) : [],
+    teletravail: mode==='deep' ? getFirstSelected('qc2') : null,
+    structure: mode==='deep' ? getFirstSelected('qc5') : null,
+    exp: getFirstSelected('q3')
   };
 
   let profileType = 'Profil Équilibré'; let profileIcon = '⚖️';
@@ -1038,7 +1191,7 @@ function generateResults() {
   document.getElementById('profile-banner-wrap').innerHTML = `
     <div class="profile-banner">
       <div class="profile-icon">${profileIcon}</div>
-      <div><div class="profile-name">${d.prenom}</div><div class="profile-type">${profileType}</div></div>
+      <div><div class="profile-name">${d.prenom}</div><div class="profile-type">${profileType} · Bilan ${mode==='deep'?'Approfondi':'Express'}</div></div>
     </div>`;
 
   const dims = [
@@ -1050,72 +1203,65 @@ function generateResults() {
     `<div class="score-row"><div class="score-label">${x.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${(x.val/5)*100}%"></div></div><div class="score-val">${x.val}/5</div></div>`
   ).join('');
 
-  // ===== ANALYSE FORCES / AXES =====
+  // RIASEC
+  const riasec = computeRiasec(d);
+  if(mode === 'deep') {
+    document.getElementById('riasec-card').style.display = 'block';
+    const maxR = 15;
+    document.getElementById('riasec-display').innerHTML =
+      Object.entries(riasec).sort((a,b)=>b[1]-a[1]).map(([l,v]) =>
+        `<div class="score-row"><div class="score-label">${riasecNames[l]}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${(v/maxR)*100}%"></div></div><div class="score-val">${v}</div></div>`
+      ).join('');
+  } else {
+    document.getElementById('riasec-card').style.display = 'none';
+  }
+
+  // FORCES / AXES
   const analysis = buildAnalysis(d);
-
-  // Synthèse : version condensée (titres seuls)
   document.getElementById('vs-display').innerHTML = `
-    <div class="vs-col forces">
-      <div class="vs-col-title">💪 Points forts</div>
-      ${analysis.forces.length > 0
-        ? analysis.forces.map(f => `<div class="vs-item"><strong>${f.titre}</strong></div>`).join('')
-        : '<div class="vs-empty">Voir le rapport complet pour une analyse détaillée.</div>'}
-    </div>
-    <div class="vs-col axes">
-      <div class="vs-col-title">🎯 Axes d'amélioration</div>
-      ${analysis.axes.length > 0
-        ? analysis.axes.map(a => `<div class="vs-item"><strong>${a.titre}</strong></div>`).join('')
-        : '<div class="vs-empty">Aucun axe critique détecté. Bravo !</div>'}
-    </div>`;
-
-  // Rapport : version argumentée
+    <div class="vs-col forces"><div class="vs-col-title">💪 Points forts</div>
+      ${analysis.forces.length>0 ? analysis.forces.map(f=>`<div class="vs-item"><strong>${f.titre}</strong></div>`).join('') : '<div class="vs-empty">Voir le rapport complet pour une analyse détaillée.</div>'}</div>
+    <div class="vs-col axes"><div class="vs-col-title">🎯 Axes d'amélioration</div>
+      ${analysis.axes.length>0 ? analysis.axes.map(a=>`<div class="vs-item"><strong>${a.titre}</strong></div>`).join('') : '<div class="vs-empty">Aucun axe critique détecté. Bravo !</div>'}</div>`;
   document.getElementById('rapport-vs').innerHTML = `
     <div class="vs-grid">
-      <div class="vs-col forces">
-        <div class="vs-col-title">💪 Vos points forts</div>
-        ${analysis.forces.length > 0
-          ? analysis.forces.map(f => `<div class="vs-item"><strong>${f.titre}</strong><span>${f.arg}</span></div>`).join('')
-          : '<div class="vs-empty">Vos scores sont dans la moyenne sur toutes les dimensions. Votre force réside peut-être dans cet équilibre, ou dans des compétences que ce test ne mesure pas. Un entretien approfondi permettrait de les révéler.</div>'}
-      </div>
-      <div class="vs-col axes">
-        <div class="vs-col-title">🎯 Vos axes d'amélioration</div>
-        ${analysis.axes.length > 0
-          ? analysis.axes.map(a => `<div class="vs-item"><strong>${a.titre}</strong><span>${a.arg}</span></div>`).join('')
-          : '<div class="vs-empty">Aucun axe critique détecté dans vos réponses. Votre marge de progression se situe dans l\'approfondissement de vos forces plutôt que dans la correction de faiblesses.</div>'}
-      </div>
+      <div class="vs-col forces"><div class="vs-col-title">💪 Vos points forts</div>
+        ${analysis.forces.length>0 ? analysis.forces.map(f=>`<div class="vs-item"><strong>${f.titre}</strong><span>${f.arg}</span></div>`).join('') : '<div class="vs-empty">Vos scores sont dans la moyenne. Votre force réside peut-être dans cet équilibre, ou dans des compétences que ce test ne mesure pas.</div>'}</div>
+      <div class="vs-col axes"><div class="vs-col-title">🎯 Vos axes d'amélioration</div>
+        ${analysis.axes.length>0 ? analysis.axes.map(a=>`<div class="vs-item"><strong>${a.titre}</strong><span>${a.arg}</span></div>`).join('') : '<div class="vs-empty">Aucun axe critique. Votre marge de progression se situe dans l\'approfondissement de vos forces.</div>'}</div>
     </div>`;
 
+  // RADAR
   if(radarChartInstance) { radarChartInstance.destroy(); radarChartInstance = null; }
   setTimeout(() => {
     const ctx = document.getElementById('radarChart');
     if(ctx) {
       radarChartInstance = new Chart(ctx, {
         type:'radar',
-        data:{
-          labels:['Communication','Organisation','Numérique','Énergie','Adaptabilité','Audace'],
+        data:{ labels:['Communication','Organisation','Numérique','Énergie','Adaptabilité','Audace'],
           datasets:[{label:d.prenom,data:[d.comm,d.orga,d.numerique,d.energie,d.changement,d.risque],
             backgroundColor:'rgba(226,86,103,0.2)',borderColor:'#E25667',
-            pointBackgroundColor:'#E25667',pointBorderColor:'#fff',borderWidth:2}]
-        },
-        options:{
-          scales:{r:{min:0,max:5,ticks:{stepSize:1,color:'#aaa',backdropColor:'transparent'},
+            pointBackgroundColor:'#E25667',pointBorderColor:'#fff',borderWidth:2}] },
+        options:{ scales:{r:{min:0,max:5,ticks:{stepSize:1,color:'#aaa',backdropColor:'transparent'},
             grid:{color:'rgba(150,150,150,0.2)'},pointLabels:{color:'#888',font:{size:12}}}},
-          plugins:{legend:{display:false}},elements:{line:{tension:0.3}}
-        }
+          plugins:{legend:{display:false}},elements:{line:{tension:0.3}} }
       });
     }
   }, 200);
 
+  // CONTRAINTES
   const realHandi = d.handicaps.filter(h=>!h.includes('Aucune'));
-  document.getElementById('contraintes-display').innerHTML = realHandi.length>0 ? `
-    <div class="result-card"><h3>🤝 Contraintes & besoins spécifiques</h3>
-    <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Nous avons bien pris en compte vos besoins spécifiques dans l'analyse.</p>
-    <div>${realHandi.map(h=>`<span class="constraint-badge">⚠️ ${h}</span>`).join('')}</div></div>` : '';
+  const allConstraints = [...realHandi, ...d.avoid];
+  document.getElementById('contraintes-display').innerHTML = allConstraints.length>0 ? `
+    <div class="result-card"><h3>🤝 Contraintes & besoins pris en compte</h3>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Ces éléments ont été intégrés dans l'analyse et le filtrage des pistes métiers.</p>
+    <div>${allConstraints.map(h=>`<span class="constraint-badge">⚠️ ${h}</span>`).join('')}</div></div>` : '';
 
+  // RAPPORT
   document.getElementById('rapport-perso').innerHTML = `
     <p style="margin-bottom:12px;">Votre profil dominant est : <strong style="color:var(--accent)">${profileType}</strong></p>
     <div class="tag-wrap" style="margin-bottom:14px;">${d.perso?`<span class="tag">${d.perso}</span>`:''} ${d.equipe?`<span class="tag">${d.equipe}</span>`:''}</div>
-    <div class="reco-item"><span class="reco-icon">🔄</span><div class="reco-text"><strong>Rapport au changement</strong>${d.changement>=4?'Vous êtes à l\'aise avec le changement. C\'est une vraie force dans les environnements dynamiques.':d.changement<=2?'Vous préférez la stabilité. Des environnements structurés vous conviendront mieux.':'Vous tolérez le changement selon les situations.'}</div></div>
+    <div class="reco-item"><span class="reco-icon">🔄</span><div class="reco-text"><strong>Rapport au changement</strong>${d.changement>=4?'Vous êtes à l\'aise avec le changement. Vraie force dans les environnements dynamiques.':d.changement<=2?'Vous préférez la stabilité. Des environnements structurés vous conviendront mieux.':'Vous tolérez le changement selon les situations.'}</div></div>
     <div class="reco-item"><span class="reco-icon">🎯</span><div class="reco-text"><strong>Prise de décision</strong>${d.decision||'Non renseigné'}</div></div>
     <div class="reco-item"><span class="reco-icon">📣</span><div class="reco-text"><strong>Rapport aux critiques</strong>${d.critiques||'Non renseigné'}</div></div>`;
 
@@ -1133,21 +1279,16 @@ function generateResults() {
     ${d.projet?`<div class="reco-item" style="margin-top:14px;"><span class="reco-icon">🔭</span><div class="reco-text"><strong>Votre projet à horizon 2-3 ans</strong>${d.projet}</div></div>`:''}
     <div class="reco-item"><span class="reco-icon">💡</span><div class="reco-text"><strong>Ce qui donne du sens à votre travail</strong>${d.sens||'Non renseigné'}</div></div>`;
 
-  // ===== COHERENCE =====
   document.getElementById('rapport-coherence').innerHTML = `<div class="coherence-box">${buildCoherence(d)}</div>`;
 
-  // ===== RECOMMANDATIONS ARGUMENTEES =====
   const recos = buildRecommendations(d);
-  // Tri : priorité haute d'abord
   recos.sort((a,b) => (a.prio === 'haute' ? -1 : 1) - (b.prio === 'haute' ? -1 : 1));
   document.getElementById('rapport-recos').innerHTML = `
     ${d.freins.length>0?`<p style="font-size:14px;color:var(--text-muted);margin-bottom:8px;">Freins que vous avez identifiés :</p><div class="tag-wrap" style="margin-bottom:18px;">${d.freins.map(f=>`<span class="tag grey">${f}</span>`).join('')}</div>`:''}
     ${recos.map(r=>`
       <div class="reco-card">
-        <div class="reco-card-title">
-          <span>${r.icon}</span> ${r.titre}
-          <span class="priority-pill ${r.prio}">${r.prio === 'haute' ? 'Priorité haute' : 'À explorer'}</span>
-        </div>
+        <div class="reco-card-title"><span>${r.icon}</span> ${r.titre}
+          <span class="priority-pill ${r.prio}">${r.prio === 'haute' ? 'Priorité haute' : 'À explorer'}</span></div>
         <div class="reco-line"><span class="reco-label constat">Constat</span><span class="reco-content">${r.constat}</span></div>
         <div class="reco-line"><span class="reco-label pourquoi">Pourquoi</span><span class="reco-content">${r.pourquoi}</span></div>
         <div class="reco-line"><span class="reco-label action">Action</span><span class="reco-content">${r.action}</span></div>
@@ -1155,11 +1296,37 @@ function generateResults() {
 
   document.getElementById('rapport-handicap-section').innerHTML = realHandi.length>0 ? `
     <div class="result-card"><h3>🤝 Prise en compte de vos besoins spécifiques</h3>
-    <p style="font-size:14px;margin-bottom:12px;">Les points ci-dessous sont importants à considérer dans tout projet de formation ou d'emploi.</p>
-    ${realHandi.map(h=>`<div class="reco-item"><span class="reco-icon">⚠️</span><div class="reco-text"><strong>${h}</strong>Informez votre conseiller(ère) ou organisme de formation afin que des aménagements adaptés puissent être mis en place. Pensez aussi à la RQTH si ce n'est pas déjà fait : elle ouvre des droits concrets (aménagements, financements, accompagnement spécialisé).</div></div>`).join('')}
+    <p style="font-size:14px;margin-bottom:12px;">Les points ci-dessous sont importants pour tout projet de formation ou d'emploi.</p>
+    ${realHandi.map(h=>`<div class="reco-item"><span class="reco-icon">⚠️</span><div class="reco-text"><strong>${h}</strong>Informez votre conseiller(ère) ou organisme de formation pour que des aménagements soient mis en place. Pensez à la RQTH si ce n'est pas déjà fait : elle ouvre des droits concrets (aménagements, financements, accompagnement spécialisé).</div></div>`).join('')}
     </div>` : '';
 
-  updateProgress(5);
+  // ===== PISTES METIERS =====
+  const pistes = buildMetiers(d, riasec);
+  const hasExp = d.exp && (d.exp.includes('5 à 15') || d.exp.includes('Plus de 15'));
+  if(pistes.length > 0) {
+    document.getElementById('metiers-display').innerHTML = `
+      ${mode==='express' ? '<div class="coherence-box" style="border-color:rgba(255,193,7,0.4);background:rgba(255,193,7,0.06);">💡 Ces pistes sont estimées à partir de vos activités et de votre personnalité. Pour des suggestions plus précises et personnalisées, refaites le bilan en version <strong>Approfondie</strong> (module intérêts professionnels + conditions de travail).</div>' : ''}
+      ${pistes.map((p,i)=>`
+        <div class="metier-card">
+          <div class="metier-head">
+            <div class="metier-nom">${i+1}. ${p.m.n}</div>
+            <span class="match-pill">${p.knownSector ? 'Affinité forte' : 'Piste à explorer'}</span>
+          </div>
+          <div class="metier-row"><span class="metier-label">Pourquoi vous</span><span class="metier-content">Ce métier correspond à votre profil : ${p.reasons.join(', ')}.</span></div>
+          <div class="metier-row"><span class="metier-label">Certification</span><span class="metier-content"><span class="cert">${p.m.t}</span></span></div>
+          <div class="metier-row"><span class="metier-label">Voie d'accès</span><span class="metier-content">${p.m.v}</span></div>
+        </div>`).join('')}`;
+  } else {
+    document.getElementById('metiers-display').innerHTML = `<p style="font-size:14px;color:var(--text-muted);">Vos contraintes déclarées filtrent beaucoup de pistes de notre catalogue. C'est précisément le cas où un accompagnement humain personnalisé apporte le plus de valeur : un conseiller pourra explorer avec vous des pistes adaptées que ce test ne couvre pas.</p>`;
+  }
+
+  document.getElementById('voies-display').innerHTML = `
+    <div class="reco-item"><span class="reco-icon">🎓</span><div class="reco-text"><strong>La formation certifiante</strong>Les Titres Professionnels (RNCP) sont conçus pour les adultes en reconversion : courts, pratiques, reconnus par les employeurs. Beaucoup sont finançables par le CPF, France Travail ou les Transitions Pro.</div></div>
+    ${hasExp ? `<div class="reco-item"><span class="reco-icon">📜</span><div class="reco-text"><strong>La VAE — votre meilleur atout</strong>Avec votre expérience (${d.exp.toLowerCase()}), la Validation des Acquis de l'Expérience peut vous faire obtenir un titre ou diplôme sans repasser par une formation complète. Démarche sur vae.gouv.fr.</div></div>` : ''}
+    <div class="reco-item"><span class="reco-icon">🧑‍💼</span><div class="reco-text"><strong>Le Conseiller en Évolution Professionnelle (CEP)</strong>Gratuit pour tous les actifs. Il vous aide à valider votre projet, trouver les financements et choisir le bon organisme. Premier rendez-vous via mon-cep.org.</div></div>
+    <div class="reco-item"><span class="reco-icon">🔍</span><div class="reco-text"><strong>L'immersion professionnelle</strong>Avant de vous engager, testez le métier en conditions réelles : le dispositif d'immersion facilitée (ex-PMSMP) permet de passer quelques jours en entreprise, gratuitement et sans engagement. Renseignez-vous via immersion-facile.beta.gouv.fr.</div></div>`;
+
+  updateProgress('result');
 }
 
 function switchTab(tabId, btn) {
@@ -1177,6 +1344,10 @@ function printReport() {
     document.getElementById('tab-synthese').classList.add('active');
   },1000);
 }
+
+// INIT
+renderDots();
+updateProgress(0);
 </script>
 </body>
 </html>
